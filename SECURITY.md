@@ -26,4 +26,4 @@ reasonable-effort basis. As a result, we kindly request that you provide us with
 a minimum of 90 days to address the vulnerability. We appreciate your
 responsible disclosure.
 
-[1]: https://github.com/EarthmanMuons/rustops-blueprint/security/advisories/new
+[1]: https://github.com/EarthmanMuons/spellout/security/advisories/new

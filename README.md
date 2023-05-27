@@ -1,9 +1,9 @@
 # RustOps Blueprint &emsp; [![CI Status]][actions] [![MSRV]][rust-version]
 
 [CI Status]:
-  https://img.shields.io/github/actions/workflow/status/EarthmanMuons/rustops-blueprint/rust.yml?event=merge_group&label=CI&logo=github
+  https://img.shields.io/github/actions/workflow/status/EarthmanMuons/spellout/rust.yml?event=merge_group&label=CI&logo=github
 [actions]:
-  https://github.com/EarthmanMuons/rustops-blueprint/actions?query=event%3Amerge_group
+  https://github.com/EarthmanMuons/spellout/actions?query=event%3Amerge_group
 [MSRV]: https://img.shields.io/badge/MSRV-1.64-blue
 [rust-version]:
   https://doc.rust-lang.org/cargo/reference/manifest.html#the-rust-version-field
@@ -15,7 +15,7 @@
 ## Documentation
 
 Generated [Rustdoc][] reference documentation can be found at
-<https://earthmanmuons.github.io/rustops-blueprint/>
+<https://earthmanmuons.github.io/spellout/>
 
 [Rustdoc]: https://doc.rust-lang.org/stable/rustdoc/
 

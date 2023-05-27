@@ -7,10 +7,10 @@ authors = ["Aaron Bull Schaefer <aaron@elasticdog.com>"]
 edition = "2021"
 rust-version = "1.64"
 description = "My binary description."
-documentation = "https://github.com/EarthmanMuons/rustops-blueprint/"
+documentation = "https://github.com/EarthmanMuons/spellout/"
 readme = "README.md"
-homepage= "https://github.com/EarthmanMuons/rustops-blueprint/"
-repository = "https://github.com/EarthmanMuons/rustops-blueprint/"
+homepage= "https://github.com/EarthmanMuons/spellout/"
+repository = "https://github.com/EarthmanMuons/spellout/"
 license = "MIT OR Apache-2.0"
 
 [profile.dev]

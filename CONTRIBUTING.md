@@ -1,4 +1,4 @@
-# Contributing to RustOps Blueprint
+# Contributing to spellout
 
 Thank you for your interest in contributing to our [open source][] project! This
 document will guide you through the process. To maintain a respectful and
@@ -9,10 +9,10 @@ welcoming community, please adhere to the [Code of Conduct][CoC].
 
 ## Getting Started
 
-RustOps Blueprint uses the GitHub [issue tracker][] to manage bugs and feature
-requests. If you'd like to work on a specific issue, leave a comment, and we
-will assign it to you. For general questions and open-ended conversations, use
-the dedicated community [discussions][] space instead.
+spellout uses the GitHub [issue tracker][] to manage bugs and feature requests.
+If you'd like to work on a specific issue, leave a comment, and we will assign
+it to you. For general questions and open-ended conversations, use the dedicated
+community [discussions][] space instead.
 
 Please submit contributions through GitHub [pull requests][]. Each PR will be
 reviewed by a core contributor (someone with permission to approve patches), and
@@ -23,11 +23,11 @@ If your intended contribution is complex or requires discussion, open a new
 [ideas discussion][] about the change before starting the work. We're more than
 happy to mentor contributors and provide guidance or clarification when needed.
 
-[issue tracker]: https://github.com/EarthmanMuons/rustops-blueprint/issues
-[discussions]: https://github.com/EarthmanMuons/rustops-blueprint/discussions
+[issue tracker]: https://github.com/EarthmanMuons/spellout/issues
+[discussions]: https://github.com/EarthmanMuons/spellout/discussions
 [pull requests]: https://help.github.com/articles/using-pull-requests/
 [ideas discussion]:
-  https://github.com/EarthmanMuons/rustops-blueprint/discussions/new?category=ideas
+  https://github.com/EarthmanMuons/spellout/discussions/new?category=ideas
 
 ## Reporting Bugs or Requesting Features
 
@@ -68,7 +68,7 @@ RustOps Blueprint follows the ["fork and pull"][] workflow model. After
 To facilitate tracking changes in the upstream repository, add it as a remote:
 
 ```
-git remote add upstream https://github.com/EarthmanMuons/rustops-blueprint.git
+git remote add upstream https://github.com/EarthmanMuons/spellout.git
 ```
 
 ["fork and pull"]: https://help.github.com/articles/fork-a-repo/

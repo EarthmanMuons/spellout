@@ -62,8 +62,8 @@ prioritization of tasks within the project.
 
 ## Setting Up a Development Environment
 
-RustOps Blueprint follows the ["fork and pull"][] workflow model. After
-[installing Rust][], fork this repository and create a local clone of your fork.
+spellout follows the ["fork and pull"][] workflow model. After [installing
+Rust][], fork this repository and create a local clone of your fork.
 
 To facilitate tracking changes in the upstream repository, add it as a remote:
 
@@ -164,7 +164,7 @@ that you have the following tools installed:
 
 ## Testing Conventions
 
-RustOps Blueprint follows standard Rust testing conventions, which includes:
+spellout follows standard Rust testing conventions, which includes:
 
 - **Unit tests:** Located alongside the source code files they test. Unit tests
   focus on individual functions or modules and should be placed in the same
@@ -284,5 +284,5 @@ Most other commands are the same as any standard Rust project:
 - Build and run the release version:
 
   ```
-  cargo run --release --bin mybin
+  cargo run --release --bin spellout
   ```

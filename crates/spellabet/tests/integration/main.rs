@@ -1,7 +1,7 @@
 #![deny(clippy::all)]
 #![warn(clippy::nursery, clippy::pedantic)]
 
-use mylib::shuffle_array;
+use spellabet::shuffle_array;
 
 #[test]
 fn test_shuffle_array() {

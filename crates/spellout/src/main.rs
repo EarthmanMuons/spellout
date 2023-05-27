@@ -1,4 +1,4 @@
-use mylib::{add, shuffle_array};
+use spellabet::{add, shuffle_array};
 
 fn main() {
     let left = 10;

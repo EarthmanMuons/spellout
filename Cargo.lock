@@ -50,20 +50,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2b00cc1c228a6782d0f076e7b232802e0c5689d41bb5df366f2a6b6621cfdfe1"
 
 [[package]]
-name = "mybin"
-version = "0.1.0"
-dependencies = [
- "mylib",
-]
-
-[[package]]
-name = "mylib"
-version = "0.1.0"
-dependencies = [
- "rand",
-]
-
-[[package]]
 name = "nanoserde"
 version = "0.1.32"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -118,6 +104,20 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ec0be4795e2f6a28069bec0b5ff3e2ac9bafc99e6a9a7dc3547996c5c816922c"
 dependencies = [
  "getrandom",
+]
+
+[[package]]
+name = "spellabet"
+version = "0.1.0"
+dependencies = [
+ "rand",
+]
+
+[[package]]
+name = "spellout"
+version = "0.1.0"
+dependencies = [
+ "spellabet",
 ]
 
 [[package]]

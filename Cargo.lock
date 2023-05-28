@@ -56,6 +56,9 @@ checksum = "b7e5500299e16ebb147ae15a00a942af264cf3688f47923b8fc2cd5858f23ad3"
 [[package]]
 name = "spellabet"
 version = "0.1.0"
+dependencies = [
+ "once_cell",
+]
 
 [[package]]
 name = "spellout"

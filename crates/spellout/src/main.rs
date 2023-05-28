@@ -1,3 +1,7 @@
+use spellabet::{PhoneticConverter, SpellingAlphabet};
+
 fn main() {
-    println!("Hello, world!");
+    let converter = PhoneticConverter::new(&SpellingAlphabet::Nato);
+    let input = "Hello, world!";
+    println!("{}", converter.convert(input));
 }

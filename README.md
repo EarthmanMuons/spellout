@@ -1,4 +1,4 @@
-# RustOps Blueprint &emsp; [![CI Status]][actions] [![MSRV]][rust-version]
+# spellout &emsp; [![CI Status]][actions] [![MSRV]][rust-version]
 
 [CI Status]:
   https://img.shields.io/github/actions/workflow/status/EarthmanMuons/spellout/rust.yml?event=merge_group&label=CI&logo=github
@@ -8,9 +8,23 @@
 [rust-version]:
   https://doc.rust-lang.org/cargo/reference/manifest.html#the-rust-version-field
 
-**A GitHub repository template for a polished Rust development experience.**
+**Convert characters into their equivalent spelling alphabet code words.**
 
 ---
+
+## Usage
+
+    $ spellout Example123
+    ECHO x-ray alpha mike papa lima echo One Two Three
+
+## Installation
+
+To build the binary and install it on your system under the `~/.cargo/bin`
+directory, run the following command:
+
+```
+cargo install --locked --git https://github.com/EarthmanMuons/spellout/ spellout
+```
 
 ## Documentation
 

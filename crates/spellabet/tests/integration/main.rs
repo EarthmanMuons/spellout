@@ -1,16 +1,14 @@
 #![deny(clippy::all)]
 #![warn(clippy::nursery, clippy::pedantic)]
 
-use spellabet::shuffle_array;
+use spellabet::{PhoneticConverter, SpellingAlphabet};
 
 #[test]
-fn test_shuffle_array() {
-    let mut nums = [1, 2, 3, 4, 5];
-    let original = nums;
-    shuffle_array(&mut nums);
-
-    assert_eq!(nums.len(), original.len());
-    for num in &original {
-        assert!(nums.contains(num));
-    }
+fn test_convert() {
+    let converter = PhoneticConverter::new(&SpellingAlphabet::Nato);
+    let input = "Example123";
+    assert_eq!(
+        converter.convert(input),
+        "ECHO x-ray alpha mike papa lima echo One Two Three"
+    );
 }

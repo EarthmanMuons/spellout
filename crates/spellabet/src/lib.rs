@@ -3,7 +3,7 @@
 
 use std::collections::HashMap;
 
-use code_words::{DEFAULT_DIGITS_AND_SYMBOLS, LAPD_ALPHABET, NATO_ALPHABET};
+use code_words::{DEFAULT_DIGITS_AND_SYMBOLS, LAPD_ALPHABET, NATO_ALPHABET, US_FINANCIAL_ALPHABET};
 
 mod code_words;
 
@@ -14,6 +14,7 @@ pub struct PhoneticConverter {
 pub enum SpellingAlphabet {
     Lapd,
     Nato,
+    UsFinancial,
 }
 
 impl PhoneticConverter {
@@ -53,6 +54,7 @@ impl SpellingAlphabet {
         match self {
             Self::Lapd => extend_map(&mut map, &LAPD_ALPHABET),
             Self::Nato => extend_map(&mut map, &NATO_ALPHABET),
+            Self::UsFinancial => extend_map(&mut map, &US_FINANCIAL_ALPHABET),
         };
 
         map

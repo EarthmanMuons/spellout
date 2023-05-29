@@ -3,7 +3,7 @@
 
 use std::collections::HashMap;
 
-use code_words::{DEFAULT_DIGITS_AND_SYMBOLS, NATO_ALPHABET};
+use code_words::{DEFAULT_DIGITS_AND_SYMBOLS, LAPD_ALPHABET, NATO_ALPHABET};
 
 mod code_words;
 
@@ -12,6 +12,7 @@ pub struct PhoneticConverter {
 }
 
 pub enum SpellingAlphabet {
+    Lapd,
     Nato,
 }
 
@@ -46,13 +47,23 @@ impl PhoneticConverter {
 impl SpellingAlphabet {
     #[must_use]
     pub fn initialize(&self) -> HashMap<char, String> {
-        let mut map = DEFAULT_DIGITS_AND_SYMBOLS
-            .iter()
-            .map(|(k, v)| (*k, (*v).to_string()))
-            .collect::<HashMap<char, String>>();
+        let mut map: HashMap<char, String> = HashMap::new();
+        extend_map(&mut map, &DEFAULT_DIGITS_AND_SYMBOLS);
+
         match self {
-            Self::Nato => map.extend(NATO_ALPHABET.iter().map(|(k, v)| (*k, (*v).to_string()))),
+            Self::Lapd => extend_map(&mut map, &LAPD_ALPHABET),
+            Self::Nato => extend_map(&mut map, &NATO_ALPHABET),
         };
+
         map
     }
+}
+
+fn extend_map(map: &mut HashMap<char, String>, source_map: &[(char, &str)]) {
+    map.extend(
+        source_map
+            .iter()
+            .map(|(k, v)| (*k, (*v).to_string()))
+            .collect::<HashMap<char, String>>(),
+    );
 }

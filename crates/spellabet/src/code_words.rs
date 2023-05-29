@@ -44,7 +44,8 @@ pub const DEFAULT_DIGITS_AND_SYMBOLS: [(char, &str); 43] = [
     ('~', "Tilde"),
 ];
 
-pub const LAPD_ALPHABET: [(char, &str); 26] = [
+// Los Angeles Police Department (LAPD)
+pub const LAPD_ALPHABET: [(char, &str); 27] = [
     ('a', "Adam"),
     ('b', "Boy"),
     ('c', "Charles"),
@@ -71,10 +72,12 @@ pub const LAPD_ALPHABET: [(char, &str); 26] = [
     ('x', "X-ray"),
     ('y', "Young"),
     ('z', "Zebra"),
+    ('9', "Niner"),
 ];
 
-pub const NATO_ALPHABET: [(char, &str); 26] = [
-    ('a', "Alpha"),
+// North Atlantic Treaty Organization (NATO)
+pub const NATO_ALPHABET: [(char, &str); 30] = [
+    ('a', "Alfa"),
     ('b', "Bravo"),
     ('c', "Charlie"),
     ('d', "Delta"),
@@ -83,7 +86,7 @@ pub const NATO_ALPHABET: [(char, &str); 26] = [
     ('g', "Golf"),
     ('h', "Hotel"),
     ('i', "India"),
-    ('j', "Juliet"),
+    ('j', "Juliett"),
     ('k', "Kilo"),
     ('l', "Lima"),
     ('m', "Mike"),
@@ -100,4 +103,8 @@ pub const NATO_ALPHABET: [(char, &str); 26] = [
     ('x', "X-ray"),
     ('y', "Yankee"),
     ('z', "Zulu"),
+    ('3', "Tree"),
+    ('4', "Fower"),
+    ('5', "Fife"),
+    ('9', "Niner"),
 ];

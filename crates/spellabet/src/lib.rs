@@ -27,8 +27,20 @@ impl PhoneticConverter {
     #[must_use]
     pub fn convert(&self, text: &str) -> String {
         let mut result = String::new();
-        for c in text.chars() {
-            if let Some(word) = self.conversion_map.get(&c.to_ascii_lowercase()) {
+
+        for (i, c) in text.chars().enumerate() {
+            if i != 0 {
+                result.push(' ');
+            }
+            self.convert_char(c, &mut result);
+        }
+
+        result
+    }
+
+    fn convert_char(&self, c: char, result: &mut String) {
+        match self.conversion_map.get(&c.to_ascii_lowercase()) {
+            Some(word) => {
                 if c.is_lowercase() {
                     result.push_str(&word.to_lowercase());
                 } else if c.is_uppercase() {
@@ -36,12 +48,9 @@ impl PhoneticConverter {
                 } else {
                     result.push_str(word);
                 }
-            } else {
-                result.push(c);
             }
-            result.push(' ');
+            None => result.push(c),
         }
-        result.trim_end().to_owned()
     }
 }
 

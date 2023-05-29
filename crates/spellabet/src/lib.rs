@@ -22,6 +22,7 @@ impl PhoneticConverter {
     #[must_use]
     pub fn new(alphabet: &SpellingAlphabet) -> Self {
         let conversion_map = alphabet.initialize();
+
         Self {
             conversion_map,
             nonce_form: false,
@@ -31,6 +32,17 @@ impl PhoneticConverter {
     #[must_use]
     pub const fn nonce_form(mut self, nonce_form: bool) -> Self {
         self.nonce_form = nonce_form;
+        self
+    }
+
+    #[must_use]
+    pub fn with_overrides(mut self, overrides: HashMap<char, String>) -> Self {
+        let lower_overrides: HashMap<char, String> = overrides
+            .into_iter()
+            .map(|(k, v)| (k.to_ascii_lowercase(), v))
+            .collect();
+
+        self.conversion_map.extend(lower_overrides);
         self
     }
 
@@ -78,6 +90,16 @@ impl SpellingAlphabet {
     #[must_use]
     pub fn initialize(&self) -> HashMap<char, String> {
         let mut map: HashMap<char, String> = HashMap::new();
+
+        let extend_map = |map: &mut HashMap<char, String>, source_map: &[(char, &str)]| {
+            map.extend(
+                source_map
+                    .iter()
+                    .map(|(k, v)| (*k, (*v).to_string()))
+                    .collect::<HashMap<char, String>>(),
+            );
+        };
+
         extend_map(&mut map, &DEFAULT_DIGITS_AND_SYMBOLS);
 
         match self {
@@ -88,13 +110,4 @@ impl SpellingAlphabet {
 
         map
     }
-}
-
-fn extend_map(map: &mut HashMap<char, String>, source_map: &[(char, &str)]) {
-    map.extend(
-        source_map
-            .iter()
-            .map(|(k, v)| (*k, (*v).to_string()))
-            .collect::<HashMap<char, String>>(),
-    );
 }

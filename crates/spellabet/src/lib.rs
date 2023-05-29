@@ -9,6 +9,7 @@ mod code_words;
 
 pub struct PhoneticConverter {
     conversion_map: HashMap<char, String>,
+    nonce_form: bool,
 }
 
 pub enum SpellingAlphabet {
@@ -21,7 +22,16 @@ impl PhoneticConverter {
     #[must_use]
     pub fn new(alphabet: &SpellingAlphabet) -> Self {
         let conversion_map = alphabet.initialize();
-        Self { conversion_map }
+        Self {
+            conversion_map,
+            nonce_form: false,
+        }
+    }
+
+    #[must_use]
+    pub const fn nonce_form(mut self, nonce_form: bool) -> Self {
+        self.nonce_form = nonce_form;
+        self
     }
 
     #[must_use]
@@ -29,24 +39,34 @@ impl PhoneticConverter {
         let mut result = String::new();
 
         for (i, c) in text.chars().enumerate() {
+            // add separator between converted characters
             if i != 0 {
-                result.push(' ');
+                if self.nonce_form {
+                    result.push_str(", ");
+                } else {
+                    result.push(' ');
+                }
             }
             self.convert_char(c, &mut result);
         }
-
         result
     }
 
     fn convert_char(&self, c: char, result: &mut String) {
         match self.conversion_map.get(&c.to_ascii_lowercase()) {
             Some(word) => {
-                if c.is_lowercase() {
-                    result.push_str(&word.to_lowercase());
+                let code_word = if c.is_lowercase() {
+                    word.to_lowercase()
                 } else if c.is_uppercase() {
-                    result.push_str(&word.to_uppercase());
+                    word.to_uppercase()
                 } else {
-                    result.push_str(word);
+                    word.clone()
+                };
+
+                if self.nonce_form && c.is_alphabetic() {
+                    result.push_str(&format!("'{c}' as in {code_word}"));
+                } else {
+                    result.push_str(&code_word);
                 }
             }
             None => result.push(c),

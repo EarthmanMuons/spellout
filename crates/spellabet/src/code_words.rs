@@ -45,6 +45,7 @@ pub const DEFAULT_DIGITS_AND_SYMBOLS: [(char, &str); 43] = [
 ];
 
 // Los Angeles Police Department (LAPD)
+// Association of Public-Safety Communications Officials-International (APCO)
 pub const LAPD_ALPHABET: [(char, &str); 27] = [
     ('a', "Adam"),
     ('b', "Boy"),
@@ -76,6 +77,8 @@ pub const LAPD_ALPHABET: [(char, &str); 27] = [
 ];
 
 // North Atlantic Treaty Organization (NATO)
+// International Civil Aviation Organization (ICAO)
+// International Radiotelephony Spelling Alphabet (IRSA)
 pub const NATO_ALPHABET: [(char, &str); 30] = [
     ('a', "Alfa"),
     ('b', "Bravo"),
@@ -107,4 +110,34 @@ pub const NATO_ALPHABET: [(char, &str); 30] = [
     ('4', "Fower"),
     ('5', "Fife"),
     ('9', "Niner"),
+];
+
+// United States Financial Industry
+pub const US_FINANCIAL_ALPHABET: [(char, &str); 26] = [
+    ('a', "Adam"),
+    ('b', "Bob"),
+    ('c', "Carol"),
+    ('d', "David"),
+    ('e', "Eddie"),
+    ('f', "Frank"),
+    ('g', "George"),
+    ('h', "Harry"),
+    ('i', "Ike"),
+    ('j', "Jim"),
+    ('k', "Kenny"),
+    ('l', "Larry"),
+    ('m', "Mary"),
+    ('n', "Nancy"),
+    ('o', "Oliver"),
+    ('p', "Peter"),
+    ('q', "Quincy"),
+    ('r', "Roger"),
+    ('s', "Sam"),
+    ('t', "Thomas"),
+    ('u', "Uncle"),
+    ('v', "Vincent"),
+    ('w', "William"),
+    ('x', "Xavier"),
+    ('y', "Yogi"),
+    ('z', "Zachary"),
 ];

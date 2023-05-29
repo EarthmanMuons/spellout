@@ -44,6 +44,35 @@ pub const DEFAULT_DIGITS_AND_SYMBOLS: [(char, &str); 43] = [
     ('~', "Tilde"),
 ];
 
+pub const LAPD_ALPHABET: [(char, &str); 26] = [
+    ('a', "Adam"),
+    ('b', "Boy"),
+    ('c', "Charles"),
+    ('d', "David"),
+    ('e', "Edward"),
+    ('f', "Frank"),
+    ('g', "George"),
+    ('h', "Henry"),
+    ('i', "Ida"),
+    ('j', "John"),
+    ('k', "King"),
+    ('l', "Lincoln"),
+    ('m', "Mary"),
+    ('n', "Nora"),
+    ('o', "Ocean"),
+    ('p', "Paul"),
+    ('q', "Queen"),
+    ('r', "Robert"),
+    ('s', "Sam"),
+    ('t', "Tom"),
+    ('u', "Union"),
+    ('v', "Victor"),
+    ('w', "William"),
+    ('x', "X-ray"),
+    ('y', "Young"),
+    ('z', "Zebra"),
+];
+
 pub const NATO_ALPHABET: [(char, &str); 26] = [
     ('a', "Alpha"),
     ('b', "Bravo"),

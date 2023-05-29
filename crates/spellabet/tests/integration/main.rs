@@ -9,6 +9,6 @@ fn test_convert() {
     let input = "Example123";
     assert_eq!(
         converter.convert(input),
-        "ECHO x-ray alpha mike papa lima echo One Two Three"
+        "ECHO x-ray alfa mike papa lima echo One Two Tree"
     );
 }

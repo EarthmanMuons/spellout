@@ -1,6 +1,18 @@
 # spellabet
 
-My library description.
+spellabet is a Rust library for transforming text strings into their equivalent
+code words based on predefined [spelling alphabets][]. These spelling alphabets,
+such as the NATO phonetic alphabet, are designed to boost verbal clarity,
+particluarly when spelling out words over low-fidelity voice channels. The
+library supports multiple standard alphabets and allows for customization to
+suit specific communication needs.
+
+In its operation, spellabet will maintain the original capitalization of letters
+by returning either lowercase or uppercase code words. Known digits and other
+symbols undergo the same conversion process into code words. Unrecognized
+characters are returned as is, without conversion.
+
+[spelling alphabets]: https://en.wikipedia.org/wiki/Spelling_alphabet
 
 ## Usage
 
@@ -10,6 +22,13 @@ Add this to your `Cargo.toml`:
 [dependencies]
 spellabet = "0.1.0"
 ```
+
+## Documentation
+
+Generated [Rustdoc][] reference documentation can be found at
+<https://earthmanmuons.github.io/spellout/spellabet/index.html>
+
+[Rustdoc]: https://doc.rust-lang.org/stable/rustdoc/
 
 ## License
 

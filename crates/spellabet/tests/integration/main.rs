@@ -3,6 +3,7 @@
 
 use std::collections::HashMap;
 
+use insta::assert_snapshot;
 use spellabet::{PhoneticConverter, SpellingAlphabet};
 
 fn init_converter() -> PhoneticConverter {
@@ -13,115 +14,115 @@ fn init_converter() -> PhoneticConverter {
 #[test]
 fn test_lowercase_letters() {
     let converter = init_converter();
-    assert_eq!(converter.convert("abc"), "alfa bravo charlie");
+    assert_snapshot!(converter.convert("abc"), @"alfa bravo charlie");
 }
 
 #[test]
 fn test_uppercase_letters() {
     let converter = init_converter();
-    assert_eq!(converter.convert("ABC"), "ALFA BRAVO CHARLIE");
+    assert_snapshot!(converter.convert("ABC"), @"ALFA BRAVO CHARLIE");
 }
 
 #[test]
 fn test_mixed_case_letters() {
     let converter = init_converter();
-    assert_eq!(converter.convert("AbC"), "ALFA bravo CHARLIE");
+    assert_snapshot!(converter.convert("AbC"), @"ALFA bravo CHARLIE");
 }
 
 #[test]
 fn test_digits() {
     let converter = init_converter();
-    assert_eq!(converter.convert("123"), "One Two Tree");
+    assert_snapshot!(converter.convert("123"), @"One Two Tree");
 }
 
 #[test]
 fn test_symbols() {
     let converter = init_converter();
-    assert_eq!(
+    assert_snapshot!(
         converter.convert("a.b,c!"),
-        "alfa Period bravo Comma charlie Exclamation"
+        @"alfa Period bravo Comma charlie Exclamation"
     );
 }
 
 #[test]
 fn test_space_character() {
     let converter = init_converter();
-    assert_eq!(converter.convert(" "), "Space");
+    assert_snapshot!(converter.convert(" "), @"Space");
 }
 
 #[test]
 fn test_empty_string() {
     let converter = init_converter();
-    assert_eq!(converter.convert(""), "");
+    assert_snapshot!(converter.convert(""), @"");
 }
 
 #[test]
 fn test_unknown_characters() {
     let converter = init_converter();
-    assert_eq!(converter.convert("aΦb💩c"), "alfa Φ bravo 💩 charlie");
+    assert_snapshot!(converter.convert("aΦb💩c"), @"alfa Φ bravo 💩 charlie");
 }
 
 #[test]
 fn test_nonce_form_false() {
     let converter = init_converter().nonce_form(false);
-    assert_eq!(converter.convert("abc"), "alfa bravo charlie");
-    assert_eq!(converter.convert("ABC"), "ALFA BRAVO CHARLIE");
-    assert_eq!(converter.convert("AbC"), "ALFA bravo CHARLIE");
+    assert_snapshot!(converter.convert("abc"), @"alfa bravo charlie");
+    assert_snapshot!(converter.convert("ABC"), @"ALFA BRAVO CHARLIE");
+    assert_snapshot!(converter.convert("AbC"), @"ALFA bravo CHARLIE");
 }
 
 #[test]
 fn test_nonce_form_true() {
     let converter = init_converter().nonce_form(true);
-    assert_eq!(
+    assert_snapshot!(
         converter.convert("abc"),
-        "'a' as in alfa, 'b' as in bravo, 'c' as in charlie"
+        @"'a' as in alfa, 'b' as in bravo, 'c' as in charlie"
     );
-    assert_eq!(
+    assert_snapshot!(
         converter.convert("ABC"),
-        "'A' as in ALFA, 'B' as in BRAVO, 'C' as in CHARLIE"
+        @"'A' as in ALFA, 'B' as in BRAVO, 'C' as in CHARLIE"
     );
-    assert_eq!(
+    assert_snapshot!(
         converter.convert("AbC"),
-        "'A' as in ALFA, 'b' as in bravo, 'C' as in CHARLIE"
+        @"'A' as in ALFA, 'b' as in bravo, 'C' as in CHARLIE"
     );
 }
 
 #[test]
 fn test_nonce_form_single_char() {
     let converter = init_converter().nonce_form(true);
-    assert_eq!(converter.convert("a"), "'a' as in alfa");
-    assert_eq!(converter.convert("A"), "'A' as in ALFA");
-    assert_eq!(converter.convert("b"), "'b' as in bravo");
-    assert_eq!(converter.convert("B"), "'B' as in BRAVO");
-    assert_eq!(converter.convert("c"), "'c' as in charlie");
-    assert_eq!(converter.convert("C"), "'C' as in CHARLIE");
+    assert_snapshot!(converter.convert("a"), @"'a' as in alfa");
+    assert_snapshot!(converter.convert("A"), @"'A' as in ALFA");
+    assert_snapshot!(converter.convert("b"), @"'b' as in bravo");
+    assert_snapshot!(converter.convert("B"), @"'B' as in BRAVO");
+    assert_snapshot!(converter.convert("c"), @"'c' as in charlie");
+    assert_snapshot!(converter.convert("C"), @"'C' as in CHARLIE");
 }
 
 #[test]
 fn test_nonce_form_digits() {
     let converter = init_converter().nonce_form(true);
-    assert_eq!(converter.convert("123"), "One, Two, Tree");
+    assert_snapshot!(converter.convert("123"), @"One, Two, Tree");
 }
 
 #[test]
 fn test_nonce_form_symbols() {
     let converter = init_converter().nonce_form(true);
-    assert_eq!(
+    assert_snapshot!(
         converter.convert("a.b,c!"),
-        "'a' as in alfa, Period, 'b' as in bravo, Comma, 'c' as in charlie, Exclamation"
+        @"'a' as in alfa, Period, 'b' as in bravo, Comma, 'c' as in charlie, Exclamation"
     );
 }
 
 #[test]
 fn test_without_overrides() {
     let converter = init_converter();
-    assert_eq!(converter.convert("a"), "alfa");
-    assert_eq!(converter.convert("A"), "ALFA");
-    assert_eq!(converter.convert("b"), "bravo");
-    assert_eq!(converter.convert("B"), "BRAVO");
-    assert_eq!(converter.convert("c"), "charlie");
-    assert_eq!(converter.convert("C"), "CHARLIE");
-    assert_eq!(converter.convert("abc"), "alfa bravo charlie");
+    assert_snapshot!(converter.convert("a"), @"alfa");
+    assert_snapshot!(converter.convert("A"), @"ALFA");
+    assert_snapshot!(converter.convert("b"), @"bravo");
+    assert_snapshot!(converter.convert("B"), @"BRAVO");
+    assert_snapshot!(converter.convert("c"), @"charlie");
+    assert_snapshot!(converter.convert("C"), @"CHARLIE");
+    assert_snapshot!(converter.convert("abc"), @"alfa bravo charlie");
 }
 
 #[test]
@@ -134,15 +135,15 @@ fn test_with_overrides() {
     converter = converter.with_overrides(overrides);
 
     // Check that overrides worked
-    assert_eq!(converter.convert("a"), "able");
-    assert_eq!(converter.convert("A"), "ABLE");
-    assert_eq!(converter.convert("b"), "baker");
-    assert_eq!(converter.convert("B"), "BAKER");
+    assert_snapshot!(converter.convert("a"), @"able");
+    assert_snapshot!(converter.convert("A"), @"ABLE");
+    assert_snapshot!(converter.convert("b"), @"baker");
+    assert_snapshot!(converter.convert("B"), @"BAKER");
 
     // Check if non-overridden character is still using original conversion
-    assert_eq!(converter.convert("c"), "charlie");
-    assert_eq!(converter.convert("C"), "CHARLIE");
-    assert_eq!(converter.convert("abc"), "able baker charlie");
+    assert_snapshot!(converter.convert("c"), @"charlie");
+    assert_snapshot!(converter.convert("C"), @"CHARLIE");
+    assert_snapshot!(converter.convert("abc"), @"able baker charlie");
 }
 
 #[test]
@@ -154,9 +155,9 @@ fn test_lowercase_key_in_overrides() {
     converter = converter.with_overrides(overrides);
 
     // Check that overrides map key was normalized
-    assert_eq!(converter.convert("c"), "cain");
-    assert_eq!(converter.convert("C"), "CAIN");
-    assert_eq!(converter.convert("abc"), "alfa bravo cain");
+    assert_snapshot!(converter.convert("c"), @"cain");
+    assert_snapshot!(converter.convert("C"), @"CAIN");
+    assert_snapshot!(converter.convert("abc"), @"alfa bravo cain");
 }
 
 #[test]
@@ -168,9 +169,9 @@ fn test_uppercase_key_in_overrides() {
     converter = converter.with_overrides(overrides);
 
     // Check that overrides map key was normalized
-    assert_eq!(converter.convert("c"), "cain");
-    assert_eq!(converter.convert("C"), "CAIN");
-    assert_eq!(converter.convert("abc"), "alfa bravo cain");
+    assert_snapshot!(converter.convert("c"), @"cain");
+    assert_snapshot!(converter.convert("C"), @"CAIN");
+    assert_snapshot!(converter.convert("abc"), @"alfa bravo cain");
 }
 
 #[test]
@@ -178,13 +179,13 @@ fn test_lapd_alphabet() {
     let alphabet = &SpellingAlphabet::Lapd;
     let converter = PhoneticConverter::new(alphabet);
 
-    assert_eq!(
+    assert_snapshot!(
         converter.convert("abc123xyz"),
-        "adam boy charles One Two Three x-ray young zebra"
+        @"adam boy charles One Two Three x-ray young zebra"
     );
 
     // Test non-default digits
-    assert_eq!(converter.convert("9"), "Niner");
+    assert_snapshot!(converter.convert("9"), @"Niner");
 }
 
 #[test]
@@ -192,16 +193,16 @@ fn test_nato_alphabet() {
     let alphabet = &SpellingAlphabet::Nato;
     let converter = PhoneticConverter::new(alphabet);
 
-    assert_eq!(
+    assert_snapshot!(
         converter.convert("abc123xyz"),
-        "alfa bravo charlie One Two Tree x-ray yankee zulu"
+        @"alfa bravo charlie One Two Tree x-ray yankee zulu"
     );
 
     // Test non-default digits
-    assert_eq!(converter.convert("3"), "Tree");
-    assert_eq!(converter.convert("4"), "Fower");
-    assert_eq!(converter.convert("5"), "Fife");
-    assert_eq!(converter.convert("9"), "Niner");
+    assert_snapshot!(converter.convert("3"), @"Tree");
+    assert_snapshot!(converter.convert("4"), @"Fower");
+    assert_snapshot!(converter.convert("5"), @"Fife");
+    assert_snapshot!(converter.convert("9"), @"Niner");
 }
 
 #[test]
@@ -209,8 +210,8 @@ fn test_us_financial_alphabet() {
     let alphabet = &SpellingAlphabet::UsFinancial;
     let converter = PhoneticConverter::new(alphabet);
 
-    assert_eq!(
+    assert_snapshot!(
         converter.convert("abc123xyz"),
-        "adam bob carol One Two Three xavier yogi zachary"
+        @"adam bob carol One Two Three xavier yogi zachary"
     );
 }

@@ -26,13 +26,6 @@ directory, run the following command:
 cargo install --locked --git https://github.com/EarthmanMuons/spellout/ spellout
 ```
 
-## Documentation
-
-Generated [Rustdoc][] reference documentation can be found at
-<https://earthmanmuons.github.io/spellout/>
-
-[Rustdoc]: https://doc.rust-lang.org/stable/rustdoc/
-
 ## Minimum Supported Rust Version (MSRV) Policy
 
 - We follow an "N-2 policy," supporting at least the current stable Rust release
@@ -42,10 +35,22 @@ Generated [Rustdoc][] reference documentation can be found at
 - MSRV increases are considered regular changes, not breaking changes, in terms
   of Semantic Versioning.
 
+## Credits
+
+spellout was inspired by the output from the no-longer-in-existence [WinGuides
+Secure Password Generator][WinGuides] that disappeared back in January 2007, and
+the similarly inspired [Lingua::Alphabet::Phonetic::Password][Lingua] Perl
+module written by [James FitzGibbon][@jf647].
+
+[WinGuides]:
+  https://web.archive.org/web/20070106073206/www.winguides.com/security/password.php
+[Lingua]: https://github.com/jf647/Lingua-Alphabet-Phonetic-Password/
+[@jf647]: https://github.com/jf647/
+
 ## License
 
-RustOps Blueprint is distributed under the terms of both the Apache License
-(Version 2.0) and the MIT License.
+spellout is distributed under the terms of both the Apache License (Version 2.0)
+and the MIT License.
 
 See [LICENSE-APACHE](LICENSE-APACHE) and [LICENSE-MIT](LICENSE-MIT) for details.
 

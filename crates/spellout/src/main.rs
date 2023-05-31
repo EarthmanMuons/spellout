@@ -120,10 +120,10 @@ fn parse_overrides(input: &str) -> Result<HashMap<char, String>> {
         let parts: Vec<&str> = s.split('=').collect();
 
         if parts.len() < 2 {
-            anyhow::bail!("Invalid override: {s} (missing '=')");
+            anyhow::bail!("Invalid override (missing '='): {s}");
         }
         if parts.len() > 2 {
-            anyhow::bail!("Invalid override: {s} (extra '=')");
+            anyhow::bail!("Invalid override (extra '='): {s}");
         }
         if parts[0].len() != 1 {
             anyhow::bail!("Key in override is not a single character: {s}");

@@ -86,3 +86,9 @@ fn custom_char_ordering(a: &char, b: &char) -> Ordering {
         _ => a.cmp(b),
     }
 }
+
+#[test]
+fn verify_cli() {
+    use clap::CommandFactory;
+    Cli::command().debug_assert()
+}

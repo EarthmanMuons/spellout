@@ -25,7 +25,8 @@ struct Cli {
     dump_alphabet: bool,
 
     /// Use verbose output
-    #[arg(short, long)]
+    #[arg(short, long, env = "SPELLOUT_VERBOSE")]
+    #[arg(value_parser = clap::builder::BoolishValueParser::new())]
     verbose: bool,
 
     /// The input character string to convert into code words

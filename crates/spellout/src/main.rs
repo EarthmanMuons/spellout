@@ -1,3 +1,6 @@
+use std::char;
+use std::cmp::Ordering;
+
 use clap::{Parser, ValueEnum};
 use spellabet::{PhoneticConverter, SpellingAlphabet};
 
@@ -15,8 +18,15 @@ struct Cli {
     nonce_form: bool,
 
     /// Display the spelling alphabet and exit
-    #[arg(long)]
+    ///
+    /// Shows only letters by default; add the `--verbose` flag to also show
+    /// digits and symbols
+    #[arg(long, long_help)]
     dump_alphabet: bool,
+
+    /// Use verbose output
+    #[arg(short, long)]
+    verbose: bool,
 
     /// The input character string to convert into code words
     #[arg(required_unless_present("dump_alphabet"))]
@@ -43,19 +53,36 @@ fn main() {
     };
 
     if cli.dump_alphabet {
-        dump_alphabet(&alphabet);
+        dump_alphabet(&alphabet, cli.verbose);
     } else if let Some(input) = cli.input {
         let converter = PhoneticConverter::new(&alphabet).nonce_form(cli.nonce_form);
         println!("{}", converter.convert(&input));
     }
 }
 
-fn dump_alphabet(alphabet: &SpellingAlphabet) {
+fn dump_alphabet(alphabet: &SpellingAlphabet, verbose: bool) {
     let mut entries: Vec<_> = alphabet.initialize().into_iter().collect();
-    entries.sort_by(|a, b| a.0.cmp(&b.0));
+    entries.sort_by(|a, b| custom_char_ordering(&a.0, &b.0));
     for (character, code_word) in entries {
-        if character.is_alphabetic() {
+        if verbose || character.is_alphabetic() {
             println!("{character} -> {code_word}");
         }
+    }
+}
+
+// Sort all characters in the order of letters before digits before symbols.
+// Within each group, characters will be sorted in their natural order.
+fn custom_char_ordering(a: &char, b: &char) -> Ordering {
+    match (
+        a.is_alphabetic(),
+        b.is_alphabetic(),
+        a.is_numeric(),
+        b.is_numeric(),
+    ) {
+        (true, false, _, _) => Ordering::Less,
+        (false, true, _, _) => Ordering::Greater,
+        (false, false, true, false) => Ordering::Less,
+        (false, false, false, true) => Ordering::Greater,
+        _ => a.cmp(b),
     }
 }

@@ -5,11 +5,13 @@ use spellabet::{PhoneticConverter, SpellingAlphabet};
 #[command(author, version, about, long_about = None)]
 struct Cli {
     /// Which spelling alphabet to use for the conversion
-    #[arg(short, long, value_enum, default_value_t = Alphabet::Nato)]
+    #[arg(short, long, env = "SPELLOUT_ALPHABET")]
+    #[arg(value_enum, default_value_t = Alphabet::Nato)]
     alphabet: Alphabet,
 
     /// Expand output into nonce form like "'A' as in ALFA"
-    #[arg(short, long)]
+    #[arg(short, long, env = "SPELLOUT_NONCE_FORM")]
+    #[arg(value_parser = clap::builder::BoolishValueParser::new())]
     nonce_form: bool,
 
     /// The input characters to convert into code words

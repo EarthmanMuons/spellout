@@ -1,7 +1,10 @@
 use std::char;
 use std::cmp::Ordering;
+use std::io::{self, BufRead};
 
-use clap::{Parser, ValueEnum};
+use clap::error::{ContextKind, ContextValue, ErrorKind};
+use clap::{CommandFactory, Parser, ValueEnum};
+use is_terminal::IsTerminal;
 use spellabet::{PhoneticConverter, SpellingAlphabet};
 
 #[derive(Debug, Parser)]
@@ -12,25 +15,28 @@ struct Cli {
     #[arg(value_enum, default_value_t = Alphabet::Nato)]
     alphabet: Alphabet,
 
-    /// Expand output into nonce form like "'A' as in ALFA"
-    #[arg(short, long, env = "SPELLOUT_NONCE_FORM")]
-    #[arg(value_parser = clap::builder::BoolishValueParser::new())]
-    nonce_form: bool,
-
     /// Display the spelling alphabet and exit
     ///
     /// Shows only letters by default; add the `--verbose` flag to also show
     /// digits and symbols
-    #[arg(long, long_help)]
+    #[arg(long)]
     dump_alphabet: bool,
+
+    /// Expand output into nonce form like "'A' as in ALFA"
+    #[arg(short, long, env = "SPELLOUT_NONCE_FORM")]
+    #[arg(value_parser = clap::builder::BoolishValueParser::new())]
+    nonce_form: bool,
 
     /// Use verbose output
     #[arg(short, long, env = "SPELLOUT_VERBOSE")]
     #[arg(value_parser = clap::builder::BoolishValueParser::new())]
     verbose: bool,
 
-    /// The input character strings to convert into code words
-    #[arg(value_name = "STRING", required_unless_present("dump_alphabet"))]
+    /// An input character string to convert into code words
+    ///
+    /// If no input strings are provided, the program reads lines from standard
+    /// input
+    #[arg(value_name = "STRING")]
     input: Vec<String>,
 }
 
@@ -55,15 +61,36 @@ fn main() {
 
     if cli.dump_alphabet {
         dump_alphabet(&alphabet, cli.verbose);
-    } else if !cli.input.is_empty() {
-        let converter = PhoneticConverter::new(&alphabet).nonce_form(cli.nonce_form);
+        return;
+    }
+
+    let converter = PhoneticConverter::new(&alphabet).nonce_form(cli.nonce_form);
+    if !cli.input.is_empty() {
         for input in cli.input {
-            if cli.verbose {
-                print!("{input} -> ");
-            }
-            println!("{}", converter.convert(&input));
+            process_input(&input, &converter, cli.verbose);
+        }
+    } else if io::stdin().is_terminal() {
+        let cmd = Cli::command();
+        let mut err = clap::Error::new(ErrorKind::MissingRequiredArgument).with_cmd(&cmd);
+        err.insert(
+            ContextKind::InvalidArg,
+            ContextValue::Strings(vec!["<STRING>...".to_string()]),
+        );
+        err.exit();
+    } else {
+        let stdin = io::stdin();
+        for line in stdin.lock().lines() {
+            let input = line.expect("Failed to read line from stdin");
+            process_input(&input, &converter, cli.verbose);
         }
     }
+}
+
+fn process_input(input: &str, converter: &PhoneticConverter, verbose: bool) {
+    if verbose {
+        print!("{input} -> ");
+    }
+    println!("{}", converter.convert(input));
 }
 
 fn dump_alphabet(alphabet: &SpellingAlphabet, verbose: bool) {
@@ -95,6 +122,5 @@ fn custom_char_ordering(a: &char, b: &char) -> Ordering {
 
 #[test]
 fn verify_cli() {
-    use clap::CommandFactory;
     Cli::command().debug_assert()
 }

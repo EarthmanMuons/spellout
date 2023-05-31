@@ -7,8 +7,8 @@ use insta::assert_snapshot;
 use spellabet::{PhoneticConverter, SpellingAlphabet};
 
 fn init_converter() -> PhoneticConverter {
-    let alphabet = &SpellingAlphabet::Nato;
-    PhoneticConverter::new(alphabet)
+    let alphabet = SpellingAlphabet::Nato;
+    PhoneticConverter::new(&alphabet)
 }
 
 #[test]
@@ -176,8 +176,8 @@ fn test_uppercase_key_in_overrides() {
 
 #[test]
 fn test_lapd_alphabet() {
-    let alphabet = &SpellingAlphabet::Lapd;
-    let converter = PhoneticConverter::new(alphabet);
+    let alphabet = SpellingAlphabet::Lapd;
+    let converter = PhoneticConverter::new(&alphabet);
 
     assert_snapshot!(
         converter.convert("abc123xyz"),
@@ -190,8 +190,8 @@ fn test_lapd_alphabet() {
 
 #[test]
 fn test_nato_alphabet() {
-    let alphabet = &SpellingAlphabet::Nato;
-    let converter = PhoneticConverter::new(alphabet);
+    let alphabet = SpellingAlphabet::Nato;
+    let converter = PhoneticConverter::new(&alphabet);
 
     assert_snapshot!(
         converter.convert("abc123xyz"),
@@ -207,8 +207,8 @@ fn test_nato_alphabet() {
 
 #[test]
 fn test_us_financial_alphabet() {
-    let alphabet = &SpellingAlphabet::UsFinancial;
-    let converter = PhoneticConverter::new(alphabet);
+    let alphabet = SpellingAlphabet::UsFinancial;
+    let converter = PhoneticConverter::new(&alphabet);
 
     assert_snapshot!(
         converter.convert("abc123xyz"),

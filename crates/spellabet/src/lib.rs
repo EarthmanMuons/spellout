@@ -4,6 +4,7 @@
 use std::collections::HashMap;
 
 use code_words::{DEFAULT_DIGITS_AND_SYMBOLS, LAPD_ALPHABET, NATO_ALPHABET, US_FINANCIAL_ALPHABET};
+use convert_case::{Case, Casing};
 
 mod code_words;
 
@@ -36,10 +37,15 @@ impl PhoneticConverter {
     }
 
     #[must_use]
+    pub const fn mappings(&self) -> &HashMap<char, String> {
+        &self.conversion_map
+    }
+
+    #[must_use]
     pub fn with_overrides(mut self, overrides: HashMap<char, String>) -> Self {
         let lower_overrides: HashMap<char, String> = overrides
             .into_iter()
-            .map(|(k, v)| (k.to_ascii_lowercase(), v))
+            .map(|(k, v)| (k.to_ascii_lowercase(), v.to_case(Case::Pascal)))
             .collect();
 
         self.conversion_map.extend(lower_overrides);
@@ -64,24 +70,24 @@ impl PhoneticConverter {
         result
     }
 
-    fn convert_char(&self, c: char, result: &mut String) {
-        match self.conversion_map.get(&c.to_ascii_lowercase()) {
+    fn convert_char(&self, character: char, result: &mut String) {
+        match self.conversion_map.get(&character.to_ascii_lowercase()) {
             Some(word) => {
-                let code_word = if c.is_lowercase() {
+                let code_word = if character.is_lowercase() {
                     word.to_lowercase()
-                } else if c.is_uppercase() {
+                } else if character.is_uppercase() {
                     word.to_uppercase()
                 } else {
                     word.clone()
                 };
 
-                if self.nonce_form && c.is_alphabetic() {
-                    result.push_str(&format!("'{c}' as in {code_word}"));
+                if self.nonce_form && character.is_alphabetic() {
+                    result.push_str(&format!("'{character}' as in {code_word}"));
                 } else {
                     result.push_str(&code_word);
                 }
             }
-            None => result.push(c),
+            None => result.push(character),
         }
     }
 }

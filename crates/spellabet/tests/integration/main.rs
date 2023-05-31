@@ -175,6 +175,28 @@ fn test_uppercase_key_in_overrides() {
 }
 
 #[test]
+fn test_overrides_value_normalization() {
+    let mut converter = init_converter();
+    let mut overrides: HashMap<char, String> = HashMap::new();
+    overrides.insert('-', "hyphen".to_string());
+    overrides.insert('/', "SLANT".to_string());
+    overrides.insert('(', "brackets on".to_string());
+    overrides.insert(')', "bracketsOff".to_string());
+    overrides.insert('!', "exclamation-mark".to_string());
+    overrides.insert('?', "question_mark".to_string());
+
+    converter = converter.with_overrides(overrides);
+
+    // Check that overrides map value was normalized
+    assert_snapshot!(converter.convert("-"), @"Hyphen");
+    assert_snapshot!(converter.convert("/"), @"Slant");
+    assert_snapshot!(converter.convert("("), @"BracketsOn");
+    assert_snapshot!(converter.convert(")"), @"BracketsOff");
+    assert_snapshot!(converter.convert("!"), @"ExclamationMark");
+    assert_snapshot!(converter.convert("?"), @"QuestionMark");
+}
+
+#[test]
 fn test_lapd_alphabet() {
     let alphabet = SpellingAlphabet::Lapd;
     let converter = PhoneticConverter::new(&alphabet);

@@ -28,9 +28,9 @@ struct Cli {
     #[arg(short, long)]
     verbose: bool,
 
-    /// The input character string to convert into code words
-    #[arg(required_unless_present("dump_alphabet"))]
-    input: Option<String>,
+    /// The input character strings to convert into code words
+    #[arg(value_name = "STRING", required_unless_present("dump_alphabet"))]
+    input: Vec<String>,
 }
 
 #[derive(Clone, Debug, ValueEnum)]
@@ -54,9 +54,14 @@ fn main() {
 
     if cli.dump_alphabet {
         dump_alphabet(&alphabet, cli.verbose);
-    } else if let Some(input) = cli.input {
+    } else if !cli.input.is_empty() {
         let converter = PhoneticConverter::new(&alphabet).nonce_form(cli.nonce_form);
-        println!("{}", converter.convert(&input));
+        for input in cli.input {
+            if cli.verbose {
+                print!("{input} -> ");
+            }
+            println!("{}", converter.convert(&input));
+        }
     }
 }
 

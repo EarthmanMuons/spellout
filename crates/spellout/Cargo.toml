@@ -15,4 +15,5 @@ license.workspace = true
 
 [dependencies]
 clap = { version = "4.3.0", features = ["derive", "env", "wrap_help"] }
+is-terminal = "0.4.7"
 spellabet = { path = "../spellabet" }

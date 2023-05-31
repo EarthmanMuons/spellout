@@ -1,7 +1,7 @@
 use clap::{Parser, ValueEnum};
 use spellabet::{PhoneticConverter, SpellingAlphabet};
 
-#[derive(Parser, Debug)]
+#[derive(Debug, Parser)]
 #[command(author, version, about, long_about = None)]
 struct Cli {
     /// Which spelling alphabet to use for the conversion
@@ -14,8 +14,13 @@ struct Cli {
     #[arg(value_parser = clap::builder::BoolishValueParser::new())]
     nonce_form: bool,
 
-    /// The input characters to convert into code words
-    input: String,
+    /// Display the spelling alphabet and exit
+    #[arg(long)]
+    dump_alphabet: bool,
+
+    /// The input character string to convert into code words
+    #[arg(required_unless_present("dump_alphabet"))]
+    input: Option<String>,
 }
 
 #[derive(Clone, Debug, ValueEnum)]
@@ -37,6 +42,20 @@ fn main() {
         Alphabet::UsFinancial => SpellingAlphabet::UsFinancial,
     };
 
-    let converter = PhoneticConverter::new(&alphabet).nonce_form(cli.nonce_form);
-    println!("{}", converter.convert(&cli.input));
+    if cli.dump_alphabet {
+        dump_alphabet(&alphabet);
+    } else if let Some(input) = cli.input {
+        let converter = PhoneticConverter::new(&alphabet).nonce_form(cli.nonce_form);
+        println!("{}", converter.convert(&input));
+    }
+}
+
+fn dump_alphabet(alphabet: &SpellingAlphabet) {
+    let mut entries: Vec<_> = alphabet.initialize().into_iter().collect();
+    entries.sort_by(|a, b| a.0.cmp(&b.0));
+    for (character, code_word) in entries {
+        if character.is_alphabetic() {
+            println!("{character} -> {code_word}");
+        }
+    }
 }

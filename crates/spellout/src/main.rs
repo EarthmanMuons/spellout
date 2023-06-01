@@ -31,12 +31,14 @@ struct Cli {
 
     /// Expand output into nonce form like "'A' as in ALFA"
     #[arg(short, long, env = "SPELLOUT_NONCE_FORM")]
-    #[arg(value_parser = clap::builder::BoolishValueParser::new())]
+    #[arg(value_parser = clap::builder::FalseyValueParser::new())]
     nonce_form: bool,
 
     /// Use verbose output
+    ///
+    /// Include the input characters along with each line's output.
     #[arg(short, long, env = "SPELLOUT_VERBOSE")]
-    #[arg(value_parser = clap::builder::BoolishValueParser::new())]
+    #[arg(value_parser = clap::builder::FalseyValueParser::new())]
     verbose: bool,
 
     /// An input character string to convert into code words

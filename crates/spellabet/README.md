@@ -1,4 +1,12 @@
-# spellabet
+# spellabet &emsp; [![MSRV]][rust-version]
+
+[MSRV]: https://img.shields.io/badge/MSRV-1.64-blue
+[rust-version]:
+  https://doc.rust-lang.org/cargo/reference/manifest.html#the-rust-version-field
+
+**Convert characters into their equivalent spelling alphabet code words.**
+
+---
 
 spellabet is a Rust library for transforming text strings into their equivalent
 code words based on predefined [spelling alphabets][]. These spelling alphabets,
@@ -29,6 +37,15 @@ Generated [Rustdoc][] reference documentation can be found at
 <https://earthmanmuons.github.io/spellout/spellabet/index.html>
 
 [Rustdoc]: https://doc.rust-lang.org/stable/rustdoc/
+
+## Minimum Supported Rust Version (MSRV) Policy
+
+- We follow an "N-2 policy," supporting at least the current stable Rust release
+  and the two preceding versions.
+- Our MSRV only advances when we adopt a feature from a newer Rust version. We
+  do not increase the MSRV systematically with each new release of Rust.
+- MSRV increases are considered regular changes, not breaking changes, in terms
+  of Semantic Versioning.
 
 ## License
 

@@ -24,110 +24,30 @@ characters are returned as is, without conversion.
 
 ## Usage
 
-To use the library, add it as dependency in your `Cargo.toml` file:
+To use the crate, add it as dependency in your `Cargo.toml` file:
 
 ```toml
 [dependencies]
 spellabet = "0.1.0"
 ```
 
-Then, import the `PhoneticConverter` struct into your Rust code:
+### Example
 
 ```rust
 use spellabet::{PhoneticConverter, SpellingAlphabet};
+
+let converter = PhoneticConverter::new(&SpellingAlphabet::Nato);
+println!("{}", converter.convert("Example123!"));
 ```
 
-### Creating a Converter
-
-To create a `PhoneticConverter` instance, use the `new` method and specify the
-desired spelling alphabet:
-
-```rust
-let alphabet = SpellingAlphabet::default();
-let converter = PhoneticConverter::new(&alphabet);
 ```
-
-#### Alphabet Options
-
-The library supports the following spelling alphabets:
-
-- `SpellingAlphabet::Lapd`: The LAPD (Los Angeles Police Department) spelling
-  alphabet.
-- `SpellingAlphabet::Nato`: The NATO (North Atlantic Treaty Organization)
-  spelling alphabet (default).
-- `SpellingAlphabet::UsFinancial`: The United States Financial Industry spelling
-  alphabet.
-
-### Converting Characters
-
-To convert characters into their spelling alphabet code words, use the `convert`
-method:
-
-```rust
-let text = "Hello";
-let result = converter.convert(text);
-println!("Result: {result}");
-```
-
-The above code will output:
-
-```
-Result: HOTEL echo lima lima oscar
-```
-
-### Nonce Form
-
-The `PhoneticConverter` also supports "nonce form" where each converted
-character is expanded into the form "'A' as in ALFA". To enable the nonce form
-output, use the `nonce_form` method:
-
-```rust
-let converter = converter.nonce_form(true)
-```
-
-### Customizing the Conversion Map
-
-You can override characters in the default conversion map by using the
-`with_overrides` method and providing a `HashMap<char, String>` containing the
-desired mappings:
-
-```rust
-use std::collections::HashMap;
-
-let mut overrides = HashMap::new();
-overrides.insert('A', "Apple".to_string());
-overrides.insert('B', "Banana".to_string());
-
-let converter = converter.with_overrides(overrides);
-```
-
-### Dumping the Conversion Map
-
-To dump the current conversion map, you can use the `dump_alphabet` method. It
-writes the map to a provided writer.
-
-```rust
-use std::fs::File;
-use std::io::Write;
-
-let mut file = File::create("alphabet.txt")?;
-converter.dump_alphabet(&mut file, false)?;
-```
-
-This will create a file named "alphabet.txt" with the following content:
-
-```
-A -> Alfa
-B -> Bravo
-...
+ECHO x-ray alfa mike papa lima echo One Two Tree Exclamation
 ```
 
 ## Documentation
 
-Generated [Rustdoc][] reference documentation can be found at
+Detailed examples and generated API reference documentation can be found at
 <https://earthmanmuons.github.io/spellout/spellabet/index.html>
-
-[Rustdoc]: https://doc.rust-lang.org/stable/rustdoc/
 
 ## Minimum Supported Rust Version (MSRV) Policy
 

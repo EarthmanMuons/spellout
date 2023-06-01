@@ -10,6 +10,8 @@ readme.workspace = true
 homepage = "https://github.com/EarthmanMuons/spellout/tree/main/crates/spellabet"
 repository = "https://github.com/EarthmanMuons/spellout/tree/main/crates/spellabet"
 license.workspace = true
+keywords = ["formatting", "humanize", "text"]
+categories = ["text-processing", "value-formatting"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

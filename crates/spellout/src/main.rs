@@ -71,8 +71,8 @@ fn main() -> Result<()> {
     let mut converter = PhoneticConverter::new(&alphabet).nonce_form(cli.nonce_form);
 
     if let Some(overrides_str) = cli.overrides {
-        let overrides = parse_overrides(&overrides_str).context("Failed to parse overrides")?;
-        converter = converter.with_overrides(overrides);
+        let overrides_map = parse_overrides(&overrides_str).context("Failed to parse overrides")?;
+        converter = converter.with_overrides(overrides_map);
     }
 
     if cli.dump_alphabet {
@@ -114,7 +114,7 @@ fn process_input(input: &str, converter: &PhoneticConverter, verbose: bool) {
 }
 
 fn parse_overrides(input: &str) -> Result<HashMap<char, String>> {
-    let mut overrides = HashMap::new();
+    let mut overrides_map = HashMap::new();
 
     for s in input.split(',') {
         let parts: Vec<&str> = s.split('=').collect();
@@ -135,10 +135,10 @@ fn parse_overrides(input: &str) -> Result<HashMap<char, String>> {
             anyhow::bail!("Empty value in override: {s}");
         }
 
-        overrides.insert(key, parts[1].to_string());
+        overrides_map.insert(key, parts[1].to_string());
     }
 
-    Ok(overrides)
+    Ok(overrides_map)
 }
 
 #[test]

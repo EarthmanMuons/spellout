@@ -10,6 +10,8 @@ readme.workspace = true
 homepage.workspace = true
 repository.workspace = true
 license.workspace = true
+keywords = ["cli", "command-line", "formatting", "humanize", "text"]
+categories = ["command-line-utilities", "text-processing", "value-formatting"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

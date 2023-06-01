@@ -64,7 +64,7 @@ fn test_unknown_characters() {
 
 #[test]
 fn test_mappings() {
-    let converter = init_converter().nonce_form(false);
+    let converter = init_converter();
     let mappings = converter.mappings();
 
     // Check that mappings contain some expected entries
@@ -145,11 +145,11 @@ fn test_without_overrides() {
 #[test]
 fn test_with_overrides() {
     let mut converter = init_converter();
-    let mut overrides: HashMap<char, String> = HashMap::new();
-    overrides.insert('A', "Able".to_string());
-    overrides.insert('B', "Baker".to_string());
+    let mut overrides_map: HashMap<char, String> = HashMap::new();
+    overrides_map.insert('A', "Able".to_string());
+    overrides_map.insert('B', "Baker".to_string());
 
-    converter = converter.with_overrides(overrides);
+    converter = converter.with_overrides(overrides_map);
 
     // Check that overrides worked
     assert_snapshot!(converter.convert("a"), @"able");
@@ -166,10 +166,10 @@ fn test_with_overrides() {
 #[test]
 fn test_lowercase_key_in_overrides() {
     let mut converter = init_converter();
-    let mut overrides: HashMap<char, String> = HashMap::new();
-    overrides.insert('c', "Cain".to_string());
+    let mut overrides_map: HashMap<char, String> = HashMap::new();
+    overrides_map.insert('c', "Cain".to_string());
 
-    converter = converter.with_overrides(overrides);
+    converter = converter.with_overrides(overrides_map);
 
     // Check that overrides map key was normalized
     assert_snapshot!(converter.convert("c"), @"cain");
@@ -180,10 +180,10 @@ fn test_lowercase_key_in_overrides() {
 #[test]
 fn test_uppercase_key_in_overrides() {
     let mut converter = init_converter();
-    let mut overrides: HashMap<char, String> = HashMap::new();
-    overrides.insert('C', "Cain".to_string());
+    let mut overrides_map: HashMap<char, String> = HashMap::new();
+    overrides_map.insert('C', "Cain".to_string());
 
-    converter = converter.with_overrides(overrides);
+    converter = converter.with_overrides(overrides_map);
 
     // Check that overrides map key was normalized
     assert_snapshot!(converter.convert("c"), @"cain");
@@ -194,15 +194,15 @@ fn test_uppercase_key_in_overrides() {
 #[test]
 fn test_overrides_value_normalization() {
     let mut converter = init_converter();
-    let mut overrides: HashMap<char, String> = HashMap::new();
-    overrides.insert('-', "hyphen".to_string());
-    overrides.insert('/', "SLANT".to_string());
-    overrides.insert('(', "brackets on".to_string());
-    overrides.insert(')', "bracketsOff".to_string());
-    overrides.insert('!', "exclamation-mark".to_string());
-    overrides.insert('?', "question_mark".to_string());
+    let mut overrides_map: HashMap<char, String> = HashMap::new();
+    overrides_map.insert('-', "hyphen".to_string());
+    overrides_map.insert('/', "SLANT".to_string());
+    overrides_map.insert('(', "brackets on".to_string());
+    overrides_map.insert(')', "bracketsOff".to_string());
+    overrides_map.insert('!', "exclamation-mark".to_string());
+    overrides_map.insert('?', "question_mark".to_string());
 
-    converter = converter.with_overrides(overrides);
+    converter = converter.with_overrides(overrides_map);
 
     // Check that overrides map value was normalized
     assert_snapshot!(converter.convert("-"), @"Hyphen");

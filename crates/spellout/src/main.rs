@@ -1,5 +1,3 @@
-use std::char;
-use std::cmp::Ordering;
 use std::collections::HashMap;
 use std::io::{self, BufRead};
 
@@ -9,7 +7,7 @@ use clap::{CommandFactory, Parser, ValueEnum};
 use is_terminal::IsTerminal;
 use spellabet::{PhoneticConverter, SpellingAlphabet};
 
-#[derive(Debug, Parser)]
+#[derive(Parser)]
 #[command(author, version, about, long_about = None)]
 struct Cli {
     /// Which spelling alphabet to use for the conversion
@@ -76,7 +74,7 @@ fn main() -> Result<()> {
     }
 
     if cli.dump_alphabet {
-        dump_alphabet(converter, cli.verbose);
+        converter.dump_alphabet(&mut io::stdout(), cli.verbose)?;
         return Ok(());
     }
 
@@ -96,8 +94,7 @@ fn main() -> Result<()> {
         err.exit();
     } else {
         // The user provided data piped from stdin
-        let stdin = io::stdin();
-        for line in stdin.lock().lines() {
+        for line in io::stdin().lock().lines() {
             let input = line.context("Failed to read line from stdin")?;
             process_input(&input, &converter, cli.verbose);
         }
@@ -139,33 +136,6 @@ fn parse_overrides(input: &str) -> Result<HashMap<char, String>> {
     }
 
     Ok(overrides)
-}
-
-fn dump_alphabet(converter: PhoneticConverter, verbose: bool) {
-    let mut entries: Vec<_> = converter.mappings().iter().collect();
-    entries.sort_by(|a, b| custom_char_ordering(a.0, b.0));
-    for (character, code_word) in entries {
-        if verbose || character.is_alphabetic() {
-            println!("{character} -> {code_word}");
-        }
-    }
-}
-
-// Sort all characters in the order of letters before digits before symbols.
-// Within each group, characters will be sorted in their natural order.
-fn custom_char_ordering(a: &char, b: &char) -> Ordering {
-    match (
-        a.is_alphabetic(),
-        b.is_alphabetic(),
-        a.is_numeric(),
-        b.is_numeric(),
-    ) {
-        (true, false, _, _) => Ordering::Less,
-        (false, true, _, _) => Ordering::Greater,
-        (false, false, true, false) => Ordering::Less,
-        (false, false, false, true) => Ordering::Greater,
-        _ => a.cmp(b),
-    }
 }
 
 #[test]

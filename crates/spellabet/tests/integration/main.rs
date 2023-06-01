@@ -7,7 +7,7 @@ use insta::assert_snapshot;
 use spellabet::{PhoneticConverter, SpellingAlphabet};
 
 fn init_converter() -> PhoneticConverter {
-    let alphabet = SpellingAlphabet::Nato;
+    let alphabet = SpellingAlphabet::default();
     PhoneticConverter::new(&alphabet)
 }
 
@@ -60,6 +60,23 @@ fn test_empty_string() {
 fn test_unknown_characters() {
     let converter = init_converter();
     assert_snapshot!(converter.convert("aΦb💩c"), @"alfa Φ bravo 💩 charlie");
+}
+
+#[test]
+fn test_mappings() {
+    let converter = init_converter().nonce_form(false);
+    let mappings = converter.mappings();
+
+    // Check that mappings contain some expected entries
+    assert_snapshot!(mappings.get(&'a').unwrap(), @"Alfa");
+    assert_snapshot!(mappings.get(&'z').unwrap(), @"Zulu");
+    assert_snapshot!(mappings.get(&'0').unwrap(), @"Zero");
+    assert_snapshot!(mappings.get(&'9').unwrap(), @"Niner");
+    assert_snapshot!(mappings.get(&' ').unwrap(), @"Space");
+    assert_snapshot!(mappings.get(&'~').unwrap(), @"Tilde");
+
+    // Check that the size of mappings matches the expect size
+    assert_eq!(mappings.len(), 69);
 }
 
 #[test]
@@ -197,6 +214,125 @@ fn test_overrides_value_normalization() {
 }
 
 #[test]
+fn test_dump_alphabet() {
+    let converter = init_converter();
+    let mut buf = Vec::new();
+    let verbose = false;
+    converter.dump_alphabet(&mut buf, verbose).unwrap();
+    let output = String::from_utf8(buf).unwrap();
+
+    assert_snapshot!(output, @r###"
+    a -> Alfa
+    b -> Bravo
+    c -> Charlie
+    d -> Delta
+    e -> Echo
+    f -> Foxtrot
+    g -> Golf
+    h -> Hotel
+    i -> India
+    j -> Juliett
+    k -> Kilo
+    l -> Lima
+    m -> Mike
+    n -> November
+    o -> Oscar
+    p -> Papa
+    q -> Quebec
+    r -> Romeo
+    s -> Sierra
+    t -> Tango
+    u -> Uniform
+    v -> Victor
+    w -> Whiskey
+    x -> X-ray
+    y -> Yankee
+    z -> Zulu
+    "###);
+}
+
+#[test]
+fn test_dump_alphabet_verbose() {
+    let converter = init_converter();
+    let mut buf = Vec::new();
+    let verbose = true;
+    converter.dump_alphabet(&mut buf, verbose).unwrap();
+    let output = String::from_utf8(buf).unwrap();
+
+    assert_snapshot!(output, @r###"
+    a -> Alfa
+    b -> Bravo
+    c -> Charlie
+    d -> Delta
+    e -> Echo
+    f -> Foxtrot
+    g -> Golf
+    h -> Hotel
+    i -> India
+    j -> Juliett
+    k -> Kilo
+    l -> Lima
+    m -> Mike
+    n -> November
+    o -> Oscar
+    p -> Papa
+    q -> Quebec
+    r -> Romeo
+    s -> Sierra
+    t -> Tango
+    u -> Uniform
+    v -> Victor
+    w -> Whiskey
+    x -> X-ray
+    y -> Yankee
+    z -> Zulu
+    0 -> Zero
+    1 -> One
+    2 -> Two
+    3 -> Tree
+    4 -> Fower
+    5 -> Fife
+    6 -> Six
+    7 -> Seven
+    8 -> Eight
+    9 -> Niner
+      -> Space
+    ! -> Exclamation
+    " -> DoubleQuote
+    # -> Hash
+    $ -> Dollars
+    % -> Percent
+    & -> Ampersand
+    ' -> SingleQuote
+    ( -> LeftParens
+    ) -> RightParens
+    * -> Asterisk
+    + -> Plus
+    , -> Comma
+    - -> Dash
+    . -> Period
+    / -> ForeSlash
+    : -> Colon
+    ; -> SemiColon
+    < -> LessThan
+    = -> Equals
+    > -> GreaterThan
+    ? -> Question
+    @ -> At
+    [ -> LeftBracket
+    \ -> BackSlash
+    ] -> RightBracket
+    ^ -> Caret
+    _ -> Underscore
+    ` -> Backtick
+    { -> LeftBrace
+    | -> Pipe
+    } -> RightBrace
+    ~ -> Tilde
+    "###);
+}
+
+#[test]
 fn test_lapd_alphabet() {
     let alphabet = SpellingAlphabet::Lapd;
     let converter = PhoneticConverter::new(&alphabet);
@@ -206,7 +342,7 @@ fn test_lapd_alphabet() {
         @"adam boy charles One Two Three x-ray young zebra"
     );
 
-    // Test non-default digits
+    // Check non-default digits
     assert_snapshot!(converter.convert("9"), @"Niner");
 }
 
@@ -220,7 +356,7 @@ fn test_nato_alphabet() {
         @"alfa bravo charlie One Two Tree x-ray yankee zulu"
     );
 
-    // Test non-default digits
+    // Check non-default digits
     assert_snapshot!(converter.convert("3"), @"Tree");
     assert_snapshot!(converter.convert("4"), @"Fower");
     assert_snapshot!(converter.convert("5"), @"Fife");

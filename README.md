@@ -86,8 +86,8 @@ Default: `nato`
 
 Possible values:
 
-- `lapd`: Use the Los Angeles Police Department (LAPD) spelling alphabet.
-- `nato`: Use the North Atlantic Treaty Organization (NATO) spelling alphabet.
+- `lapd`: Use the LAPD (Los Angeles Police Department) spelling alphabet.
+- `nato`: Use the NATO (North Atlantic Treaty Organization) spelling alphabet.
   This is the default setting.
 - `us-financial`: Use the United States Financial Industry spelling alphabet.
 

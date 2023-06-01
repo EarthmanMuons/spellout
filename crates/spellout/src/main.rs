@@ -85,11 +85,12 @@ fn main() -> Result<()> {
         }
     } else if io::stdin().is_terminal() {
         // The user did not provide an input string argument nor data piped from stdin
-        let cmd = Cli::command();
+        let mut cmd = Cli::command();
+        eprintln!("{}\n", cmd.render_usage());
         let mut err = clap::Error::new(ErrorKind::MissingRequiredArgument).with_cmd(&cmd);
         err.insert(
             ContextKind::InvalidArg,
-            ContextValue::Strings(vec!["<STRING>...".to_string()]),
+            ContextValue::Strings(vec!["[STRING]...".to_string()]),
         );
         err.exit();
     } else {

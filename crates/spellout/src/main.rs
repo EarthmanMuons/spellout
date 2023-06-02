@@ -80,27 +80,30 @@ fn main() -> Result<()> {
         return Ok(());
     }
 
-    if !cli.input.is_empty() {
-        // The user provided an input string argument
-        for input in cli.input {
-            process_input(&input, &converter, cli.verbose);
+    if cli.input.is_empty() {
+        // Check standard input
+        if io::stdin().is_terminal() {
+            // No data was provided to stdin
+            let mut cmd = Cli::command();
+            eprintln!("{}\n", cmd.render_usage());
+            let mut err = clap::Error::new(ErrorKind::MissingRequiredArgument).with_cmd(&cmd);
+            err.insert(
+                ContextKind::InvalidArg,
+                ContextValue::Strings(vec!["[STRING]...".to_string()]),
+            );
+            err.exit();
+        } else {
+            // Data was provided to stdin
+            for line in io::stdin().lock().lines() {
+                let input = line.context("Failed to read line from stdin")?;
+                process_input(&input, &converter, cli.verbose);
+            }
         }
-    } else if io::stdin().is_terminal() {
-        // The user did not provide an input string argument nor data piped from stdin
-        let mut cmd = Cli::command();
-        eprintln!("{}\n", cmd.render_usage());
-        let mut err = clap::Error::new(ErrorKind::MissingRequiredArgument).with_cmd(&cmd);
-        err.insert(
-            ContextKind::InvalidArg,
-            ContextValue::Strings(vec!["[STRING]...".to_string()]),
-        );
-        err.exit();
-    } else {
-        // The user provided data piped from stdin
-        for line in io::stdin().lock().lines() {
-            let input = line.context("Failed to read line from stdin")?;
-            process_input(&input, &converter, cli.verbose);
-        }
+        return Ok(());
+    }
+
+    for input in cli.input {
+        process_input(&input, &converter, cli.verbose);
     }
 
     Ok(())

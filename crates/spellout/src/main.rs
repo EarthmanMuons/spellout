@@ -109,6 +109,11 @@ fn main() -> Result<()> {
     Ok(())
 }
 
+/// Parses the given input string, converts it into spelling alphabet code words
+/// using the given `PhoneticConverter`, and prints the converted output.
+///
+/// If verbose mode is enabled, it first prints the original input before
+/// printing the converted output.
 fn process_input(input: &str, converter: &PhoneticConverter, verbose: bool) {
     if verbose {
         print!("{input} -> ");
@@ -116,6 +121,19 @@ fn process_input(input: &str, converter: &PhoneticConverter, verbose: bool) {
     println!("{}", converter.convert(input));
 }
 
+/// Parses the given input string into a mapping of character overrides.
+///
+/// The input should be a comma-separated list of _key=value_ pairs, where each
+/// key is a single character and each value is the code word to use in place of
+/// the default code word for that character. An error is returned if the input
+/// string does not adhere to this format.
+///
+/// # Errors
+///
+/// Returns an Error if the input string:
+/// * Does not contain any '=' character, or contains more than one.
+/// * Contains a key that is not a single character.
+/// * Contains an empty value.
 fn parse_overrides(input: &str) -> Result<HashMap<char, String>> {
     let mut overrides_map = HashMap::new();
 

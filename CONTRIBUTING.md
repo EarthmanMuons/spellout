@@ -254,7 +254,7 @@ For example:
   cargo xtask coverage.html
   ```
 
-- Run all tests via Nextest and collect Insta snapshots
+- Run all tests/doctests and generate Insta snapshots
 
   ```
   cargo xtask test
@@ -277,11 +277,17 @@ Most other commands are the same as any standard Rust project:
 - Run the tests
 
   ```
-  cargo test
+  cargo nextest run
   ```
 
-- Build and run the release binary:
+- Run the doctests
 
   ```
-  cargo run --release --bin spellout
+  cargo test --doc
+  ```
+
+- Build and run the binary:
+
+  ```
+  cargo run --bin spellout --
   ```

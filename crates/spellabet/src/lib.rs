@@ -6,6 +6,10 @@
 //! A library for converting text string characters into their equivalent
 //! [spelling alphabet](https://en.wikipedia.org/wiki/Spelling_alphabet) code words.
 //!
+//! This library powers the command line utility `spellout`, which provides a
+//! handy interface for phonetic conversions. Check out
+//! [`spellout` on GitHub](https://github.com/EarthmanMuons/spellout/) for more information.
+//!
 //! In its operation, spellabet will maintain the original capitalization of
 //! letters by returning either lowercase or uppercase code words. Known digits
 //! and other symbols undergo the same conversion process into code words.

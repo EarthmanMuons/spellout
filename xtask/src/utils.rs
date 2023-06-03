@@ -4,34 +4,6 @@ use std::path::{Path, PathBuf};
 use anyhow::Result;
 use xshell::Shell;
 
-/// Recursively copies a directory from `from` to `to`.
-pub fn copy_dir_to<P: AsRef<Path>>(from: P, to: P) -> Result<()> {
-    let from = from.as_ref();
-    let to = to.as_ref();
-
-    if !from.is_dir() {
-        anyhow::bail!("source is not a directory: {}", from.display());
-    }
-
-    fs::create_dir_all(to)?;
-
-    for entry_result in fs::read_dir(from)? {
-        let entry = entry_result?;
-        let path = entry.path();
-        let file_name = path
-            .file_name()
-            .ok_or_else(|| anyhow::anyhow!("failed to get file name"))?;
-
-        if path.is_dir() {
-            copy_dir_to(&path, &to.join(file_name))?;
-        } else {
-            fs::copy(&path, &to.join(file_name))?;
-        }
-    }
-
-    Ok(())
-}
-
 pub fn find_files<P: AsRef<Path>>(dir: P, extension: &str) -> Result<Vec<PathBuf>> {
     let mut result = Vec::new();
     let dir_path = dir.as_ref();
@@ -40,8 +12,9 @@ pub fn find_files<P: AsRef<Path>>(dir: P, extension: &str) -> Result<Vec<PathBuf
 }
 
 fn find_files_recursive(dir: &Path, extension: &str, result: &mut Vec<PathBuf>) -> Result<()> {
-    for entry in fs::read_dir(dir)? {
-        let path = entry?.path();
+    for entry_result in fs::read_dir(dir)? {
+        let entry = entry_result?;
+        let path = entry.path();
 
         if path.is_dir() {
             find_files_recursive(&path, extension, result)?;

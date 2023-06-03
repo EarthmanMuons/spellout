@@ -1,8 +1,8 @@
 #![deny(clippy::all)]
 #![warn(clippy::nursery, clippy::pedantic)]
-#![allow(clippy::question_mark)]
 
-use std::path::PathBuf;
+use std::collections::HashMap;
+use std::path::{Path, PathBuf};
 use std::{env, fs};
 
 use anyhow::Result;
@@ -10,16 +10,8 @@ use nanoserde::DeJson;
 use xshell::Shell;
 
 use crate::commands::cargo_cmd;
-use crate::utils::{copy_dir_to, project_root};
+use crate::utils::project_root;
 use crate::Config;
-
-// TODO: remove allow(clippy::question_mark)
-#[derive(Debug, DeJson)]
-struct CheckMessage {
-    out_dir: Option<String>,
-    package_id: String,
-    reason: String,
-}
 
 #[derive(Debug, DeJson)]
 struct Metadata {
@@ -43,115 +35,114 @@ pub fn dist(config: &Config) -> Result<()> {
     if dist_dir().exists() {
         fs::remove_dir_all(dist_dir())?;
     }
-
-    dist_binary(config)?;
-    dist_build_script_outputs(config)?;
-    dist_docs(config)?;
-
-    Ok(())
-}
-
-fn dist_binary(config: &Config) -> Result<()> {
-    env::set_current_dir(project_root())?;
-    let sh = Shell::new()?;
-
     let binaries = project_binaries(config)?;
 
     for binary in &binaries {
-        let cmd_option = cargo_cmd(config, &sh);
-        if let Some(cmd) = cmd_option {
-            let args = vec!["build", "--profile", "production", "--bin", binary];
-            cmd.args(args).run()?;
-        }
-
-        let binary_filename = if cfg!(target_os = "windows") {
-            format!("{binary}.exe")
-        } else {
-            binary.to_string()
-        };
-        let src = production_dir().join(&binary_filename);
-
-        // Destination: target/dist/binary/binary_filename
         let dest_dir = dist_dir().join(binary);
         fs::create_dir_all(&dest_dir)?;
-        let dest = dest_dir.join(&binary_filename);
 
-        eprintln!("Copying {} to {}", src.display(), dest.display());
-        fs::copy(&src, &dest)?;
+        build_binary(config, binary, &dest_dir)?;
+        copy_docs(&dest_dir)?;
+        generate_assets(config, binary, &dest_dir)?;
     }
 
     Ok(())
 }
 
-fn dist_build_script_outputs(config: &Config) -> Result<()> {
+fn build_binary(config: &Config, binary: &str, dest_dir: &Path) -> Result<()> {
     env::set_current_dir(project_root())?;
     let sh = Shell::new()?;
 
-    let binaries = project_binaries(config)?;
+    let cmd_option = cargo_cmd(config, &sh);
+    if let Some(cmd) = cmd_option {
+        let args = vec!["build", "--profile", "production", "--bin", binary];
+        cmd.args(args).run()?;
+    }
 
-    for binary in &binaries {
+    let binary_filename = if cfg!(target_os = "windows") {
+        format!("{binary}.exe")
+    } else {
+        binary.to_string()
+    };
+    let src = production_dir().join(&binary_filename);
+    let dest = dest_dir.join(&binary_filename);
+
+    fs::copy(&src, &dest)?;
+    eprintln!("Copied {} to {}", src.display(), dest.display());
+
+    Ok(())
+}
+
+fn copy_docs(dest_dir: &Path) -> Result<()> {
+    env::set_current_dir(project_root())?;
+
+    for file in [
+        "CHANGELOG.md",
+        "LICENSE",
+        "LICENSE-APACHE",
+        "LICENSE-MIT",
+        "README.md",
+    ] {
+        let src = PathBuf::from(file);
+        if src.exists() {
+            let dest = dest_dir.join(file);
+
+            fs::copy(&src, &dest)?;
+            eprintln!("Copied {} to {}", src.display(), dest.display());
+        }
+    }
+    Ok(())
+}
+
+fn generate_assets(config: &Config, binary: &str, dest_dir: &Path) -> Result<()> {
+    env::set_current_dir(project_root())?;
+    let sh = Shell::new()?;
+
+    let assets: HashMap<&str, (String, String)> = [
+        ("man-page", ("man".to_string(), format!("{binary}.1"))),
+        (
+            "bash",
+            ("completions".to_string(), format!("{binary}.bash")),
+        ),
+        (
+            "elvish",
+            ("completions".to_string(), format!("{binary}.elv")),
+        ),
+        (
+            "fish",
+            ("completions".to_string(), format!("{binary}.fish")),
+        ),
+        (
+            "powershell",
+            ("completions".to_string(), format!("_{binary}.ps1")),
+        ),
+        ("zsh", ("completions".to_string(), format!("_{binary}"))),
+    ]
+    .iter()
+    .cloned()
+    .collect();
+
+    for (asset, (directory, filename)) in &assets {
         let cmd_option = cargo_cmd(config, &sh);
         if let Some(cmd) = cmd_option {
             let args = vec![
-                "check",
+                "run",
                 "--profile",
                 "production",
-                "--message-format=json",
-                "--quiet",
                 "--bin",
                 binary,
+                "--",
+                "--generate",
+                asset,
             ];
             let output = cmd.args(args).output()?;
 
-            let check_json = String::from_utf8(output.stdout)?;
-            let out_dir_option = get_out_dir(&check_json, binary)?;
+            fs::create_dir_all(dest_dir.join(directory))?;
+            fs::write(dest_dir.join(directory).join(filename), output.stdout)?;
 
-            if let Some(out_dir) = out_dir_option {
-                let absolute_out_dir = PathBuf::from(out_dir);
-                let src_dir = absolute_out_dir.strip_prefix(sh.current_dir())?;
-
-                // Destination: target/dist/binary/
-                let dest_dir = dist_dir().join(binary);
-                fs::create_dir_all(&dest_dir)?;
-
-                eprintln!("Copying {}/* to {}/", src_dir.display(), dest_dir.display());
-                copy_dir_to(src_dir, &dest_dir)?;
-            };
+            eprintln!("Generated {}/{directory}/{filename}", dest_dir.display());
         }
     }
-
-    Ok(())
-}
-
-fn dist_docs(config: &Config) -> Result<()> {
-    env::set_current_dir(project_root())?;
-    let binaries = project_binaries(config)?;
-
-    for binary in &binaries {
-        let src_dir = project_root();
-
-        // Destination: target/dist/binary/
-        let dest_dir = dist_dir().join(binary);
-        fs::create_dir_all(&dest_dir)?;
-
-        for file in [
-            "CHANGELOG.md",
-            "LICENSE",
-            "LICENSE-APACHE",
-            "LICENSE-MIT",
-            "README.md",
-        ] {
-            let src = src_dir.join(file);
-            if src.exists() {
-                let relative_src = src.strip_prefix(project_root())?;
-                let dest = dest_dir.join(file);
-
-                eprintln!("Copying {} to {}", relative_src.display(), dest.display());
-                fs::copy(&src, &dest)?;
-            }
-        }
-    }
-
     Ok(())
 }
 
@@ -170,27 +161,12 @@ fn project_binaries(config: &Config) -> Result<Vec<String>> {
         for package in metadata.packages {
             for target in &package.targets {
                 if target.name != "xtask" && target.kind.contains(&"bin".to_string()) {
-                    // eprintln!("{package:?}");
                     binaries.push(target.name.clone());
                 }
             }
         }
     }
-
     Ok(binaries)
-}
-
-fn get_out_dir(check_json: &str, binary: &str) -> Result<Option<String>> {
-    for line in check_json.lines() {
-        let msg: CheckMessage = DeJson::deserialize_json(line)?;
-        if msg.reason == "build-script-executed"
-            && msg.package_id.starts_with(binary)
-            && msg.out_dir.is_some()
-        {
-            return Ok(msg.out_dir);
-        }
-    }
-    Ok(None)
 }
 
 fn dist_dir() -> PathBuf {

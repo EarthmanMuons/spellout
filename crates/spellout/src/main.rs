@@ -4,15 +4,28 @@ use std::io::{self, BufRead};
 use anyhow::{Context, Result};
 use clap::error::{ContextKind, ContextValue, ErrorKind};
 use clap::{CommandFactory, Parser};
+use clap_complete::Shell;
 use is_terminal::IsTerminal;
 use spellabet::{PhoneticConverter, SpellingAlphabet};
 
-use crate::cli::{Alphabet, Cli};
+use crate::cli::{Alphabet, Asset, Cli};
 
 mod cli;
 
 fn main() -> Result<()> {
     let cli = Cli::parse();
+
+    if let Some(asset) = cli.generate {
+        match asset {
+            Asset::ManPage => generate_man_page()?,
+            Asset::Bash => generate_completions(Shell::Bash),
+            Asset::Elvish => generate_completions(Shell::Elvish),
+            Asset::Fish => generate_completions(Shell::Fish),
+            Asset::Powershell => generate_completions(Shell::PowerShell),
+            Asset::Zsh => generate_completions(Shell::Zsh),
+        }
+        return Ok(());
+    }
 
     let alphabet = match cli.alphabet {
         Alphabet::Lapd => SpellingAlphabet::Lapd,
@@ -94,6 +107,19 @@ fn parse_overrides(input: &str) -> Result<HashMap<char, String>> {
     }
 
     Ok(overrides_map)
+}
+
+fn generate_completions(shell: Shell) {
+    let mut cmd = Cli::command();
+    let bin_name = env!("CARGO_BIN_NAME");
+    clap_complete::generate(shell, &mut cmd, bin_name, &mut io::stdout());
+}
+
+fn generate_man_page() -> Result<()> {
+    let cmd = Cli::command();
+    let man = clap_mangen::Man::new(cmd);
+    man.render(&mut io::stdout())?;
+    Ok(())
 }
 
 #[test]

@@ -1,5 +1,6 @@
 #![deny(clippy::all)]
 #![warn(clippy::nursery, clippy::pedantic)]
+#![allow(clippy::question_mark)]
 
 use std::path::PathBuf;
 use std::{env, fs};
@@ -12,6 +13,7 @@ use crate::commands::cargo_cmd;
 use crate::utils::{copy_dir_to, project_root, verbose_cd};
 use crate::Config;
 
+// TODO: remove allow(clippy::question_mark)
 #[derive(Debug, DeJson)]
 struct CheckMessage {
     out_dir: Option<String>,

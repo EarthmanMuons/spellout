@@ -32,6 +32,9 @@ fn generate_completions<P: AsRef<Path>>(out_dir: P) -> Result<(), DynError> {
     let completions_dir = out_dir.as_ref().join("completions");
     fs::create_dir_all(&completions_dir)?;
 
+    // Assume the binary name matches the package name
+    let binary_name = env::var("CARGO_PKG_NAME")?;
+
     let mut cmd = Cli::command();
     for shell in [
         Shell::Bash,
@@ -40,7 +43,7 @@ fn generate_completions<P: AsRef<Path>>(out_dir: P) -> Result<(), DynError> {
         Shell::PowerShell,
         Shell::Zsh,
     ] {
-        generate_to(shell, &mut cmd, "spellout", &completions_dir)?;
+        generate_to(shell, &mut cmd, &binary_name, &completions_dir)?;
     }
 
     Ok(())
@@ -50,11 +53,14 @@ fn generate_man_page<P: AsRef<Path>>(out_dir: P) -> Result<(), DynError> {
     let man_dir = out_dir.as_ref().join("man");
     fs::create_dir_all(&man_dir)?;
 
+    // Assume the binary name matches the package name
+    let binary_name = env::var("CARGO_PKG_NAME")?;
+
     let cmd = Cli::command();
     let man = Man::new(cmd);
     let mut buffer: Vec<u8> = Default::default();
     man.render(&mut buffer)?;
-    fs::write(man_dir.join("spellout.1"), buffer)?;
+    fs::write(man_dir.join(format!("{binary_name}.1")), buffer)?;
 
     Ok(())
 }

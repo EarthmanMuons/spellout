@@ -10,7 +10,7 @@ use nanoserde::DeJson;
 use xshell::Shell;
 
 use crate::commands::cargo_cmd;
-use crate::utils::{copy_dir_to, project_root, verbose_cd};
+use crate::utils::{copy_dir_to, project_root};
 use crate::Config;
 
 // TODO: remove allow(clippy::question_mark)
@@ -46,14 +46,14 @@ pub fn dist(config: &Config) -> Result<()> {
 
     dist_binary(config)?;
     dist_build_script_outputs(config)?;
-    // TODO: dist_docs()?;
+    dist_docs(config)?;
 
     Ok(())
 }
 
 fn dist_binary(config: &Config) -> Result<()> {
+    env::set_current_dir(project_root())?;
     let sh = Shell::new()?;
-    verbose_cd(&sh, project_root());
 
     let binaries = project_binaries(config)?;
 
@@ -84,17 +84,14 @@ fn dist_binary(config: &Config) -> Result<()> {
 }
 
 fn dist_build_script_outputs(config: &Config) -> Result<()> {
+    env::set_current_dir(project_root())?;
     let sh = Shell::new()?;
-    verbose_cd(&sh, project_root());
 
     let binaries = project_binaries(config)?;
 
     for binary in &binaries {
         let cmd_option = cargo_cmd(config, &sh);
         if let Some(cmd) = cmd_option {
-            eprintln!(
-                "$ cargo check --profile production --message-format=json --quiet --bin {binary}"
-            );
             let args = vec![
                 "check",
                 "--profile",
@@ -120,6 +117,38 @@ fn dist_build_script_outputs(config: &Config) -> Result<()> {
                 eprintln!("Copying {}/* to {}/", src_dir.display(), dest_dir.display());
                 copy_dir_to(src_dir, &dest_dir)?;
             };
+        }
+    }
+
+    Ok(())
+}
+
+fn dist_docs(config: &Config) -> Result<()> {
+    env::set_current_dir(project_root())?;
+    let binaries = project_binaries(config)?;
+
+    for binary in &binaries {
+        let src_dir = project_root();
+
+        // Destination: target/dist/binary/
+        let dest_dir = dist_dir().join(binary);
+        fs::create_dir_all(&dest_dir)?;
+
+        for file in [
+            "CHANGELOG.md",
+            "LICENSE",
+            "LICENSE-APACHE",
+            "LICENSE-MIT",
+            "README.md",
+        ] {
+            let src = src_dir.join(file);
+            if src.exists() {
+                let relative_src = src.strip_prefix(project_root())?;
+                let dest = dest_dir.join(file);
+
+                eprintln!("Copying {} to {}", relative_src.display(), dest.display());
+                fs::copy(&src, &dest)?;
+            }
         }
     }
 

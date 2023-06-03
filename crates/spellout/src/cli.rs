@@ -40,6 +40,13 @@ pub struct Cli {
     /// input.
     #[arg(value_name = "STRING")]
     pub input: Vec<String>,
+
+    /// Generate auxiliary asset files
+    ///
+    /// The requested asset file will be printed to standard output.
+    #[arg(long, value_enum, value_name = "ASSET")]
+    #[arg(hide_short_help = true)]
+    pub generate: Option<Asset>,
 }
 
 #[derive(Clone, Debug, ValueEnum)]
@@ -50,4 +57,20 @@ pub enum Alphabet {
     Nato,
     /// United States Financial Industry
     UsFinancial,
+}
+
+#[derive(Clone, Debug, ValueEnum)]
+pub enum Asset {
+    /// Manual page in ROFF format
+    ManPage,
+    /// Completions file for Bash shell
+    Bash,
+    /// Completions file for Elvish shell
+    Elvish,
+    /// Completions file for Fish shell
+    Fish,
+    /// Completions file for PowerShell
+    Powershell,
+    /// Completions file for Z shell
+    Zsh,
 }

@@ -5,39 +5,41 @@ use std::env;
 use std::process::Command;
 
 fn main() {
-    let pkg_version = env::var("CARGO_PKG_VERSION").unwrap();
+    let pkg_name = env!("CARGO_PKG_NAME").to_ascii_uppercase();
 
-    current_git_hash().map_or_else(
-        || {
-            println!("cargo:rustc-env=SPELLOUT_VERSION={pkg_version}");
-        },
-        |hash| {
-            println!("cargo:rustc-env=SPELLOUT_VERSION={pkg_version}+{hash}");
-        },
-    );
-}
+    let commit_hash = git_command(&["rev-parse", "HEAD"]).map(|hash| {
+        println!("cargo:rustc-env={pkg_name}_COMMIT_HASH={hash}");
+        hash[..12].to_string()
+    });
 
-fn current_git_hash() -> Option<String> {
-    let output = Command::new("git")
-        .args(["rev-parse", "--short=12", "HEAD"])
-        .output()
-        .ok()?;
-
-    let hash = String::from_utf8_lossy(&output.stdout).trim().to_string();
-
-    if hash.is_empty() {
-        return None;
-    }
+    let commit_date = git_command(&["show", "-s", "--format=%cs"]).map(|date| {
+        println!("cargo:rustc-env={pkg_name}_COMMIT_DATE={date}");
+        date
+    });
 
     let is_dirty = Command::new("git")
         .args(["diff", "--quiet", "HEAD", "--"])
         .status()
-        .map(|status| !status.success())
-        .unwrap_or(false);
+        .map_or(false, |status| !status.success());
 
-    if is_dirty {
-        Some(format!("{hash}.dirty"))
-    } else {
-        Some(hash)
+    if let (Some(hash), Some(date)) = (commit_hash, commit_date) {
+        let dirty_flag = if is_dirty { ".dirty" } else { "" };
+        let version = format!(
+            "{} ({}{} {})",
+            env!("CARGO_PKG_VERSION"),
+            hash,
+            dirty_flag,
+            date
+        );
+        println!("cargo:rustc-env={pkg_name}_VERSION={version}");
     }
+}
+
+fn git_command(args: &[&str]) -> Option<String> {
+    Command::new("git")
+        .args(args)
+        .output()
+        .ok()
+        .map(|output| String::from_utf8_lossy(&output.stdout).trim().to_string())
+        .filter(|s| !s.is_empty())
 }

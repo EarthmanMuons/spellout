@@ -1,7 +1,8 @@
 use clap::{Parser, ValueEnum};
 
 #[derive(Parser)]
-#[command(author, version, about, long_about = None)]
+#[command(author, about, long_about = None)]
+#[command(version = get_version())]
 pub struct Cli {
     /// Which spelling alphabet to use for the conversion
     #[arg(short, long, env = "SPELLOUT_ALPHABET")]
@@ -73,4 +74,8 @@ pub enum Asset {
     Powershell,
     /// Completions file for Z shell
     Zsh,
+}
+
+fn get_version() -> &'static str {
+    option_env!("SPELLOUT_VERSION").unwrap_or(env!("CARGO_PKG_VERSION"))
 }

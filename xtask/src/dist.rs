@@ -1,6 +1,3 @@
-#![deny(clippy::all)]
-#![warn(clippy::nursery, clippy::pedantic)]
-
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use std::{env, fs};

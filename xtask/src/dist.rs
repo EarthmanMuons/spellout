@@ -32,6 +32,8 @@ struct Target {
 }
 
 pub fn dist(config: &Config) -> Result<()> {
+    env::set_current_dir(project_root())?;
+
     if dist_dir().exists() {
         fs::remove_dir_all(dist_dir())?;
     }
@@ -45,12 +47,10 @@ pub fn dist(config: &Config) -> Result<()> {
         copy_docs(&dest_dir)?;
         generate_assets(config, binary, &dest_dir)?;
     }
-
     Ok(())
 }
 
 fn build_binary(config: &Config, binary: &str, dest_dir: &Path) -> Result<()> {
-    env::set_current_dir(project_root())?;
     let sh = Shell::new()?;
 
     let cmd_option = cargo_cmd(config, &sh);
@@ -74,8 +74,6 @@ fn build_binary(config: &Config, binary: &str, dest_dir: &Path) -> Result<()> {
 }
 
 fn copy_docs(dest_dir: &Path) -> Result<()> {
-    env::set_current_dir(project_root())?;
-
     for file in [
         "CHANGELOG.md",
         "LICENSE",
@@ -95,9 +93,6 @@ fn copy_docs(dest_dir: &Path) -> Result<()> {
 }
 
 fn generate_assets(config: &Config, binary: &str, dest_dir: &Path) -> Result<()> {
-    env::set_current_dir(project_root())?;
-    let sh = Shell::new()?;
-
     let assets: HashMap<&str, (String, String)> = [
         ("man-page", ("man".to_string(), format!("{binary}.1"))),
         (
@@ -121,6 +116,8 @@ fn generate_assets(config: &Config, binary: &str, dest_dir: &Path) -> Result<()>
     .iter()
     .cloned()
     .collect();
+
+    let sh = Shell::new()?;
 
     for (asset, (directory, filename)) in &assets {
         let cmd_option = cargo_cmd(config, &sh);

@@ -1,3 +1,6 @@
+#![deny(clippy::all)]
+#![warn(clippy::nursery, clippy::pedantic)]
+
 use std::collections::HashMap;
 use std::io::{self, BufRead};
 
@@ -59,7 +62,8 @@ fn main() -> Result<()> {
             err.exit();
         } else {
             // Data was provided to stdin
-            for line in io::stdin().lock().lines() {
+            let lines = io::stdin().lock().lines();
+            for line in lines {
                 let input = line.context("Failed to read line from stdin")?;
                 process_input(&input, &converter, cli.verbose);
             }
@@ -124,5 +128,5 @@ fn generate_man_page() -> Result<()> {
 
 #[test]
 fn verify_cli() {
-    Cli::command().debug_assert()
+    Cli::command().debug_assert();
 }

@@ -51,9 +51,9 @@ pub struct Cli {
 
 #[derive(Clone, Debug, ValueEnum)]
 pub enum Alphabet {
-    /// Los Angeles Police Department (LAPD)
+    /// Los Angeles Police Department
     Lapd,
-    /// North Atlantic Treaty Organization (NATO)
+    /// North Atlantic Treaty Organization
     Nato,
     /// United States Financial Industry
     UsFinancial,

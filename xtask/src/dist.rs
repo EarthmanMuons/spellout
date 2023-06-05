@@ -52,7 +52,7 @@ fn build_binary(config: &Config, binary: &str, dest_dir: &Path) -> Result<()> {
 
     let cmd_option = cargo_cmd(config, &sh);
     if let Some(cmd) = cmd_option {
-        let args = vec!["build", "--profile", "production", "--bin", binary];
+        let args = vec!["build", "--release", "--bin", binary];
         cmd.args(args).run()?;
     }
 
@@ -61,7 +61,7 @@ fn build_binary(config: &Config, binary: &str, dest_dir: &Path) -> Result<()> {
     } else {
         binary.to_string()
     };
-    let src = production_dir().join(&binary_filename);
+    let src = release_dir().join(&binary_filename);
     let dest = dest_dir.join(&binary_filename);
 
     fs::copy(&src, &dest)?;
@@ -121,8 +121,7 @@ fn generate_assets(config: &Config, binary: &str, dest_dir: &Path) -> Result<()>
         if let Some(cmd) = cmd_option {
             let args = vec![
                 "run",
-                "--profile",
-                "production",
+                "--release",
                 "--bin",
                 binary,
                 "--",
@@ -167,8 +166,8 @@ fn dist_dir() -> PathBuf {
     target_dir().join("dist")
 }
 
-fn production_dir() -> PathBuf {
-    target_dir().join("production")
+fn release_dir() -> PathBuf {
+    target_dir().join("release")
 }
 
 fn target_dir() -> PathBuf {

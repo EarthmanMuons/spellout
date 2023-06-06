@@ -13,7 +13,16 @@ license.workspace = true
 keywords = ["cli", "command-line", "formatting", "humanize", "text"]
 categories = ["command-line-utilities", "text-processing", "value-formatting"]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+# https://github.com/crate-ci/cargo-release/
+[package.metadata.release]
+pre-release-replacements = [
+  { file = "../../CHANGELOG.md", search = "Unreleased", replace = "{{version}}" },
+  { file = "../../CHANGELOG.md", search = "\\.\\.\\.HEAD", replace = "...{{tag_name}}", exactly = 1 },
+  { file = "../../CHANGELOG.md", search = "<!-- release-date -->", replace = "- {{date}}" },
+  { file = "../../CHANGELOG.md", search = "<!-- next-header -->", replace = "<!-- next-header -->\n\n## [Unreleased] <!-- release-date -->", exactly = 1 },
+  { file = "../../CHANGELOG.md", search = "<!-- next-url -->", replace = "<!-- next-url -->\n[Unreleased]: https://github.com/EarthmanMuons/spellout/compare/{{tag_name}}...HEAD", exactly = 1 },
+]
+tag-prefix = ""
 
 [dependencies]
 anyhow = "1.0.71"

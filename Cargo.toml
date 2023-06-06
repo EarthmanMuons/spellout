@@ -9,7 +9,7 @@ rust-version = "1.64"
 description = "Convert characters into their equivalent spelling alphabet code words"
 documentation = "https://github.com/EarthmanMuons/spellout/"
 readme = "README.md"
-homepage= "https://github.com/EarthmanMuons/spellout/"
+homepage = "https://github.com/EarthmanMuons/spellout/"
 repository = "https://github.com/EarthmanMuons/spellout/"
 license = "MIT OR Apache-2.0"
 publish = false
@@ -30,3 +30,10 @@ codegen-units = 1
 lto = true
 panic = "abort"
 strip = true
+
+# https://github.com/crate-ci/cargo-release/
+[workspace.metadata.release]
+publish = false
+push = false
+tag-message = "Release {{crate_name}} v{{version}}"
+verify = false

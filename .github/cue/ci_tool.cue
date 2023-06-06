@@ -34,7 +34,7 @@ command: "regen-ci-yaml": {
 			glob: file.Glob & {
 				glob: path.Join([_dir, "*.yml"])
 			}
-			for _, _filename in glob.files {
+			for _filename in glob.files {
 				"delete \(_filename)": file.RemoveAll & {
 					path: _filename
 				}

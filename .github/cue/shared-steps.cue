@@ -43,6 +43,13 @@ _#checkoutCode: _#step & {
 	uses: "actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab"
 }
 
+// https://github.com/actions/checkout/releases
+_#createPullRequest: _#step & {
+	id:   "cpr"
+	name: "Create pull request"
+	uses: "peter-evans/create-pull-request@284f54f989303d2699d373481a0cfa13ad5a6666"
+}
+
 // https://github.com/actions/deploy-pages/releases
 _#deployPages: _#step & {
 	id:   "deployment"

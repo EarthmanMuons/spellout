@@ -77,5 +77,6 @@ pub enum Asset {
 }
 
 fn get_version() -> &'static str {
+    // fallback if compiling from a source tarball without git
     option_env!("SPELLOUT_VERSION").unwrap_or(env!("CARGO_PKG_VERSION"))
 }

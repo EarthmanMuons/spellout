@@ -10,6 +10,7 @@ workflows: [...{
 }]
 
 workflows: [
+	{workflow: bumpVersion},
 	{workflow: githubActions},
 	{workflow: githubPages},
 	{workflow: preloadCaches},

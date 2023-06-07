@@ -64,6 +64,17 @@ _#filterChanges: _#step & {
 	uses: "dorny/paths-filter@4512585405083f25c027a35db413c2b3b9006d50"
 }
 
+// https://github.com/tibdex/github-app-token/releases
+_#generateToken: _#step & {
+	id:   "generate_token"
+	name: "Generate a GitHub App token"
+	uses: "tibdex/github-app-token@b62528385c34dbc9f38e5f4225ac829252d1ea92"
+	with: {
+		app_id:      "${{ secrets.APP_ID }}"
+		private_key: "${{ secrets.APP_PRIVATE_KEY }}"
+	}
+}
+
 // https://github.com/cue-lang/setup-cue/commits/main
 _#installCue: _#step & {
 	name: "Install CUE \(with.version)"
@@ -104,10 +115,11 @@ _#pathsFilter: _#step & {
 }
 
 // https://github.com/creyD/prettier_action/releases
-_#prettier: _#step & {
+_prettierVersion: "2.8.8"
+_#prettier:       _#step & {
 	name: "Check formatting"
 	uses: "creyD/prettier_action@31355f8eef017f8aeba2e0bc09d8502b13dbbad1"
-	with: prettier_version: "2.8.8"
+	with: prettier_version: _prettierVersion
 }
 
 _setupMsrv: [

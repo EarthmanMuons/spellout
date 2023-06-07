@@ -73,11 +73,11 @@ bumpVersion: {
 			},
 			// the changelog spacing will need a fixup
 			_#prettier & {
-				with: prettier_options: "--color --prose-wrap always --write"
+				with: prettier_options: "--color --prose-wrap always --write **/*.md"
 			},
 			_#createPullRequest & {with: {
 				"branch-suffix":  "short-commit-hash"
-				"commit-message": "Prepare next {{ inputs.level }} release of {{ inputs.package }}"
+				"commit-message": "[{{ inputs.package }}] Prepare next {{ inputs.level }} release"
 				title:            "[{{ inputs.package }}] Prepare next {{ inputs.level }} release"
 				body: """
 					This PR was auto-generated and ran the following commands:
@@ -87,7 +87,7 @@ bumpVersion: {
 					$ cargo install --locked cargo-release
 					$ cargo release version --execute --no-confirm --package "{{ inputs.package }}" "{{ inputs.level }}"
 					$ cargo release replace --execute --no-confirm --package "{{ inputs.package }}"
-					$ prettier --prose-wrap always --write
+					$ prettier --prose-wrap always --write **/*.md
 					```
 
 					Please review the submitted changes. After merging, the rebased commit will automatically be tagged and a draft release will be opened.

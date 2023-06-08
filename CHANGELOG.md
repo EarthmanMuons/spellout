@@ -12,7 +12,10 @@ The format is based on [Keep a Changelog][1], and this project adheres to
 
 ## [Unreleased] <!-- release-date -->
 
+## [0.1.1] - 2023-06-08
+
 <!-- next-url -->
 
-[Unreleased]: https://github.com/EarthmanMuons/spellout/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/EarthmanMuons/spellout/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/EarthmanMuons/spellout/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/EarthmanMuons/spellout/commits/v0.1.0

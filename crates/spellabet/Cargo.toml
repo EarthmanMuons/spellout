@@ -12,6 +12,7 @@ repository = "https://github.com/EarthmanMuons/spellout/tree/main/crates/spellab
 license.workspace = true
 keywords = ["formatting", "humanize", "text"]
 categories = ["text-processing", "value-formatting"]
+publish = true
 
 # https://github.com/crate-ci/cargo-release/
 [package.metadata.release]

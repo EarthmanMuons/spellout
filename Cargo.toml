@@ -12,7 +12,6 @@ readme = "README.md"
 homepage = "https://github.com/EarthmanMuons/spellout/"
 repository = "https://github.com/EarthmanMuons/spellout/"
 license = "MIT OR Apache-2.0"
-publish = false
 
 [profile.dev]
 # Disabling debug info speeds up builds a bunch,
@@ -34,8 +33,6 @@ strip = true
 # https://github.com/crate-ci/cargo-release/
 [workspace.metadata.release]
 allow-branch = ["main"]
-publish = false
 push = false
 tag = false
 tag-message = "Release {{crate_name}} v{{version}}"
-verify = false

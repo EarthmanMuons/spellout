@@ -15,6 +15,9 @@ jobs:
   tagUntagged:
     name: tag untagged package releases
     runs-on: ubuntu-latest
+    env:
+      GIT_COMMITTER_EMAIL: noreply@github.com
+      GIT_COMMITTER_NAME: GitHub
     steps:
       - id: generate_token
         name: Generate a GitHub App token
@@ -26,6 +29,7 @@ jobs:
         uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
         with:
           ref: main
+          token: ${{ steps.generate_token.outputs.token }}
       - name: Install stable Rust toolchain
         uses: dtolnay/rust-toolchain@b44cb146d03e8d870c57ab64b80f04586349ca5d
         with:
@@ -42,6 +46,4 @@ jobs:
       - name: Add any missing tags
         run: cargo release tag -v --execute --no-confirm
       - name: Push any new tags
-        env:
-          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
         run: cargo release push -v --execute --no-confirm

@@ -20,9 +20,16 @@ autoTagReleases: {
 	jobs: tagUntagged: {
 		name:      "tag untagged package releases"
 		"runs-on": defaultRunner
+		env: {
+			GIT_COMMITTER_EMAIL: "noreply@github.com"
+			GIT_COMMITTER_NAME:  "GitHub"
+		}
 		steps: [
 			_#generateToken,
-			_#checkoutCode & {with: ref: defaultBranch},
+			_#checkoutCode & {with: {
+				ref:   defaultBranch
+				token: "${{ steps.generate_token.outputs.token }}"
+			}},
 			_#installRust,
 			_#cacheRust,
 			_#installTool & {with: tool: "cargo-release"},
@@ -32,8 +39,7 @@ autoTagReleases: {
 			},
 			{
 				name: "Push any new tags"
-				env: GITHUB_TOKEN: "${{ steps.generate_token.outputs.token }}"
-				run: "cargo release push -v --execute --no-confirm"
+				run:  "cargo release push -v --execute --no-confirm"
 			},
 		]
 	}

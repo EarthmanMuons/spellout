@@ -12,6 +12,7 @@ workflows: [...{
 workflows: [
 	{workflow: autoTagReleases},
 	{workflow: bumpVersion},
+	{workflow: draftRelease},
 	{workflow: githubActions},
 	{workflow: githubPages},
 	{workflow: preloadCaches},

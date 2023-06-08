@@ -21,7 +21,7 @@ publishCrate: {
 			_#cacheRust,
 			_#installTool & {with: tool: "cargo-release"},
 			{
-				name: "Publish any unpublished crates to crates.io"
+				name: "Publish crate to crates.io"
 				env: CARGO_REGISTRY_TOKEN: "${{ secrets.CARGO_REGISTRY_TOKEN }}"
 				run: """
 					cargo release publish -v --execute --no-confirm --allow-branch="HEAD"

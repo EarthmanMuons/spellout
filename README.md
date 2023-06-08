@@ -1,25 +1,22 @@
-# spellout &emsp; [![CI Status]][actions]
+# spellout
 
-[CI Status]:
-  https://img.shields.io/github/actions/workflow/status/EarthmanMuons/spellout/rust.yml?event=merge_group&label=CI&logo=github
-[actions]:
-  https://github.com/EarthmanMuons/spellout/actions?query=event%3Amerge_group
+**Convert characters into spelling alphabet code words.**
 
-**Convert characters into their equivalent spelling alphabet code words.**
+[![CI status](https://img.shields.io/github/actions/workflow/status/EarthmanMuons/spellout/rust.yml?event=merge_group&label=ci&logo=github)](https://github.com/EarthmanMuons/spellout/actions?query=event%3Amerge_group)
 
 ---
 
-spellout is a command-line application for transforming text strings into their
-equivalent code words based on predefined [spelling alphabets][]. These spelling
-alphabets, such as the NATO phonetic alphabet, are designed to boost verbal
-clarity, particluarly when spelling out words over low-fidelity voice channels.
-The application supports multiple standard alphabets and allows for
-customization to suit specific communication needs.
+A command-line application for transforming text strings into corresponding code
+words based on predefined [spelling alphabets][], like the NATO phonetic
+alphabet. These alphabets are designed to enhance verbal clarity, especially
+when spelling out words over low-fidelity voice channels. This library supports
+several standard alphabets and allows for customization to suit specific
+communication needs.
 
-In its operation, spellout will maintain the original capitalization of letters
-by returning either lowercase or uppercase code words. Known digits and other
-symbols undergo the same conversion process into code words. Unrecognized
-characters are returned as is, without conversion.
+In operation, spellout preserves the original capitalization of letters by
+returning either lowercase or uppercase code words. It similarly converts known
+digits and other symbols into code words, while unrecognized characters are
+returned unconverted.
 
 [spelling alphabets]: https://en.wikipedia.org/wiki/Spelling_alphabet
 
@@ -139,7 +136,11 @@ module written by [James FitzGibbon][@jf647].
 spellout is distributed under the terms of both the Apache License (Version 2.0)
 and the MIT License.
 
-See [LICENSE-APACHE](LICENSE-APACHE) and [LICENSE-MIT](LICENSE-MIT) for details.
+See [LICENSE-APACHE][] and [LICENSE-MIT][] for details.
+
+[LICENSE-APACHE]:
+  https://github.com/EarthmanMuons/spellout/blob/main/LICENSE-APACHE
+[LICENSE-MIT]: https://github.com/EarthmanMuons/spellout/blob/main/LICENSE-MIT
 
 ## Contribution
 
@@ -147,5 +148,8 @@ Unless you explicitly state otherwise, any contribution intentionally submitted
 for inclusion in the work by you, as defined in the Apache-2.0 license, shall be
 dual licensed as above, without any additional terms or conditions.
 
-If you would like to contribute to the project, please read our
-[guide for contributors](CONTRIBUTING.md).
+If you would like to contribute to the project, please read our [guide for
+contributors][CONTRIBUTING.md].
+
+[CONTRIBUTING.md]:
+  https://github.com/EarthmanMuons/spellout/blob/main/CONTRIBUTING.md

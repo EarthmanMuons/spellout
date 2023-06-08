@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog][1], and this project adheres to
 
 ## [Unreleased] <!-- release-date -->
 
+### Added
+
+- Initial release; published to https://crates.io/.
+
 <!-- next-url -->
 
 [Unreleased]:

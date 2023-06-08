@@ -3,17 +3,24 @@
 
 //! # Spelling Alphabet
 //!
-//! A library for converting text string characters into their equivalent
-//! [spelling alphabet](https://en.wikipedia.org/wiki/Spelling_alphabet) code words.
+//! A Rust library for transforming text strings into corresponding code words
+//! based on predefined [spelling alphabets][], like the NATO phonetic alphabet.
+//! These alphabets are designed to enhance verbal clarity, especially when
+//! spelling out words over low-fidelity voice channels. This library supports
+//! several standard alphabets and allows for customization to suit specific
+//! communication needs.
+//!
+//! In operation, spellabet preserves the original capitalization of letters by
+//! returning either lowercase or uppercase code words. It similarly converts
+//! known digits and other symbols into code words, while unrecognized
+//! characters are returned unconverted.
 //!
 //! This library powers the command line utility `spellout`, which provides a
-//! handy interface for phonetic conversions. Check out
-//! [`spellout` on GitHub](https://github.com/EarthmanMuons/spellout/) for more information.
+//! handy interface for phonetic conversions. Check out [`spellout` on GitHub][]
+//! for more information.
 //!
-//! In its operation, spellabet will maintain the original capitalization of
-//! letters by returning either lowercase or uppercase code words. Known digits
-//! and other symbols undergo the same conversion process into code words.
-//! Unrecognized characters are returned as is, without conversion.
+//! [spelling alphabets]: https://en.wikipedia.org/wiki/Spelling_alphabet
+//! [`spellout` on GitHub]: https://github.com/EarthmanMuons/spellout/
 //!
 //! # Example
 //!

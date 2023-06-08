@@ -4,7 +4,7 @@ version = "0.1.0"
 authors.workspace = true
 edition.workspace = true
 rust-version.workspace = true
-description = "My library description."
+description = "Convert characters into spelling alphabet code words"
 documentation = "https://earthmanmuons.github.io/spellout/spellabet/index.html"
 readme = "README.md"
 homepage = "https://github.com/EarthmanMuons/spellout/tree/main/crates/spellabet"
@@ -24,6 +24,7 @@ pre-release-replacements = [
   { file = "CHANGELOG.md", search = "<!-- next-url -->", replace = "<!-- next-url -->\n[Unreleased]: https://github.com/EarthmanMuons/spellout/compare/{{tag_name}}...HEAD", exactly = 1 },
   { file = "README.md", search = "spellabet = .*", replace = "{{crate_name}} = \"{{version}}\"" },
 ]
+tag = true
 
 [dependencies]
 convert_case = "0.6.0"

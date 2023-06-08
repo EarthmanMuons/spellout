@@ -1,24 +1,23 @@
-# spellabet &emsp; [![MSRV]][rust-version]
+# spellabet
 
-[MSRV]: https://img.shields.io/badge/MSRV-1.64-blue
-[rust-version]:
-  https://doc.rust-lang.org/cargo/reference/manifest.html#the-rust-version-field
+**Convert characters into spelling alphabet code words.**
 
-**Convert characters into their equivalent spelling alphabet code words.**
+[![CI status](https://img.shields.io/github/actions/workflow/status/EarthmanMuons/spellout/rust.yml?event=merge_group&label=ci&logo=github)](https://github.com/EarthmanMuons/spellout/actions?query=event%3Amerge_group)
+[![crates.io](https://img.shields.io/crates/v/spellabet)](https://crates.io/crates/spellabet/)
+[![MSRV](https://img.shields.io/badge/rust-1.64%2B-blue)](https://doc.rust-lang.org/cargo/reference/manifest.html#the-rust-version-field)
 
 ---
 
-spellabet is a Rust library for transforming text strings into their equivalent
-code words based on predefined [spelling alphabets][]. These spelling alphabets,
-such as the NATO phonetic alphabet, are designed to boost verbal clarity,
-particluarly when spelling out words over low-fidelity voice channels. The
-library supports multiple standard alphabets and allows for customization to
-suit specific communication needs.
+A Rust library for transforming text strings into corresponding code words based
+on predefined [spelling alphabets][], like the NATO phonetic alphabet. These
+alphabets are designed to enhance verbal clarity, especially when spelling out
+words over low-fidelity voice channels. This library supports several standard
+alphabets and allows for customization to suit specific communication needs.
 
-In its operation, spellabet will maintain the original capitalization of letters
-by returning either lowercase or uppercase code words. Known digits and other
-symbols undergo the same conversion process into code words. Unrecognized
-characters are returned as is, without conversion.
+In operation, spellabet preserves the original capitalization of letters by
+returning either lowercase or uppercase code words. It similarly converts known
+digits and other symbols into code words, while unrecognized characters are
+returned unconverted.
 
 [spelling alphabets]: https://en.wikipedia.org/wiki/Spelling_alphabet
 
@@ -58,10 +57,37 @@ Detailed examples and generated API reference documentation can be found at
 - MSRV increases are considered regular changes, not breaking changes, in terms
   of Semantic Versioning.
 
+## Credits
+
+spellabet was inspired by the output from the no-longer-in-existence [WinGuides
+Secure Password Generator][WinGuides] that disappeared back in January 2007, and
+the similarly inspired [Lingua::Alphabet::Phonetic::Password][Lingua] Perl
+module written by [James FitzGibbon][@jf647].
+
+[WinGuides]:
+  https://web.archive.org/web/20070106073206/www.winguides.com/security/password.php
+[Lingua]: https://github.com/jf647/Lingua-Alphabet-Phonetic-Password/
+[@jf647]: https://github.com/jf647/
+
 ## License
 
 spellabet is distributed under the terms of both the Apache License (Version
 2.0) and the MIT License.
 
-See [LICENSE-APACHE](../../LICENSE-APACHE) and [LICENSE-MIT](../../LICENSE-MIT)
-for details.
+See [LICENSE-APACHE][] and [LICENSE-MIT][] for details.
+
+[LICENSE-APACHE]:
+  https://github.com/EarthmanMuons/spellout/blob/main/LICENSE-APACHE
+[LICENSE-MIT]: https://github.com/EarthmanMuons/spellout/blob/main/LICENSE-MIT
+
+## Contribution
+
+Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in the work by you, as defined in the Apache-2.0 license, shall be
+dual licensed as above, without any additional terms or conditions.
+
+If you would like to contribute to the project, please read our [guide for
+contributors][CONTRIBUTING.md].
+
+[CONTRIBUTING.md]:
+  https://github.com/EarthmanMuons/spellout/blob/main/CONTRIBUTING.md

@@ -10,6 +10,7 @@ workflows: [...{
 }]
 
 workflows: [
+	{workflow: autoTagReleases},
 	{workflow: bumpVersion},
 	{workflow: githubActions},
 	{workflow: githubPages},

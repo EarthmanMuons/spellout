@@ -43,10 +43,7 @@ bumpVersion: {
 		"runs-on": defaultRunner
 		steps: [
 			_#generateToken,
-			_#checkoutCode & {with: {
-				ref:   defaultBranch
-				token: "${{ steps.generate_token.outputs.token }}"
-			}},
+			_#checkoutCode & {with: ref: defaultBranch},
 			_#installRust,
 			_#cacheRust,
 			_#installTool & {with: tool: "cargo-release"},

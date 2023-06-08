@@ -16,7 +16,7 @@ publishCrate: {
 	}
 
 	jobs: publishUnpublished: {
-		name:      "publish unpublished crate releases"
+		name:      "publish unpublished"
 		"runs-on": defaultRunner
 		steps: [
 			_#checkoutCode,
@@ -26,7 +26,9 @@ publishCrate: {
 			{
 				name: "Publish any unpublished crates to crates.io"
 				env: CARGO_REGISTY_TOKEN: "${{ secrets.CARGO_REGISTRY_TOKEN }}"
-				run: "cargo release publish -v --execute --no-confirm"
+				run: """
+					cargo release publish -v --execute --no-confirm --allow-branch="$GITHUB_REF"
+					"""
 			},
 		]
 	}

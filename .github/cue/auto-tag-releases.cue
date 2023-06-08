@@ -18,7 +18,7 @@ autoTagReleases: {
 	}
 
 	jobs: tagUntagged: {
-		name:      "tag untagged package releases"
+		name:      "tag untagged"
 		"runs-on": defaultRunner
 		env: {
 			GIT_COMMITTER_EMAIL: "noreply@github.com"

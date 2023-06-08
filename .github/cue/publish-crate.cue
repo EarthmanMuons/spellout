@@ -22,7 +22,7 @@ publishCrate: {
 			_#installTool & {with: tool: "cargo-release"},
 			{
 				name: "Publish any unpublished crates to crates.io"
-				env: CARGO_REGISTY_TOKEN: "${{ secrets.CARGO_REGISTRY_TOKEN }}"
+				env: CARGO_REGISTRY_TOKEN: "${{ secrets.CARGO_REGISTRY_TOKEN }}"
 				run: """
 					cargo release publish -v --execute --no-confirm --allow-branch="HEAD"
 					"""

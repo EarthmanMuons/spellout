@@ -15,6 +15,12 @@ _sha1: =~"^[0-9a-fA-F]{40}$"
 // all third-party actions must be pinned to a specific commit id
 _#step: uses?: #pinned
 
+_#githubRelease: _#step & {
+	id:   "gh_release"
+	name: "Create a new GitHub draft release"
+	uses: "softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844"
+}
+
 // https://github.com/raven-actions/actionlint/releases
 _#actionlint: _#step & {
 	name: "Check lints"

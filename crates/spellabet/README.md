@@ -45,8 +45,9 @@ ECHO x-ray alfa mike papa lima echo One Two Tree Exclamation
 
 ## Documentation
 
-Detailed examples and generated API reference documentation can be found at
-<https://earthmanmuons.github.io/spellout/spellabet/index.html>
+For detailed examples of using this library, along with the latest generated API
+reference documentation, please visit
+<https://earthmanmuons.github.io/spellout/spellabet/index.html>.
 
 ## Minimum Supported Rust Version (MSRV) Policy
 

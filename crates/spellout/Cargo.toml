@@ -12,6 +12,7 @@ repository.workspace = true
 license.workspace = true
 keywords = ["cli", "command-line", "formatting", "humanize", "text"]
 categories = ["command-line-utilities", "text-processing", "value-formatting"]
+publish = false
 
 # https://github.com/crate-ci/cargo-release/
 [package.metadata.release]

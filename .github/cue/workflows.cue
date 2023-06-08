@@ -15,6 +15,7 @@ workflows: [
 	{workflow: githubActions},
 	{workflow: githubPages},
 	{workflow: preloadCaches},
+	{workflow: publishCrate},
 	{workflow: labeler},
 	{workflow: rust},
 	{workflow: scheduled},

@@ -33,7 +33,9 @@ strip = true
 
 # https://github.com/crate-ci/cargo-release/
 [workspace.metadata.release]
+allow-branch = ["main"]
 publish = false
 push = false
+tag = false
 tag-message = "Release {{crate_name}} v{{version}}"
 verify = false

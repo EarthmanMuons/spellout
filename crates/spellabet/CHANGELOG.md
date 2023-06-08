@@ -12,8 +12,12 @@ The format is based on [Keep a Changelog][1], and this project adheres to
 
 ## [Unreleased] <!-- release-date -->
 
+## [0.2.0] - 2023-06-08
+
 <!-- next-url -->
 
 [Unreleased]:
-  https://github.com/EarthmanMuons/spellout/compare/spellabet-v0.1.0...HEAD
+  https://github.com/EarthmanMuons/spellout/compare/spellabet-v0.2.0...HEAD
+[0.2.0]:
+  https://github.com/EarthmanMuons/spellout/compare/spellabet-v0.1.0...spellabet-v0.2.0
 [0.1.0]: https://github.com/EarthmanMuons/spellout/commits/spellabet-v0.1.0

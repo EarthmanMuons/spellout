@@ -28,7 +28,7 @@ To use the crate, add it as dependency in your `Cargo.toml` file:
 
 ```toml
 [dependencies]
-spellabet = "0.1.0"
+spellabet = "0.2.0"
 ```
 
 ### Example

@@ -3,10 +3,7 @@ package workflows
 publishCrate: {
 	name: "publish-crate"
 
-	on: push: tags: [
-		"*-v[0-9]+.[0-9]+.[0-9]+",
-		"v[0-9]+.[0-9]+.[0-9]+",
-	]
+	on: push: tags: [ "*-v[0-9]+.[0-9]+.[0-9]+"]
 
 	env: {
 		CARGO_INCREMENTAL: 0
@@ -27,7 +24,7 @@ publishCrate: {
 				name: "Publish any unpublished crates to crates.io"
 				env: CARGO_REGISTY_TOKEN: "${{ secrets.CARGO_REGISTRY_TOKEN }}"
 				run: """
-					cargo release publish -v --execute --no-confirm --allow-branch="$GITHUB_REF"
+					cargo release publish -v --execute --no-confirm --allow-branch="HEAD"
 					"""
 			},
 		]

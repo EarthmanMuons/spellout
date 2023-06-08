@@ -74,10 +74,13 @@ fn build_binary(config: &Config, binary: &str, dest_dir: &Path) -> Result<()> {
 fn copy_docs(dest_dir: &Path) -> Result<()> {
     for file in [
         "CHANGELOG.md",
+        "COPYING",
         "LICENSE",
         "LICENSE-APACHE",
         "LICENSE-MIT",
+        "NOTICE",
         "README.md",
+        "UNLICENSE",
     ] {
         let src = PathBuf::from(file);
         if src.exists() {

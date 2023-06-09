@@ -55,28 +55,27 @@ draftRelease: {
 			env: GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 			steps: [
 				_#checkoutCode,
+				{
+					name: "Install musl tools"
+					if:   "matrix.os == 'ubuntu-latest'"
+					run:  "sudo apt-get install -y musl-tools"
+				},
 				_#installRust,
 				_#cacheRust,
-				_#setupCrossToolchain & {with: target: "${{ matrix.target }}"},
+				_#installTool & {with: tool: "cross"},
 				{
 					name: "Building release assets"
-					run:  "cargo xtask dist"
+					env: {
+						CARGO:              "cross"
+						CARGO_BUILD_TARGET: "${{ matrix.target }}"
+					}
+					run: "cargo xtask dist"
 				},
 				{
-					name: "Uploading Unix release assets"
-					if:   "matrix.os != 'windows-latest'"
+					name: "Uploading release assets"
 					run: """
-						filename="spellout-${GITHUB_REF_NAME:1}-${{ matrix.target }}.tar.gz"
-						echo "Uploading ${filename} to: ${{ needs.create_release.outputs.upload_url }}"
-						gh release upload "$GITHUB_REF_NAME" "target/dist/${filename}"
-						echo "- Uploaded release asset ${filename}" >>"$GITHUB_STEP_SUMMARY"
-						"""
-				},
-				{
-					name: "Uploading Windows release assets"
-					if:   "matrix.os == 'windows-latest'"
-					run: """
-						filename="spellout-${GITHUB_REF_NAME:1}-${{ matrix.target }}.zip"
+						[[ "${{ matrix.os }}" == "windows-latest" ]] && extension="zip" || extension="tar.gz" 
+						filename="spellout-${GITHUB_REF_NAME:1}-${{ matrix.target }}.${extension}"
 						echo "Uploading ${filename} to: ${{ needs.create_release.outputs.upload_url }}"
 						gh release upload "$GITHUB_REF_NAME" "target/dist/${filename}"
 						echo "- Uploaded release asset ${filename}" >>"$GITHUB_STEP_SUMMARY"

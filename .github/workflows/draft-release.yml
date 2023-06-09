@@ -59,6 +59,9 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+      - name: Install musl tools
+        if: matrix.os == 'ubuntu-latest'
+        run: sudo apt-get install -y musl-tools
       - name: Install stable Rust toolchain
         uses: dtolnay/rust-toolchain@b44cb146d03e8d870c57ab64b80f04586349ca5d
         with:
@@ -68,23 +71,14 @@ jobs:
         with:
           shared-key: stable-ubuntu-latest
         timeout-minutes: 5
-      - name: Install cross-compilation tools
-        uses: taiki-e/setup-cross-toolchain-action@72aa8c8cf5d6c160e251489bfd8361e78d22b3a2
+      - name: Install cross
+        uses: taiki-e/install-action@835cdc15ee7680334982c900847bcafb86487299
         with:
-          target: ${{ matrix.target }}
+          tool: cross
       - name: Building release assets
+        env:
+          CARGO: cross
+          CARGO_BUILD_TARGET: ${{ matrix.target }}
         run: cargo xtask dist
-      - name: Uploading Unix release assets
-        if: matrix.os != 'windows-latest'
-        run: |-
-          filename="spellout-${GITHUB_REF_NAME:1}-${{ matrix.target }}.tar.gz"
-          echo "Uploading ${filename} to: ${{ needs.create_release.outputs.upload_url }}"
-          gh release upload "$GITHUB_REF_NAME" "target/dist/${filename}"
-          echo "- Uploaded release asset ${filename}" >>"$GITHUB_STEP_SUMMARY"
-      - name: Uploading Windows release assets
-        if: matrix.os == 'windows-latest'
-        run: |-
-          filename="spellout-${GITHUB_REF_NAME:1}-${{ matrix.target }}.zip"
-          echo "Uploading ${filename} to: ${{ needs.create_release.outputs.upload_url }}"
-          gh release upload "$GITHUB_REF_NAME" "target/dist/${filename}"
-          echo "- Uploaded release asset ${filename}" >>"$GITHUB_STEP_SUMMARY"
+      - name: Uploading release assets
+        run: "[[ \"${{ matrix.os }}\" == \"windows-latest\" ]] && extension=\"zip\" || extension=\"tar.gz\" \nfilename=\"spellout-${GITHUB_REF_NAME:1}-${{ matrix.target }}.${extension}\"\necho \"Uploading ${filename} to: ${{ needs.create_release.outputs.upload_url }}\"\ngh release upload \"$GITHUB_REF_NAME\" \"target/dist/${filename}\"\necho \"- Uploaded release asset ${filename}\" >>\"$GITHUB_STEP_SUMMARY\""

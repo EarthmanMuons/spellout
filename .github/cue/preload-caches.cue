@@ -79,17 +79,17 @@ preloadCaches: {
 			defaults: run: shell: "bash"
 			strategy: {
 				"fail-fast": false
-				matrix: platform: [
+				matrix: os: [
 					"macos-latest",
 					"ubuntu-latest",
 					"windows-latest",
 				]
 			}
-			"runs-on": "${{ matrix.platform }}"
+			"runs-on": "${{ matrix.os }}"
 			steps: [
 				_#checkoutCode,
 				_#installRust,
-				_#cacheRust & {with: "shared-key": "stable-${{ matrix.platform }}"},
+				_#cacheRust & {with: "shared-key": "stable-${{ matrix.os }}"},
 				_#installTool & {with: tool:       "cargo-nextest"},
 				_#cargoCheck,
 			]

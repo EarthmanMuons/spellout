@@ -128,6 +128,12 @@ _#prettier:       _#step & {
 	with: prettier_version: _prettierVersion
 }
 
+// https://github.com/taiki-e/setup-cross-toolchain-action/releases
+_#setupCrossToolchain: _#step & {
+	name: "Install cross-compilation tools"
+	uses: "taiki-e/setup-cross-toolchain-action@72aa8c8cf5d6c160e251489bfd8361e78d22b3a2"
+}
+
 _setupMsrv: [
 	{
 		id:   "msrv"

@@ -71,9 +71,12 @@ draftRelease: {
 				{
 					name: "Uploading release assets"
 					if:   "matrix.os != 'windows-latest'"
+					env: GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 					run: """
-						ls target/dist/
-						echo "Uploading spellout-${GITHUB_REF_NAME:1}-${{ matrix.target }}.tar.gz to: ${{ needs.create_release.outputs.upload_url }}"
+						filename="spellout-${GITHUB_REF_NAME:1}-${{ matrix.target }}.tar.gz"
+						echo "Uploading ${filename} to: ${{ needs.create_release.outputs.upload_url }}"
+						gh release upload "$GITHUB_REF_NAME" "target/dist/${filename}"
+						echo "- Uploaded release asset ${filename}" >>"$GITHUB_STEP_SUMMARY"
 						"""
 				},
 			]

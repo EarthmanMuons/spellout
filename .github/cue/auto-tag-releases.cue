@@ -41,7 +41,7 @@ autoTagReleases: {
 					{
 					  echo "TAGS_BEFORE<<$EOF"
 					  git tag --list
-					  echo "EOF"
+					  echo "$EOF"
 					} >>"$GITHUB_ENV"
 					"""
 			},
@@ -60,7 +60,7 @@ autoTagReleases: {
 					{
 					  echo "TAGS_AFTER<<$EOF"
 					  git tag --list
-					  echo "EOF"
+					  echo "$EOF"
 					} >>"$GITHUB_ENV"
 					"""
 			},

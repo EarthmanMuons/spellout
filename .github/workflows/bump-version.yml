@@ -88,4 +88,4 @@ jobs:
 
             Once this PR is merged into the _main_ branch, an automated process will tag the rebased commit.
       - name: Annotate workflow run with PR URL
-        run: 'echo "#### :shipit: Opened pull request for ${{ inputs.package }} v${{ env.release_version }}: ${{ steps.cpr.outputs.pull-request-url }}" >> "$GITHUB_STEP_SUMMARY"'
+        run: 'echo "### :shipit: Opened pull request for ${{ inputs.package }} v${{ env.release_version }}: #${{ steps.cpr.outputs.pull-request-number }}" >> "$GITHUB_STEP_SUMMARY"'

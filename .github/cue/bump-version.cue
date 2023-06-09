@@ -101,7 +101,7 @@ bumpVersion: {
 			{
 				name: "Annotate workflow run with PR URL"
 				run: """
-					echo "#### :shipit: Opened pull request for ${{ inputs.package }} v${{ env.release_version }}: ${{ steps.cpr.outputs.pull-request-url }}" >> "$GITHUB_STEP_SUMMARY"
+					echo "### :shipit: Opened pull request for ${{ inputs.package }} v${{ env.release_version }}: #${{ steps.cpr.outputs.pull-request-number }}" >> "$GITHUB_STEP_SUMMARY"
 					"""
 			},
 		]

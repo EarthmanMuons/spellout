@@ -67,7 +67,7 @@ autoTagReleases: {
 			{
 				name: "Annotate workflow run with new tags"
 				run: """
-					echo "#### :sparkles: New tags:" >> "$GITHUB_STEP_SUMMARY";
+					echo "### :sparkles: New tags:" >> "$GITHUB_STEP_SUMMARY";
 					comm -3 <(echo "${{ env.TAGS_BEFORE }}") <(echo "${{ env.TAGS_AFTER }}") | sed -e 's/^[[:space:]]*//' -e 's/^/- /' >> "$GITHUB_STEP_SUMMARY";
 					"""
 			},

@@ -63,5 +63,5 @@ jobs:
       - name: Uploading release assets
         if: matrix.os != 'windows-latest'
         run: |-
-          ls package/dist/
-          echo "Uploading 'spellout-${GITHUB_REF_NAME:1}-${{ matrix.target }}.tar.gz' to: ${{ needs.create_release.outputs.upload_url }}"
+          ls target/dist/
+          echo "Uploading spellout-${GITHUB_REF_NAME:1}-${{ matrix.target }}.tar.gz to: ${{ needs.create_release.outputs.upload_url }}"

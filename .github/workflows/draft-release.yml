@@ -66,6 +66,7 @@ jobs:
         uses: dtolnay/rust-toolchain@b44cb146d03e8d870c57ab64b80f04586349ca5d
         with:
           toolchain: stable
+          targets: ${{ matrix.target }}
       - name: Cache dependencies
         uses: Swatinem/rust-cache@988c164c3d0e93c4dbab36aaf5bbeb77425b2894
         with:

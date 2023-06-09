@@ -60,7 +60,7 @@ draftRelease: {
 					if:   "matrix.os == 'ubuntu-latest'"
 					run:  "sudo apt-get install -y musl-tools"
 				},
-				_#installRust,
+				_#installRust & {with: targets: "${{ matrix.target }}"},
 				_#cacheRust,
 				_#installTool & {with: tool: "cross"},
 				{

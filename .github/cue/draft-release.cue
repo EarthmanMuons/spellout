@@ -7,8 +7,15 @@ draftRelease: {
 
 	permissions: contents: "write"
 
+	env: {
+		CARGO_INCREMENTAL: 0
+		CARGO_TERM_COLOR:  "always"
+		RUST_BACKTRACE:    1
+		RUSTFLAGS:         "-D warnings"
+	}
+
 	jobs: {
-		draft_release: {
+		create_release: {
 			name:      "create draft release"
 			"runs-on": defaultRunner
 			outputs: {
@@ -18,9 +25,8 @@ draftRelease: {
 			steps: [
 				_#checkoutCode,
 				_#githubRelease & {with: {
-					draft:                    true
-					generate_release_notes:   true
-					discussion_category_name: "announcements"
+					draft:                  true
+					generate_release_notes: true
 				}},
 				{
 					name: "Annotate workflow run with draft release URL"
@@ -31,15 +37,43 @@ draftRelease: {
 			]
 		}
 
-		upload_artifacts: {
-			name: "upload release artifacts"
-			needs: ["draft_release"]
-			"runs-on": defaultRunner
-			steps: [
+		upload_assets: {
+			name: "upload release assets"
+			needs: ["create_release"]
+			strategy: matrix: include: [
+				// {
+				// 	target: "aarch64-apple-darwin"
+				// 	os:     "macos-latest"
+				// },
 				{
-					name: "Building release artifacts"
+					target: "aarch64-unknown-linux-gnu"
+					os:     "ubuntu-latest"
+				},
+				// {
+				// 	target: "x86_64-apple-darwin"
+				// 	os:     "macos-latest"
+				// },
+				{
+					target: "x86_64-unknown-linux-gnu"
+					os:     "ubuntu-latest"
+				},
+			]
+			"runs-on": "${{ matrix.os }}"
+			steps: [
+				_#checkoutCode,
+				_#installRust,
+				_#cacheRust,
+				_#setupCrossToolchain & {with: target: "${{ matrix.target }}"},
+				{
+					name: "Building release assets"
+					run:  "cargo xtask dist"
+				},
+				{
+					name: "Uploading release assets"
+					if:   "matrix.os != 'windows-latest'"
 					run: """
-						echo "Uploading to ${{ needs.draft_release.outputs.upload_url }}"
+						ls package/dist/
+						echo "Uploading 'spellout-${GITHUB_REF_NAME:1}-${{ matrix.target }}.tar.gz' to: ${{ needs.create_release.outputs.upload_url }}"
 						"""
 				},
 			]

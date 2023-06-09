@@ -7,8 +7,13 @@ name: draft-release
       - v[0-9]+.[0-9]+.[0-9]+
 permissions:
   contents: write
+env:
+  CARGO_INCREMENTAL: 0
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: 1
+  RUSTFLAGS: -D warnings
 jobs:
-  draft_release:
+  create_release:
     name: create draft release
     runs-on: ubuntu-latest
     outputs:
@@ -23,14 +28,40 @@ jobs:
         with:
           draft: true
           generate_release_notes: true
-          discussion_category_name: announcements
       - name: Annotate workflow run with draft release URL
         run: 'echo "#### :shipit: Opened draft release for: [spellout ${{ github.ref_name }}](${{ steps.gh_release.outputs.url }})" >> "$GITHUB_STEP_SUMMARY"'
-  upload_artifacts:
-    name: upload release artifacts
+  upload_assets:
+    name: upload release assets
     needs:
-      - draft_release
-    runs-on: ubuntu-latest
+      - create_release
+    strategy:
+      matrix:
+        include:
+          - target: aarch64-unknown-linux-gnu
+            os: ubuntu-latest
+          - target: x86_64-unknown-linux-gnu
+            os: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     steps:
-      - name: Building release artifacts
-        run: echo "Uploading to ${{ needs.draft_release.outputs.upload_url }}"
+      - name: Checkout source code
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+      - name: Install stable Rust toolchain
+        uses: dtolnay/rust-toolchain@b44cb146d03e8d870c57ab64b80f04586349ca5d
+        with:
+          toolchain: stable
+      - name: Cache dependencies
+        uses: Swatinem/rust-cache@988c164c3d0e93c4dbab36aaf5bbeb77425b2894
+        with:
+          shared-key: stable-ubuntu-latest
+        timeout-minutes: 5
+      - name: Install cross-compilation tools
+        uses: taiki-e/setup-cross-toolchain-action@72aa8c8cf5d6c160e251489bfd8361e78d22b3a2
+        with:
+          target: ${{ matrix.target }}
+      - name: Building release assets
+        run: cargo xtask dist
+      - name: Uploading release assets
+        if: matrix.os != 'windows-latest'
+        run: |-
+          ls package/dist/
+          echo "Uploading 'spellout-${GITHUB_REF_NAME:1}-${{ matrix.target }}.tar.gz' to: ${{ needs.create_release.outputs.upload_url }}"

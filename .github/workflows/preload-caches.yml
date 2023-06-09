@@ -67,11 +67,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform:
+        os:
           - macos-latest
           - ubuntu-latest
           - windows-latest
-    runs-on: ${{ matrix.platform }}
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout source code
         uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
@@ -82,7 +82,7 @@ jobs:
       - name: Cache dependencies
         uses: Swatinem/rust-cache@988c164c3d0e93c4dbab36aaf5bbeb77425b2894
         with:
-          shared-key: stable-${{ matrix.platform }}
+          shared-key: stable-${{ matrix.os }}
         timeout-minutes: 5
       - name: Install cargo-nextest
         uses: taiki-e/install-action@835cdc15ee7680334982c900847bcafb86487299

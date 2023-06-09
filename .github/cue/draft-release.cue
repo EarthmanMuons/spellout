@@ -25,7 +25,7 @@ draftRelease: {
 				{
 					name: "Annotate workflow run with draft release URL"
 					run: """
-						echo "#### :shipit: Opened draft release for v${{ github.ref_name }}: ${{ steps.gh_release.outputs.url }}" >> "$GITHUB_STEP_SUMMARY"
+						echo "#### :shipit: Opened draft release for: [spellout ${{ github.ref_name }}](${{ steps.gh_release.outputs.url }})" >> "$GITHUB_STEP_SUMMARY"
 						"""
 				},
 			]

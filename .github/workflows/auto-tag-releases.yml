@@ -50,7 +50,7 @@ jobs:
           {
             echo "TAGS_BEFORE<<$EOF"
             git tag --list
-            echo "EOF"
+            echo "$EOF"
           } >>"$GITHUB_ENV"
       - name: Add any missing tags
         run: cargo release tag -v --execute --no-confirm
@@ -62,7 +62,7 @@ jobs:
           {
             echo "TAGS_AFTER<<$EOF"
             git tag --list
-            echo "EOF"
+            echo "$EOF"
           } >>"$GITHUB_ENV"
       - name: Annotate workflow run with new tags
         run: |-

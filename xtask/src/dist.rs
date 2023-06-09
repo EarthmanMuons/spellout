@@ -215,8 +215,10 @@ fn dist_dir() -> PathBuf {
 
 fn release_dir() -> PathBuf {
     // Our setup for cross-compilation will set this environment variable in CI
-    let release_dir = env::var("CARGO_BUILD_TARGET").unwrap_or_else(|_| "release".to_string());
-    target_dir().join(release_dir)
+    env::var_os("CARGO_BUILD_TARGET").map_or_else(
+        || target_dir().join("release"),
+        |build_target| target_dir().join(build_target).join("release"),
+    )
 }
 
 fn target_dir() -> PathBuf {

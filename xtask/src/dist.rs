@@ -1,10 +1,11 @@
 use std::collections::HashMap;
+use std::ffi::OsStr;
 use std::path::{Path, PathBuf};
 use std::{env, fs};
 
 use anyhow::Result;
 use nanoserde::DeJson;
-use xshell::Shell;
+use xshell::{cmd, Shell};
 
 use crate::commands::cargo_cmd;
 use crate::utils::project_root;
@@ -44,6 +45,7 @@ pub fn dist(config: &Config) -> Result<()> {
         build_binary(config, binary, &dest_dir)?;
         copy_docs(&dest_dir)?;
         generate_assets(config, binary, &dest_dir)?;
+        create_archive(&dist_dir(), &dest_dir)?;
     }
     Ok(())
 }
@@ -143,6 +145,47 @@ fn generate_assets(config: &Config, binary: &str, dest_dir: &Path) -> Result<()>
     Ok(())
 }
 
+fn create_archive(input_dir: &Path, output_fileroot: &Path) -> Result<()> {
+    let sh = Shell::new()?;
+    let temp_dir = sh.create_temp_dir()?;
+
+    let output_fileroot_str = output_fileroot
+        .file_name()
+        .and_then(OsStr::to_str)
+        .ok_or_else(|| anyhow::anyhow!("Invalid output filename"))?;
+
+    let output_filename = match env::consts::OS {
+        "linux" | "macos" => format!("{output_fileroot_str}.tar.gz"),
+        "windows" => format!("{output_fileroot_str}.zip"),
+        _ => anyhow::bail!("Unsupported OS"),
+    };
+
+    let temp_output = temp_dir.path().join(output_filename.clone());
+
+    match env::consts::OS {
+        "linux" | "macos" => {
+            // On Unix, create a tarball
+            cmd!(sh, "tar -czf {temp_output} -C {input_dir} .").run()?;
+        }
+        "windows" => {
+            // On Windows, create a zip file
+            #[rustfmt::skip]
+            cmd!(
+                sh,
+                "powershell.exe Compress-Archive -Path {input_dir}/* -DestinationPath {temp_output}"
+            )
+            .run()?;
+        }
+        _ => anyhow::bail!("Unsupported OS"),
+    };
+
+    let final_output = output_fileroot.parent().unwrap().join(output_filename);
+    eprintln!("$ mv {} {}", temp_output.display(), final_output.display());
+    std::fs::rename(temp_output, final_output)?;
+
+    Ok(())
+}
+
 fn project_binaries(config: &Config) -> Result<Vec<(String, String)>> {
     let sh = Shell::new()?;
     let mut binaries = Vec::new();
@@ -171,7 +214,9 @@ fn dist_dir() -> PathBuf {
 }
 
 fn release_dir() -> PathBuf {
-    target_dir().join("release")
+    // Our setup for cross-compilation will set this environment variable in CI
+    let release_dir = env::var("CARGO_BUILD_TARGET").unwrap_or_else(|_| "release".to_string());
+    target_dir().join(release_dir)
 }
 
 fn target_dir() -> PathBuf {

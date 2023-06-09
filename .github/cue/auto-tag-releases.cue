@@ -27,8 +27,9 @@ autoTagReleases: {
 		steps: [
 			_#generateToken,
 			_#checkoutCode & {with: {
-				ref:   defaultBranch
-				token: "${{ steps.generate_token.outputs.token }}"
+				ref:           defaultBranch
+				token:         "${{ steps.generate_token.outputs.token }}"
+				"fetch-depth": 0
 			}},
 			_#installRust,
 			_#cacheRust,

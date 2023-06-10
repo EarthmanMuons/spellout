@@ -27,6 +27,13 @@ publishCrate: {
 					cargo release publish -v --execute --no-confirm --allow-branch="HEAD"
 					"""
 			},
+			{
+				name: "Annotate workflow run with published crate URL"
+				run: """
+					echo "### :shipit: Published crate for ${GITHUB_REF_NAME}:" >>"$GITHUB_STEP_SUMMARY"
+					echo "- https://crates.io/crates/${GITHUB_REF_NAME%-v*}/${GITHUB_REF_NAME#*-v}/" >>"$GITHUB_STEP_SUMMARY"
+					"""
+			},
 		]
 	}
 }

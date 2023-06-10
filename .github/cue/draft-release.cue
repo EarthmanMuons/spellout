@@ -65,22 +65,27 @@ draftRelease: {
 				_#installTool & {with: tool: "cross"},
 				{
 					name: "Building release assets"
-					env: {
-						CARGO:              "cross"
-						CARGO_BUILD_TARGET: "${{ matrix.target }}"
-					}
-					run: "rustup run stable cargo xtask dist"
+					run: """
+						if [[ "$OSTYPE" == "linux"* ]]; then
+						  export CARGO="cross"
+						fi
+						cargo xtask dist --target "${{ matrix.target }}"
+						"""
 				},
 				{
 					name: "Uploading release assets"
 					run: """
-						[[ "${{ matrix.os }}" == "windows-latest" ]] && extension="zip" || extension="tar.gz" 
+						if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+						  extension="zip"
+						else
+						  extension="tar.gz" 
+						fi
 						filename="spellout-${GITHUB_REF_NAME:1}-${{ matrix.target }}.${extension}"
 
 						echo "Uploading ${filename} to: ${{ needs.create_release.outputs.upload_url }}"
 						gh release upload "$GITHUB_REF_NAME" "target/dist/${filename}"
 
-						echo "- Uploaded release asset ${filename}" >>"$GITHUB_STEP_SUMMARY"
+						echo ":arrow_up: Uploaded release asset ${filename}" >>"$GITHUB_STEP_SUMMARY"
 						"""
 				},
 			]

@@ -19,7 +19,8 @@ USAGE:
     cargo xtask [OPTIONS] [TASK]...
 
 OPTIONS:
-    -i, --ignore-missing   Ignores any missing tools; only warns
+    -i, --ignore-missing   Ignores any missing tools; only warns during fixup
+    --target <TRIPLE>      Sets the target triple that dist will build
     -h, --help             Prints help information
 
 TASKS:
@@ -55,6 +56,7 @@ enum Task {
 pub struct Config {
     run_tasks: Vec<Task>,
     ignore_missing_commands: bool,
+    target: Option<String>,
 }
 
 fn main() -> Result<()> {
@@ -91,6 +93,7 @@ fn parse_args() -> Result<Config> {
     // default config values
     let mut run_tasks = Vec::new();
     let mut ignore_missing_commands = false;
+    let mut target: Option<String> = None;
 
     let mut parser = lexopt::Parser::from_env();
     while let Some(arg) = parser.next()? {
@@ -101,6 +104,9 @@ fn parse_args() -> Result<Config> {
             }
             Short('i') | Long("ignore-missing") => {
                 ignore_missing_commands = true;
+            }
+            Short('t') | Long("target") => {
+                target = Some(parser.value()?.string()?);
             }
             Value(value) => {
                 let value = value.string()?;
@@ -134,5 +140,6 @@ fn parse_args() -> Result<Config> {
     Ok(Config {
         run_tasks,
         ignore_missing_commands,
+        target,
     })
 }

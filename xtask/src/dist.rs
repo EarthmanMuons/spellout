@@ -31,6 +31,9 @@ struct Target {
 
 pub fn dist(config: &Config) -> Result<()> {
     env::set_current_dir(project_root())?;
+    if let Some(target) = &config.target {
+        env::set_var("CARGO_BUILD_TARGET", target);
+    }
 
     if dist_dir().exists() {
         fs::remove_dir_all(dist_dir())?;
@@ -182,7 +185,6 @@ fn create_archive(binary: &str, version: &str) -> Result<()> {
 }
 
 fn target_triple() -> String {
-    // Our setup for cross-compilation will set this environment variable in CI
     env::var_os("CARGO_BUILD_TARGET").map_or_else(String::new, |target| {
         format!("-{}", target.to_string_lossy())
     })
@@ -216,7 +218,6 @@ fn dist_dir() -> PathBuf {
 }
 
 fn release_dir() -> PathBuf {
-    // Our setup for cross-compilation will set this environment variable in CI
     env::var_os("CARGO_BUILD_TARGET").map_or_else(
         || target_dir().join("release"),
         |build_target| target_dir().join(build_target).join("release"),

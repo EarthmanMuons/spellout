@@ -4,6 +4,7 @@ use std::{env, fs};
 
 use anyhow::Result;
 use nanoserde::DeJson;
+use rustc_version::version_meta;
 use xshell::{cmd, Shell};
 
 use crate::commands::cargo_cmd;
@@ -55,9 +56,17 @@ pub fn dist(config: &Config) -> Result<()> {
 fn build_binary(config: &Config, binary: &str, dest_dir: &Path) -> Result<()> {
     let sh = Shell::new()?;
 
+    let target_args = config
+        .target
+        .as_ref()
+        .map_or_else(String::new, |target| format!("--target={target}"));
+
     let cmd_option = cargo_cmd(config, &sh);
     if let Some(cmd) = cmd_option {
-        let args = vec!["build", "--release", "--bin", binary];
+        let mut args = vec!["build", "--release", "--bin", binary];
+        if !target_args.is_empty() {
+            args.push(&target_args);
+        }
         cmd.args(args).run()?;
     }
 
@@ -123,13 +132,15 @@ fn generate_assets(config: &Config, binary: &str, dest_dir: &Path) -> Result<()>
     .collect();
 
     let sh = Shell::new()?;
+    let host_triple = version_meta()?.host;
 
     for (asset, (directory, filename)) in &assets {
         let cmd_option = cargo_cmd(config, &sh);
         if let Some(cmd) = cmd_option {
             let args = vec![
                 "run",
-                "--release",
+                "--target",
+                &host_triple,
                 "--bin",
                 binary,
                 "--",

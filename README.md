@@ -74,7 +74,7 @@ command-line arguments take precedence). To set the variables, use:
 `export VARNAME=value`, where `VARNAME` is the name of the environment variable
 and `value` is the desired setting.
 
-#### `SPELLOUT_ALPHABET`
+##### `SPELLOUT_ALPHABET`
 
 This environment variable determines the spelling alphabet to use for the
 conversion.
@@ -88,7 +88,7 @@ Possible values:
   This is the default setting.
 - `us-financial`: Use the United States Financial Industry spelling alphabet.
 
-#### `SPELLOUT_OVERRIDES`
+##### `SPELLOUT_OVERRIDES`
 
 Default: None
 
@@ -96,14 +96,14 @@ This environment variable allows you to define overrides for spelling alphabet
 code words. Provide a comma-separated list of _character=word_ pairs like
 `"a=apple,b=banana"`.
 
-#### `SPELLOUT_NONCE_FORM`
+##### `SPELLOUT_NONCE_FORM`
 
 Default: `false`
 
 Setting this environment variable to any non-falsey value enables the nonce form
 output, which expands conversions into a form like "'A' as in ALFA".
 
-#### `SPELLOUT_VERBOSE`
+##### `SPELLOUT_VERBOSE`
 
 Default: `false`
 
@@ -111,6 +111,24 @@ Setting this environment variable to any non-falsey value enables the verbose
 output, which will include the input characters along with each line's output.
 
 ## Installation
+
+### Precompiled Binaries
+
+Precompiled binaries for various architectures are provided in the [Releases][]
+section of our GitHub repository. Download the appropriate release archive for
+your system and extract the contents.
+
+The extracted directory contains:
+
+- The `spellout` binary, which is the main application. Ensure to place it in a
+  directory listed in your system's PATH to make it globally accessible.
+- Auxiliary assets, including shell completions and a manual page in ROFF
+  format. Install these according to your operating system's standard
+  instructions.
+
+[Releases]: https://github.com/EarthmanMuons/spellout/releases
+
+### Building from Source
 
 To build the binary and install it on your system under the `~/.cargo/bin`
 directory, run the following command:

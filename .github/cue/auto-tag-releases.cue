@@ -47,7 +47,7 @@ autoTagReleases: {
 			},
 			{
 				name: "Add any missing tags"
-				run:  "cargo release tag -v --execute --no-confirm"
+				run:  "cargo release tag -v --execute --no-confirm || true"
 			},
 			{
 				name: "Push any new tags"

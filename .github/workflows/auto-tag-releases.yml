@@ -53,7 +53,7 @@ jobs:
             echo "$EOF"
           } >>"$GITHUB_ENV"
       - name: Add any missing tags
-        run: cargo release tag -v --execute --no-confirm
+        run: cargo release tag -v --execute --no-confirm || true
       - name: Push any new tags
         run: cargo release push -v --execute --no-confirm
       - name: Capture tags after

@@ -44,12 +44,12 @@ draftRelease: {
 			strategy: {
 				"fail-fast": false
 				matrix: include: [
-					{target: "aarch64-apple-darwin", os:       "macos-latest"},
-					{target: "aarch64-pc-windows-msvc", os:    "windows-latest"},
-					{target: "aarch64-unknown-linux-musl", os: "ubuntu-latest"},
-					{target: "x86_64-apple-darwin", os:        "macos-latest"},
-					{target: "x86_64-pc-windows-msvc", os:     "windows-latest"},
-					{target: "x86_64-unknown-linux-musl", os:  "ubuntu-latest"},
+					{target: "aarch64-apple-darwin", os:       "macos-latest", build_tool:   "cargo"},
+					{target: "aarch64-pc-windows-msvc", os:    "windows-latest", build_tool: "cargo"},
+					{target: "aarch64-unknown-linux-musl", os: "ubuntu-latest", build_tool:  "cross"},
+					{target: "x86_64-apple-darwin", os:        "macos-latest", build_tool:   "cargo"},
+					{target: "x86_64-pc-windows-msvc", os:     "windows-latest", build_tool: "cargo"},
+					{target: "x86_64-unknown-linux-musl", os:  "ubuntu-latest", build_tool:  "cargo"},
 				]}
 			"runs-on": "${{ matrix.os }}"
 			env: GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
@@ -66,10 +66,11 @@ draftRelease: {
 				{
 					name: "Building release assets"
 					run: """
-						if [[ "$OSTYPE" == "linux"* ]]; then
-						  export CARGO="cross"
+						if [[ "${{ matrix.build_tool }}" == "cross" ]]; then
+							cargo xtask dist --target "${{ matrix.target }}" --cross
+						else
+							cargo xtask dist --target "${{ matrix.target }}"
 						fi
-						cargo xtask dist --target "${{ matrix.target }}"
 						"""
 				},
 				{

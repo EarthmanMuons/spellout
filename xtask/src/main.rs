@@ -19,6 +19,7 @@ USAGE:
     cargo xtask [OPTIONS] [TASK]...
 
 OPTIONS:
+    --cross                Uses cross for cross-compilation instead of cargo
     -i, --ignore-missing   Ignores any missing tools; only warns during fixup
     --target <TRIPLE>      Sets the target triple that dist will build
     -h, --help             Prints help information
@@ -54,6 +55,7 @@ enum Task {
 }
 
 pub struct Config {
+    cross: bool,
     run_tasks: Vec<Task>,
     ignore_missing_commands: bool,
     target: Option<String>,
@@ -91,9 +93,10 @@ fn parse_args() -> Result<Config> {
     use lexopt::prelude::*;
 
     // default config values
-    let mut run_tasks = Vec::new();
+    let mut cross = false;
     let mut ignore_missing_commands = false;
     let mut target: Option<String> = None;
+    let mut run_tasks = Vec::new();
 
     let mut parser = lexopt::Parser::from_env();
     while let Some(arg) = parser.next()? {
@@ -102,10 +105,13 @@ fn parse_args() -> Result<Config> {
                 print!("{HELP}");
                 std::process::exit(0);
             }
+            Long("cross") => {
+                cross = true;
+            }
             Short('i') | Long("ignore-missing") => {
                 ignore_missing_commands = true;
             }
-            Short('t') | Long("target") => {
+            Long("target") => {
                 target = Some(parser.value()?.string()?);
             }
             Value(value) => {
@@ -138,6 +144,7 @@ fn parse_args() -> Result<Config> {
     }
 
     Ok(Config {
+        cross,
         run_tasks,
         ignore_missing_commands,
         target,

@@ -7,7 +7,7 @@ use nanoserde::DeJson;
 use rustc_version::version_meta;
 use xshell::{cmd, Shell};
 
-use crate::commands::cargo_cmd;
+use crate::commands::{cargo_cmd, cross_cmd};
 use crate::utils::project_root;
 use crate::Config;
 
@@ -56,16 +56,16 @@ pub fn dist(config: &Config) -> Result<()> {
 fn build_binary(config: &Config, binary: &str, dest_dir: &Path) -> Result<()> {
     let sh = Shell::new()?;
 
-    let target_args = config
-        .target
-        .as_ref()
-        .map_or_else(String::new, |target| format!("--target={target}"));
-
-    let cmd_option = cargo_cmd(config, &sh);
+    let cmd_option = if config.cross {
+        cross_cmd(config, &sh)
+    } else {
+        cargo_cmd(config, &sh)
+    };
     if let Some(cmd) = cmd_option {
         let mut args = vec!["build", "--release", "--bin", binary];
-        if !target_args.is_empty() {
-            args.push(&target_args);
+        if let Some(target) = &config.target {
+            args.push("--target");
+            args.push(target);
         }
         cmd.args(args).run()?;
     }

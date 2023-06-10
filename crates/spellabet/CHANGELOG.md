@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog][1], and this project adheres to
 
 ## [Unreleased] <!-- release-date -->
 
+### Changed
+
+- Rely on docs.rs for versioned library documentation.
+
 ### Added
 
 - Initial release; published to https://crates.io/.

@@ -16,11 +16,11 @@
 //! characters are returned unconverted.
 //!
 //! This library powers the command line utility `spellout`, which provides a
-//! handy interface for phonetic conversions. Check out [`spellout` on GitHub][]
+//! handy interface for phonetic conversions. Check out [spellout on GitHub][]
 //! for more information.
 //!
 //! [spelling alphabets]: https://en.wikipedia.org/wiki/Spelling_alphabet
-//! [`spellout` on GitHub]: https://github.com/EarthmanMuons/spellout/
+//! [spellout on GitHub]: https://github.com/EarthmanMuons/spellout/
 //!
 //! # Example
 //!

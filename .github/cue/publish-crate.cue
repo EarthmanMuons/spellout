@@ -16,7 +16,7 @@ publishCrate: {
 		name:      "publish unpublished"
 		"runs-on": defaultRunner
 		steps: [
-			_#checkoutCode,
+			_#checkoutCode & {with: "fetch-depth": 0},
 			_#installRust,
 			_#cacheRust,
 			_#installTool & {with: tool: "cargo-release"},

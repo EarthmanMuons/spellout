@@ -62,7 +62,10 @@ draftRelease: {
 				},
 				_#installRust & {with: targets: "${{ matrix.target }}"},
 				_#cacheRust,
-				_#installTool & {with: tool: "cross"},
+				_#installTool & {
+					with: tool: "cross"
+					if: "matrix.os == 'ubuntu-latest'"
+				},
 				{
 					name: "Building release assets"
 					run: """

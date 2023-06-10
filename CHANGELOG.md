@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog][1], and this project adheres to
 
 ## [Unreleased] <!-- release-date -->
 
+### Fixed
+
+- Fix formatting for automated version bumps across docs.
+
+## [0.1.0] - 2023-06-10
+
 ### Added
 
 - Initial release.

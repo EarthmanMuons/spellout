@@ -16,6 +16,12 @@ The format is based on [Keep a Changelog][1], and this project adheres to
 
 - Rely on docs.rs for versioned library documentation.
 
+### Fixed
+
+- Fix formatting for automated version bumps across docs.
+
+## [0.1.0] - 2023-06-08
+
 ### Added
 
 - Initial release; published to https://crates.io/.

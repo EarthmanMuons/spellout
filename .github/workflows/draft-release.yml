@@ -77,9 +77,10 @@ jobs:
         with:
           tool: cross
       - name: Building release assets
-        env:
-          CARGO: cross
-          CARGO_BUILD_TARGET: ${{ matrix.target }}
-        run: rustup run stable cargo xtask dist
+        run: |-
+          if [[ "$OSTYPE" == "linux"* ]]; then
+            export CARGO="cross"
+          fi
+          cargo xtask dist --target "${{ matrix.target }}"
       - name: Uploading release assets
-        run: "[[ \"${{ matrix.os }}\" == \"windows-latest\" ]] && extension=\"zip\" || extension=\"tar.gz\" \nfilename=\"spellout-${GITHUB_REF_NAME:1}-${{ matrix.target }}.${extension}\"\n\necho \"Uploading ${filename} to: ${{ needs.create_release.outputs.upload_url }}\"\ngh release upload \"$GITHUB_REF_NAME\" \"target/dist/${filename}\"\n\necho \"- Uploaded release asset ${filename}\" >>\"$GITHUB_STEP_SUMMARY\""
+        run: "if [[ \"${{ matrix.os }}\" == \"windows-latest\" ]]; then\n  extension=\"zip\"\nelse\n  extension=\"tar.gz\" \nfi\nfilename=\"spellout-${GITHUB_REF_NAME:1}-${{ matrix.target }}.${extension}\"\n\necho \"Uploading ${filename} to: ${{ needs.create_release.outputs.upload_url }}\"\ngh release upload \"$GITHUB_REF_NAME\" \"target/dist/${filename}\"\n\necho \":arrow_up: Uploaded release asset ${filename}\" >>\"$GITHUB_STEP_SUMMARY\""

@@ -17,13 +17,13 @@ publish = true
 # https://github.com/crate-ci/cargo-release/
 [package.metadata.release]
 pre-release-replacements = [
-  { file = "Cargo.toml", search = "docs.rs/spellabet/.*/", replace = "docs.rs/spellabet/{{version}}/" },
+  { file = "Cargo.toml", search = "docs.rs/spellabet/[0-9]+.[0-9]+.[0-9]+", replace = "docs.rs/spellabet/{{version}}", exactly = 1 },
   { file = "CHANGELOG.md", search = "Unreleased", replace = "{{version}}" },
   { file = "CHANGELOG.md", search = "\\.\\.\\.HEAD", replace = "...{{tag_name}}", exactly = 1 },
   { file = "CHANGELOG.md", search = "<!-- release-date -->", replace = "- {{date}}" },
   { file = "CHANGELOG.md", search = "<!-- next-header -->", replace = "<!-- next-header -->\n\n## [Unreleased] <!-- release-date -->", exactly = 1 },
   { file = "CHANGELOG.md", search = "<!-- next-url -->", replace = "<!-- next-url -->\n[Unreleased]: https://github.com/EarthmanMuons/spellout/compare/{{tag_name}}...HEAD", exactly = 1 },
-  { file = "README.md", search = "docs.rs/spellabet/.*/", replace = "docs.rs/spellabet/{{version}}/" },
+  { file = "README.md", search = "docs.rs/spellabet/[0-9]+.[0-9]+.[0-9]+", replace = "docs.rs/spellabet/{{version}}" },
   { file = "README.md", search = "spellabet = .*", replace = "{{crate_name}} = \"{{version}}\"" },
 ]
 tag = true

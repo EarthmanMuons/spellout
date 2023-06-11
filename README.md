@@ -130,12 +130,14 @@ The extracted directory contains:
 
 ### Building from Source
 
-To build the binary and install it on your system under the `~/.cargo/bin`
-directory, run the following command:
+After [installing Rust][], to build the binary and install it on your system
+under the `~/.cargo/bin/` directory, run the following command:
 
 ```
 cargo install --locked --git https://github.com/EarthmanMuons/spellout/ spellout
 ```
+
+[installing Rust]: https://www.rust-lang.org/learn/get-started
 
 ## Credits
 

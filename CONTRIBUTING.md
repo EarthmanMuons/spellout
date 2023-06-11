@@ -89,7 +89,7 @@ and can help to identify performance outliers in the test suite.
 For faster feedback loops during development, we recommend using
 [`cargo-watch`][]. This tool watches for changes in project files and
 automatically triggers specified Cargo commands when they occur. See
-`cargo xtask dev` for an example usage.
+`cargo xtask check` for an example usage.
 
 [components]: https://rust-lang.github.io/rustup/concepts/components.html
 [`clippy`]: https://doc.rust-lang.org/clippy/

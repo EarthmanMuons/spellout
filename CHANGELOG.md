@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog][1], and this project adheres to
 
 ## [Unreleased] <!-- release-date -->
 
+### Changed
+
+- Mention `--` parsing behavior in help output.
+
 ### Fixed
 
 - Fix formatting for automated version bumps across docs.

@@ -37,8 +37,10 @@ pub struct Cli {
 
     /// An input character string to convert into code words
     ///
-    /// If no input strings are provided, the program reads lines from standard
-    /// input.
+    /// Each string will have its output printed on a separate line. Using `--`
+    /// will stop the program from interpreting subsequent arguments as
+    /// options. If no input strings are provided, lines will be read from
+    /// standard input.
     #[arg(value_name = "STRING")]
     pub input: Vec<String>,
 

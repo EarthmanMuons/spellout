@@ -36,8 +36,8 @@ returned unconverted.
       -h, --help                   Print help (see more with '--help')
       -V, --version                Print version
 
-Each string will have its output printed on a separate line, and spellout will
-honor using `--` to stop interpreting the subsequent arguments as options.
+Each string will have its output printed on a separate line. Using `--` will
+stop the program from interpreting subsequent arguments as options.
 
 ### Examples
 

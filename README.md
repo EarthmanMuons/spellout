@@ -41,11 +41,11 @@ honor using `--` to stop interpreting the subsequent arguments as options.
 
 ### Examples
 
-    $ spellout Example123
-    ECHO x-ray alpha mike papa lima echo One Two Tree
+    $ spellout Example123!
+    ECHO x-ray alfa mike papa lima echo One Two Tree Exclamation
 
-    $ spellout --alphabet us-financial Example123
-    EDDIE xavier adam mary peter larry eddie One Two Three
+    $ spellout --alphabet us-financial Example123!
+    EDDIE xavier adam mary peter larry eddie One Two Three Exclamation
 
     $ spellout --nonce-form Rust
     'R' as in ROMEO, 'u' as in uniform, 's' as in sierra, 't' as in tango

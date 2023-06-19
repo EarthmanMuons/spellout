@@ -28,7 +28,7 @@ tag-prefix = ""
 
 [dependencies]
 anyhow = "1.0.71"
-clap = { version = "4.3.0", features = ["derive", "env", "wrap_help"] }
+clap = { version = "4.3.4", features = ["derive", "env", "wrap_help"] }
 clap_complete = "4.3.1"
 clap_mangen = "0.2.12"
 is-terminal = "0.4.7"

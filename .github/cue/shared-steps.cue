@@ -53,7 +53,7 @@ _#checkoutCode: _#step & {
 _#createPullRequest: _#step & {
 	id:   "cpr"
 	name: "Create pull request"
-	uses: "peter-evans/create-pull-request@284f54f989303d2699d373481a0cfa13ad5a6666"
+	uses: "peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38"
 }
 
 // https://github.com/actions/deploy-pages/releases

@@ -29,7 +29,7 @@ jobs:
           shared-key: stable-ubuntu-latest
         timeout-minutes: 5
       - name: Install cargo-release
-        uses: taiki-e/install-action@835cdc15ee7680334982c900847bcafb86487299
+        uses: taiki-e/install-action@459a174db6d9f594b87249f9ce1b966a11ff9887
         with:
           tool: cargo-release
       - name: Publish crate to crates.io

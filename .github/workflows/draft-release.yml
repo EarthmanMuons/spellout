@@ -78,7 +78,7 @@ jobs:
         with:
           shared-key: stable-ubuntu-latest
         timeout-minutes: 5
-      - uses: taiki-e/install-action@459a174db6d9f594b87249f9ce1b966a11ff9887
+      - uses: taiki-e/install-action@9a865a852d3c02524dd81a4e49b8d524407b81ca
         if: matrix.os == 'ubuntu-latest'
         name: Install cross
         with:

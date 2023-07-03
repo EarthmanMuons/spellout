@@ -51,7 +51,7 @@ jobs:
           shared-key: stable-ubuntu-latest
         timeout-minutes: 5
       - name: Install cargo-release
-        uses: taiki-e/install-action@9a865a852d3c02524dd81a4e49b8d524407b81ca
+        uses: taiki-e/install-action@d3712f40a2bae95e3ce25a24f82a795ed3df0f1c
         with:
           tool: cargo-release
       - name: Update cargo dependencies for package ${{ inputs.package }}

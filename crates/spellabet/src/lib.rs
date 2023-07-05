@@ -39,7 +39,10 @@ use std::char;
 use std::cmp::Ordering;
 use std::collections::HashMap;
 
-use code_words::{DEFAULT_DIGITS_AND_SYMBOLS, LAPD_ALPHABET, NATO_ALPHABET, US_FINANCIAL_ALPHABET};
+use code_words::{
+    DEFAULT_DIGITS_AND_SYMBOLS, JAN_ALPHABET, LAPD_ALPHABET, NATO_ALPHABET, ROYAL_NAVY_ALPHABET,
+    US_FINANCIAL_ALPHABET, WESTERN_UNION_ALPHABET,
+};
 use convert_case::{Case, Casing};
 
 mod code_words;
@@ -55,14 +58,20 @@ pub struct PhoneticConverter {
 /// A spelling alphabet.
 #[derive(Default)]
 pub enum SpellingAlphabet {
+    /// The JAN (Joint Army/Navy) spelling alphabet.
+    Jan,
     /// The LAPD (Los Angeles Police Department) spelling alphabet.
     Lapd,
     /// The NATO (North Atlantic Treaty Organization) spelling alphabet.
     /// This is the default.
     #[default]
     Nato,
+    /// The Royal Navy spelling alphabet.
+    RoyalNavy,
     /// The United States Financial Industry spelling alphabet.
     UsFinancial,
+    /// The Western Union spelling alphabet.
+    WesternUnion,
 }
 
 impl PhoneticConverter {
@@ -312,9 +321,12 @@ impl SpellingAlphabet {
         extend_map(&mut map, &DEFAULT_DIGITS_AND_SYMBOLS);
 
         match self {
+            Self::Jan => extend_map(&mut map, &JAN_ALPHABET),
             Self::Lapd => extend_map(&mut map, &LAPD_ALPHABET),
             Self::Nato => extend_map(&mut map, &NATO_ALPHABET),
+            Self::RoyalNavy => extend_map(&mut map, &ROYAL_NAVY_ALPHABET),
             Self::UsFinancial => extend_map(&mut map, &US_FINANCIAL_ALPHABET),
+            Self::WesternUnion => extend_map(&mut map, &WESTERN_UNION_ALPHABET),
         };
 
         map

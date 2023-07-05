@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog][1], and this project adheres to
 
 ## [Unreleased] <!-- release-date -->
 
+### Added
+
+- Add the Joint Army/Navy spelling alphabet.
+- Add the Royal Navy spelling alphabet.
+- Add the Western Union spelling alphabet.
+
 ## [0.1.1] - 2023-06-10
 
 ### Changed

@@ -333,6 +333,17 @@ fn test_dump_alphabet_verbose() {
 }
 
 #[test]
+fn test_jan_alphabet() {
+    let alphabet = SpellingAlphabet::Jan;
+    let converter = PhoneticConverter::new(&alphabet);
+
+    assert_snapshot!(
+        converter.convert("abc123xyz"),
+        @"able baker charlie One Two Three x-ray yoke zebra"
+    );
+}
+
+#[test]
 fn test_lapd_alphabet() {
     let alphabet = SpellingAlphabet::Lapd;
     let converter = PhoneticConverter::new(&alphabet);
@@ -364,6 +375,17 @@ fn test_nato_alphabet() {
 }
 
 #[test]
+fn test_royal_navy_alphabet() {
+    let alphabet = SpellingAlphabet::RoyalNavy;
+    let converter = PhoneticConverter::new(&alphabet);
+
+    assert_snapshot!(
+        converter.convert("abc123xyz"),
+        @"apples butter charlie One Two Three xerxes yellow zebra"
+    );
+}
+
+#[test]
 fn test_us_financial_alphabet() {
     let alphabet = SpellingAlphabet::UsFinancial;
     let converter = PhoneticConverter::new(&alphabet);
@@ -371,5 +393,16 @@ fn test_us_financial_alphabet() {
     assert_snapshot!(
         converter.convert("abc123xyz"),
         @"adam bob carol One Two Three xavier yogi zachary"
+    );
+}
+
+#[test]
+fn test_western_union_alphabet() {
+    let alphabet = SpellingAlphabet::WesternUnion;
+    let converter = PhoneticConverter::new(&alphabet);
+
+    assert_snapshot!(
+        converter.convert("abc123xyz"),
+        @"adams boston chicago One Two Three x-ray young zero"
     );
 }

@@ -31,9 +31,12 @@ fn main() -> Result<()> {
     }
 
     let alphabet = match cli.alphabet {
+        Alphabet::Jan => SpellingAlphabet::Jan,
         Alphabet::Lapd => SpellingAlphabet::Lapd,
         Alphabet::Nato => SpellingAlphabet::Nato,
+        Alphabet::RoyalNavy => SpellingAlphabet::RoyalNavy,
         Alphabet::UsFinancial => SpellingAlphabet::UsFinancial,
+        Alphabet::WesternUnion => SpellingAlphabet::WesternUnion,
     };
 
     let mut converter = PhoneticConverter::new(&alphabet).nonce_form(cli.nonce_form);

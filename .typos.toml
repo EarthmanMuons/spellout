@@ -1,2 +1,6 @@
 [default]
 locale = "en-us"
+
+[default.extend-words]
+# Don't correct the instrument "Oboe" code word.
+oboe = "oboe"

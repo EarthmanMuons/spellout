@@ -54,12 +54,18 @@ pub struct Cli {
 
 #[derive(Clone, Debug, ValueEnum)]
 pub enum Alphabet {
+    /// Joint Army/Navy
+    Jan,
     /// Los Angeles Police Department
     Lapd,
     /// North Atlantic Treaty Organization
     Nato,
+    /// Royal Navy
+    RoyalNavy,
     /// United States Financial Industry
     UsFinancial,
+    /// Western Union
+    WesternUnion,
 }
 
 #[derive(Clone, Debug, ValueEnum)]

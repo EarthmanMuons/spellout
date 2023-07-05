@@ -44,6 +44,36 @@ pub const DEFAULT_DIGITS_AND_SYMBOLS: [(char, &str); 43] = [
     ('~', "Tilde"),
 ];
 
+// Joint Army/Navy (JAN)
+pub const JAN_ALPHABET: [(char, &str); 26] = [
+    ('a', "Able"),
+    ('b', "Baker"),
+    ('c', "Charlie"),
+    ('d', "Dog"),
+    ('e', "Easy"),
+    ('f', "Fox"),
+    ('g', "George"),
+    ('h', "How"),
+    ('i', "Item"),
+    ('j', "Jig"),
+    ('k', "King"),
+    ('l', "Love"),
+    ('m', "Mike"),
+    ('n', "Nan"),
+    ('o', "Oboe"),
+    ('p', "Peter"),
+    ('q', "Queen"),
+    ('r', "Roger"),
+    ('s', "Sugar"),
+    ('t', "Tare"),
+    ('u', "Uncle"),
+    ('v', "Victor"),
+    ('w', "William"),
+    ('x', "X-ray"),
+    ('y', "Yoke"),
+    ('z', "Zebra"),
+];
+
 // Los Angeles Police Department (LAPD)
 // Association of Public-Safety Communications Officials-International (APCO)
 pub const LAPD_ALPHABET: [(char, &str); 27] = [
@@ -112,6 +142,36 @@ pub const NATO_ALPHABET: [(char, &str); 30] = [
     ('9', "Niner"),
 ];
 
+// Royal Navy
+pub const ROYAL_NAVY_ALPHABET: [(char, &str); 26] = [
+    ('a', "Apples"),
+    ('b', "Butter"),
+    ('c', "Charlie"),
+    ('d', "Duff"),
+    ('e', "Edward"),
+    ('f', "Freddy"),
+    ('g', "George"),
+    ('h', "Harry"),
+    ('i', "Ink"),
+    ('j', "Johnnie"),
+    ('k', "King"),
+    ('l', "London"),
+    ('m', "Monkey"),
+    ('n', "Nuts"),
+    ('o', "Orange"),
+    ('p', "Pudding"),
+    ('q', "Queenie"),
+    ('r', "Robert"),
+    ('s', "Sugar"),
+    ('t', "Tommy"),
+    ('u', "Uncle"),
+    ('v', "Vinegar"),
+    ('w', "William"),
+    ('x', "Xerxes"),
+    ('y', "Yellow"),
+    ('z', "Zebra"),
+];
+
 // United States Financial Industry
 pub const US_FINANCIAL_ALPHABET: [(char, &str); 26] = [
     ('a', "Adam"),
@@ -140,4 +200,34 @@ pub const US_FINANCIAL_ALPHABET: [(char, &str); 26] = [
     ('x', "Xavier"),
     ('y', "Yogi"),
     ('z', "Zachary"),
+];
+
+// Western Union
+pub const WESTERN_UNION_ALPHABET: [(char, &str); 26] = [
+    ('a', "Adams"),
+    ('b', "Boston"),
+    ('c', "Chicago"),
+    ('d', "Denver"),
+    ('e', "Easy"),
+    ('f', "Frank"),
+    ('g', "George"),
+    ('h', "Henry"),
+    ('i', "Ida"),
+    ('j', "John"),
+    ('k', "King"),
+    ('l', "Lincoln"),
+    ('m', "Mary"),
+    ('n', "NewYork"),
+    ('o', "Ocean"),
+    ('p', "Peter"),
+    ('q', "Queen"),
+    ('r', "Roger"),
+    ('s', "Sugar"),
+    ('t', "Thomas"),
+    ('u', "Union"),
+    ('v', "Victor"),
+    ('w', "William"),
+    ('x', "X-ray"),
+    ('y', "Young"),
+    ('z', "Zero"),
 ];

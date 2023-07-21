@@ -26,11 +26,13 @@ Follow these steps to ship a new version:
    generating a tag for the new version if one does not already exist.
 
 4. **Verify the Publication**:
+
    - For Libraries: If the new tag corresponds to a library, the
      [publish-crate][] workflow is automatically triggered to build and publish
      the crate to https://crates.io/. When the workflow completes, it will
      display an annotation with a link to the crate's page where you can confirm
      successful publication by examining the displayed metadata.
+
    - For Binaries: If the new tag corresponds to a binary, the [draft-release][]
      workflow is triggered instead. This workflow generates a new draft GitHub
      release and attaches binary package files to the release. When the workflow

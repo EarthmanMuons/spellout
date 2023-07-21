@@ -27,3 +27,4 @@ jobs:
     with:
       package: ${{ inputs.package }}
       level: ${{ inputs.level }}
+    secrets: inherit

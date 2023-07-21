@@ -12,6 +12,8 @@ The format is based on [Keep a Changelog][1], and this project adheres to
 
 ## [Unreleased] <!-- release-date -->
 
+## [0.2.0] - 2023-07-21
+
 ### Added
 
 - Add the Joint Army/Navy spelling alphabet.
@@ -37,7 +39,9 @@ The format is based on [Keep a Changelog][1], and this project adheres to
 <!-- next-url -->
 
 [Unreleased]:
-  https://github.com/EarthmanMuons/spellout/compare/spellabet-v0.1.1...HEAD
+  https://github.com/EarthmanMuons/spellout/compare/spellabet-v0.2.0...HEAD
+[0.2.0]:
+  https://github.com/EarthmanMuons/spellout/compare/spellabet-v0.1.1...spellabet-v0.2.0
 [0.1.1]:
   https://github.com/EarthmanMuons/spellout/compare/spellabet-v0.1.0...spellabet-v0.1.1
 [0.1.0]: https://github.com/EarthmanMuons/spellout/commits/spellabet-v0.1.0

@@ -1,0 +1,12 @@
+name: auto-publish crate
+
+on:
+  push:
+    tags:
+      - "*-v[0-9]+.[0-9]+.[0-9]+"
+
+jobs:
+  publish_crate:
+    name: publish crate
+    uses: EarthmanMuons/reusable-workflows/.github/workflows/publish-crate.yml@main
+    secrets: inherit

@@ -26,10 +26,6 @@ pub fn cross_cmd<'a>(config: &Config, sh: &'a Shell) -> Option<Cmd<'a>> {
     create_cmd("cross", "https://github.com/cross-rs/cross", config, sh)
 }
 
-pub fn cue_cmd<'a>(config: &Config, sh: &'a Shell) -> Option<Cmd<'a>> {
-    create_cmd("cue", "https://cuelang.org/", config, sh)
-}
-
 pub fn prettier_cmd<'a>(config: &Config, sh: &'a Shell) -> Option<Cmd<'a>> {
     create_cmd("prettier", "https://prettier.io", config, sh)
 }

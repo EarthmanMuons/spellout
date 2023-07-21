@@ -2,7 +2,7 @@
 
 **Convert characters into spelling alphabet code words.**
 
-[![CI status](https://img.shields.io/github/actions/workflow/status/EarthmanMuons/spellout/rust.yml?event=merge_group&label=ci&logo=github)](https://github.com/EarthmanMuons/spellout/actions?query=event%3Amerge_group)
+[![CI status](https://img.shields.io/github/actions/workflow/status/EarthmanMuons/spellout/on-pull-request.yml?event=merge_group&label=ci&logo=github)](https://github.com/EarthmanMuons/spellout/actions?query=event%3Amerge_group)
 [![crates.io](https://img.shields.io/crates/v/spellabet)](https://crates.io/crates/spellabet/)
 [![docs.rs](https://img.shields.io/docsrs/spellabet)](https://docs.rs/spellabet/0.1.1/spellabet/)
 [![MSRV](https://img.shields.io/badge/rust-1.64%2B-blue)](https://doc.rust-lang.org/cargo/reference/manifest.html#the-rust-version-field)

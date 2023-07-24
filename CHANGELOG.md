@@ -21,6 +21,7 @@ The format is based on [Keep a Changelog][1], and this project adheres to
 ### Changed
 
 - Mention `--` parsing behavior in help output.
+- Bump MSRV to the Rust 1.65 release.
 
 ### Fixed
 

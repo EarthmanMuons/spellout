@@ -18,6 +18,10 @@ The format is based on [Keep a Changelog][1], and this project adheres to
 - Add the Royal Navy spelling alphabet.
 - Add the Western Union spelling alphabet.
 
+### Changed
+
+- Bump MSRV to the Rust 1.65 release.
+
 ## [0.1.1] - 2023-06-10
 
 ### Changed

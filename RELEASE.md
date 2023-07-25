@@ -21,32 +21,32 @@ Follow these steps to ship a new version:
    updating all necessary version numbers across the codebase and documentation.
 
 3. **Review and Merge the Pull Request**: Review the changes in the pull request
-   from step 2. After verifying, merge the pull request. The
-   [auto-tag-release][] workflow then runs on every push to the `main` branch,
-   generating a tag for the new version if one does not already exist.
+   from step 2. After verifying, merge the pull request. The [on-push-to-main][]
+   workflow will then run a job to tag untagged releases, generating a tag for
+   the new version if one does not already exist.
 
 4. **Verify the Publication**:
 
-   - For Libraries: If the new tag corresponds to a library, the
-     [publish-crate][] workflow is automatically triggered to build and publish
-     the crate to https://crates.io/. When the workflow completes, it will
-     display an annotation with a link to the crate's page where you can confirm
-     successful publication by examining the displayed metadata.
+   - _For Libraries_: If the new tag corresponds to a library, the
+     [auto-publish-crate][] workflow is automatically triggered to build and
+     publish the crate to https://crates.io/. When the workflow completes, it
+     will display an annotation with a link to the crate's page where you can
+     confirm successful publication by examining the displayed metadata.
 
-   - For Binaries: If the new tag corresponds to a binary, the [draft-release][]
-     workflow is triggered instead. This workflow generates a new draft GitHub
-     release and attaches binary package files to the release. When the workflow
-     completes, it will display an annotation with a link to the draft release
-     for your review. Make any desired edits to the release notes, optionally
-     select the checkbox to create a discussion for the release, and finally
-     click the _Publish release_ button to make the release public.
+   - _For Binaries_: If the new tag corresponds to a binary, the
+     [auto-draft-release][] workflow is triggered instead. This workflow
+     generates a new draft GitHub release and attaches binary package files to
+     the release. When the workflow completes, it will display an annotation
+     with a link to the draft release for your review. Make any desired edits to
+     the release notes, optionally select the checkbox to create a discussion
+     for the release, and finally click the **Publish release** button to make
+     the release public.
 
 [bump-version]:
   https://github.com/EarthmanMuons/spellout/actions/workflows/bump-version.yml
-[auto-tag-release]:
-  https://github.com/EarthmanMuons/spellout/actions/workflows/auto-tag-releases.yml
-[publish-crate]:
-  https://github.com/EarthmanMuons/spellout/actions/workflows/publish-crate.yml
-[crate's page]: https://crates.io/crates/spellabet/
-[draft-release]:
-  https://github.com/EarthmanMuons/spellout/actions/workflows/draft-release.yml
+[on-push-to-main]:
+  https://github.com/EarthmanMuons/spellout/actions/workflows/on-push-to-main.yml
+[auto-publish-crate]:
+  https://github.com/EarthmanMuons/spellout/actions/workflows/auto-publish-crate.yml
+[auto-draft-release]:
+  https://github.com/EarthmanMuons/spellout/actions/workflows/auto-draft-release.yml

@@ -32,7 +32,6 @@ jobs:
     uses: EarthmanMuons/reusable-workflows/.github/workflows/check-markdown.yml@main
     with:
       files: ${{ needs.detect_changed_files.outputs.markdown_files }}
-      prettier_version: "3.0.0"
 
   check_rust:
     name: check rust

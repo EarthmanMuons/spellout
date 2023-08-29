@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog][1], and this project adheres to
 
 ## [Unreleased] <!-- release-date -->
 
+### Changed
+
+- Bump MSRV to the Rust 1.70 release.
+
 ## [0.2.0] - 2023-07-25
 
 ### Added

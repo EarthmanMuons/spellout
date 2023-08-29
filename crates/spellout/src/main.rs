@@ -2,13 +2,12 @@
 #![warn(clippy::nursery, clippy::pedantic)]
 
 use std::collections::HashMap;
-use std::io::{self, BufRead};
+use std::io::{self, BufRead, IsTerminal};
 
 use anyhow::{Context, Result};
 use clap::error::{ContextKind, ContextValue, ErrorKind};
 use clap::{CommandFactory, Parser};
 use clap_complete::Shell;
-use is_terminal::IsTerminal;
 use spellabet::{PhoneticConverter, SpellingAlphabet};
 
 use crate::cli::{Alphabet, Asset, Cli};

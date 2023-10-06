@@ -1,3 +1,6 @@
+// TODO: Remove once nanoserde release > v0.1.35
+#![allow(clippy::ignored_unit_patterns)]
+
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use std::{env, fs};

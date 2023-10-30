@@ -28,7 +28,7 @@ tag-prefix = ""
 
 [dependencies]
 anyhow = "1.0.75"
-clap = { version = "4.4.4", features = ["derive", "env", "wrap_help"] }
-clap_complete = "4.4.1"
-clap_mangen = "0.2.14"
+clap = { version = "4.4.7", features = ["derive", "env", "wrap_help"] }
+clap_complete = "4.4.4"
+clap_mangen = "0.2.15"
 spellabet = { path = "../spellabet" }

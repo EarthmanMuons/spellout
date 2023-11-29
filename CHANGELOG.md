@@ -16,6 +16,11 @@ The format is based on [Keep a Changelog][1], and this project adheres to
 
 - Bump MSRV to the Rust 1.70 release.
 
+### Security
+
+- Fix moderate severity security issue with transient dependency rustix:
+  <https://github.com/advisories/GHSA-c827-hfw6-qwvm>
+
 ## [0.2.0] - 2023-07-25
 
 ### Added

@@ -9,9 +9,9 @@
 A command-line application for transforming text strings into corresponding code
 words based on predefined [spelling alphabets][], like the NATO phonetic
 alphabet. These alphabets are designed to enhance verbal clarity, especially
-when spelling out words over low-fidelity voice channels. This library supports
-several standard alphabets and allows for customization to suit specific
-communication needs.
+when spelling out words over low-fidelity voice channels. This application
+supports several standard alphabets and allows for customization to suit
+specific communication needs.
 
 In operation, spellout preserves the original capitalization of letters by
 returning either lowercase or uppercase code words. It similarly converts known
@@ -83,10 +83,13 @@ Default: `nato`
 
 Possible values:
 
+- `jan`: Use the JAN (Joint Army/Navy) spelling alphabet.
 - `lapd`: Use the LAPD (Los Angeles Police Department) spelling alphabet.
 - `nato`: Use the NATO (North Atlantic Treaty Organization) spelling alphabet.
   This is the default setting.
+- `royal-navy`: Use the Royal Navy spelling alphabet.
 - `us-financial`: Use the United States Financial Industry spelling alphabet.
+- `western-union`: Use the Western Union spelling alphabet.
 
 ##### `SPELLOUT_OVERRIDES`
 

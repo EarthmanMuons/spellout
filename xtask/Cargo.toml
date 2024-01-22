@@ -11,10 +11,10 @@ publish = false
 release = false
 
 [dependencies]
-anyhow = "1.0.76"
+anyhow = "1.0.79"
 is_ci = "1.1.1"
 lexopt = "0.3.0"
 nanoserde = "0.1.35"
 rustc_version = "0.4.0"
-which = "5.0.0"
+which = "6.0.0"
 xshell = "0.2.5"

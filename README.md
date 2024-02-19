@@ -9,37 +9,11 @@
 A command-line application for transforming text strings into corresponding code
 words based on predefined [spelling alphabets][], like the NATO phonetic
 alphabet. These alphabets are designed to enhance verbal clarity, especially
-when spelling out words over low-fidelity voice channels. This application
-supports several standard alphabets and allows for customization to suit
-specific communication needs.
-
-In operation, spellout preserves the original capitalization of letters by
-returning either lowercase or uppercase code words. It similarly converts known
-digits and other symbols into code words, while unrecognized characters are
-returned unconverted.
+when spelling out words over low-fidelity voice channels.
 
 [spelling alphabets]: https://en.wikipedia.org/wiki/Spelling_alphabet
 
-## Usage
-
-    Usage: spellout [OPTIONS] [STRING]...
-
-    Arguments:
-      [STRING]...  An input character string to convert into code words
-
-    Options:
-      -a, --alphabet <ALPHABET>    Which spelling alphabet to use for the conversion
-      -o, --overrides <OVERRIDES>  Define overrides for spelling alphabet code words
-          --dump-alphabet          Display the spelling alphabet and exit
-      -n, --nonce-form             Expand output into nonce form like "'A' as in ALFA"
-      -v, --verbose                Use verbose output
-      -h, --help                   Print help (see more with '--help')
-      -V, --version                Print version
-
-Each string will have its output printed on a separate line. Using `--` will
-stop the program from interpreting subsequent arguments as options.
-
-### Examples
+## Examples
 
     $ spellout Example123!
     ECHO x-ray alfa mike papa lima echo One Two Tree Exclamation
@@ -66,6 +40,30 @@ spellout will also read lines from standard input (stdin):
     4PN%mAnt -> Fower PAPA NOVEMBER Percent mike ALFA november tango
     5Jzd}y(d -> Fife JULIETT zulu delta RightBrace yankee LeftParens delta
     BTW{2J~l -> BRAVO TANGO WHISKEY LeftBrace Two JULIETT Tilde lima
+
+## Usage
+
+In operation, spellout preserves the original capitalization of letters by
+returning either lowercase or uppercase code words. It similarly converts known
+digits and other symbols into code words, while unrecognized characters are
+returned unconverted.
+
+Each string will have its output printed on a separate line. Using `--` will
+stop the program from interpreting subsequent arguments as options.
+
+    Usage: spellout [OPTIONS] [STRING]...
+
+    Arguments:
+      [STRING]...  An input character string to convert into code words
+
+    Options:
+      -a, --alphabet <ALPHABET>    Which spelling alphabet to use for the conversion
+      -o, --overrides <OVERRIDES>  Define overrides for spelling alphabet code words
+          --dump-alphabet          Display the spelling alphabet and exit
+      -n, --nonce-form             Expand output into nonce form like "'A' as in ALFA"
+      -v, --verbose                Use verbose output
+      -h, --help                   Print help (see more with '--help')
+      -V, --version                Print version
 
 ### Environment Variables
 

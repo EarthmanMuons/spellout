@@ -22,6 +22,7 @@ jobs:
   deploy_github_pages:
     name: deploy github pages
     permissions:
+      actions: read
       id-token: write
       pages: write
     needs: detect_changed_files

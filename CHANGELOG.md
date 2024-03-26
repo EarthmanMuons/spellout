@@ -16,7 +16,7 @@ The format is based on [Keep a Changelog][1], and this project adheres to
 
 ### Changed
 
-- Bump MSRV to the Rust 1.70 release.
+- Bump MSRV to the Rust 1.75 release.
 
 ### Security
 

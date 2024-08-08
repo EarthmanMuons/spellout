@@ -10,10 +10,10 @@
 ---
 
 A Rust library for transforming text strings into corresponding code words based
-on predefined [spelling alphabets][], like the NATO phonetic alphabet. These
-alphabets are designed to enhance verbal clarity, especially when spelling out
-words over low-fidelity voice channels. This library supports several standard
-alphabets and allows for customization to suit specific communication needs.
+on predefined [spelling alphabets][], like the NATO phonetic alphabet. These alphabets
+are designed to enhance verbal clarity, especially when spelling out words over low-fidelity
+voice channels. This library supports several standard alphabets and allows for customization
+to suit specific communication needs.
 
 In operation, spellabet preserves the original capitalization of letters by
 returning either lowercase or uppercase code words. It similarly converts known
@@ -64,6 +64,14 @@ reference documentation, please visit
 - MSRV increases are considered regular changes, not breaking changes, in terms
   of Semantic Versioning.
 
+## Contribution
+
+If you would like to contribute to the project, please read our [guide for
+contributors][CONTRIBUTING.md].
+
+[CONTRIBUTING.md]:
+  https://github.com/EarthmanMuons/spellout/blob/main/CONTRIBUTING.md
+
 ## Credits
 
 spellabet was inspired by the output from the no-longer-in-existence [WinGuides
@@ -78,23 +86,9 @@ module written by [James FitzGibbon][@jf647].
 
 ## License
 
-spellabet is distributed under the terms of both the Apache License (Version
-2.0) and the MIT License.
+spellabet is released under the [Zero Clause BSD License][LICENSE] (SPDX: 0BSD).
 
-See [LICENSE-APACHE][] and [LICENSE-MIT][] for details.
+Copyright &copy; 2023 [Aaron Bull Schaefer][EMAIL] and contributors
 
-[LICENSE-APACHE]:
-  https://github.com/EarthmanMuons/spellout/blob/main/LICENSE-APACHE
-[LICENSE-MIT]: https://github.com/EarthmanMuons/spellout/blob/main/LICENSE-MIT
-
-## Contribution
-
-Unless you explicitly state otherwise, any contribution intentionally submitted
-for inclusion in the work by you, as defined in the Apache-2.0 license, shall be
-dual licensed as above, without any additional terms or conditions.
-
-If you would like to contribute to the project, please read our [guide for
-contributors][CONTRIBUTING.md].
-
-[CONTRIBUTING.md]:
-  https://github.com/EarthmanMuons/spellout/blob/main/CONTRIBUTING.md
+[LICENSE]: https://github.com/EarthmanMuons/spellout/blob/main/LICENSE
+[EMAIL]: mailto:aaron@elasticdog.com

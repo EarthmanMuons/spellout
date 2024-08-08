@@ -7,9 +7,9 @@
 ---
 
 A command-line application for transforming text strings into corresponding code
-words based on predefined [spelling alphabets][], like the NATO phonetic
-alphabet. These alphabets are designed to enhance verbal clarity, especially
-when spelling out words over low-fidelity voice channels.
+words based on predefined [spelling alphabets][], like the NATO phonetic alphabet.
+These alphabets are designed to enhance verbal clarity, especially when spelling
+out words over low-fidelity voice channels.
 
 [spelling alphabets]: https://en.wikipedia.org/wiki/Spelling_alphabet
 
@@ -131,14 +131,22 @@ The extracted directory contains:
 
 ### Building from Source
 
-After [installing Rust][], to build the binary and install it on your system
-under the `~/.cargo/bin/` directory, run the following command:
+After [installing Rust][], to build the binary and install it on your system under
+the `~/.cargo/bin/` directory, run the following command:
 
 ```
 cargo install --locked --git https://github.com/EarthmanMuons/spellout/ spellout
 ```
 
 [installing Rust]: https://www.rust-lang.org/learn/get-started
+
+## Contribution
+
+If you would like to contribute to the project, please read our [guide for
+contributors][CONTRIBUTING.md].
+
+[CONTRIBUTING.md]:
+  https://github.com/EarthmanMuons/spellout/blob/main/CONTRIBUTING.md
 
 ## Credits
 
@@ -154,23 +162,9 @@ module written by [James FitzGibbon][@jf647].
 
 ## License
 
-spellout is distributed under the terms of both the Apache License (Version 2.0)
-and the MIT License.
+spellout is released under the [Zero Clause BSD License][LICENSE] (SPDX: 0BSD).
 
-See [LICENSE-APACHE][] and [LICENSE-MIT][] for details.
+Copyright &copy; 2023 [Aaron Bull Schaefer][EMAIL] and contributors
 
-[LICENSE-APACHE]:
-  https://github.com/EarthmanMuons/spellout/blob/main/LICENSE-APACHE
-[LICENSE-MIT]: https://github.com/EarthmanMuons/spellout/blob/main/LICENSE-MIT
-
-## Contribution
-
-Unless you explicitly state otherwise, any contribution intentionally submitted
-for inclusion in the work by you, as defined in the Apache-2.0 license, shall be
-dual licensed as above, without any additional terms or conditions.
-
-If you would like to contribute to the project, please read our [guide for
-contributors][CONTRIBUTING.md].
-
-[CONTRIBUTING.md]:
-  https://github.com/EarthmanMuons/spellout/blob/main/CONTRIBUTING.md
+[LICENSE]: https://github.com/EarthmanMuons/spellout/blob/main/LICENSE
+[EMAIL]: mailto:aaron@elasticdog.com

@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog][1], and this project adheres to
 
 ## [Unreleased] <!-- release-date -->
 
+### Changed
+
+- Relicense project from MIT to Zero Clause BSD (0BSD).
+
 ## [0.2.1] - 2023-11-29
 
 ### Changed

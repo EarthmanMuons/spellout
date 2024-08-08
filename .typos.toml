@@ -1,6 +1,7 @@
 [default]
 locale = "en-us"
 
+# Don't correct these false-positives.
 [default.extend-words]
-# Don't correct the instrument "Oboe" code word.
 oboe = "oboe"
+PN = "PN"

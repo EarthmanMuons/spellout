@@ -1,27 +1,27 @@
 # Contributing to spellout
 
 Thank you for your interest in contributing to our [open source][] project! This
-document will guide you through the process. To maintain a respectful and welcoming
-community, please adhere to the [Code of Conduct][CoC].
+document will guide you through the process. To maintain a respectful and
+welcoming community, please adhere to the [Code of Conduct][CoC].
 
 [open source]: https://opensource.guide/
 [CoC]: CODE_OF_CONDUCT.md
 
 ## Getting Started
 
-spellout uses the GitHub [issue tracker][] to manage bugs and feature requests. If
-you'd like to work on a specific issue, leave a comment, and we will assign it to
-you. For general questions and open-ended conversations, use the dedicated community
-[discussions][] space instead.
+spellout uses the GitHub [issue tracker][] to manage bugs and feature requests.
+If you'd like to work on a specific issue, leave a comment, and we will assign
+it to you. For general questions and open-ended conversations, use the dedicated
+community [discussions][] space instead.
 
-Please submit contributions through GitHub [pull requests][]. Each PR will be reviewed
-by a core contributor (someone with permission to approve patches), and either merged
-or provided with feedback for any required changes. _This process applies to all
-contributions, including those from core contributors._
+Please submit contributions through GitHub [pull requests][]. Each PR will be
+reviewed by a core contributor (someone with permission to approve patches), and
+either merged or provided with feedback for any required changes. _This process
+applies to all contributions, including those from core contributors._
 
 If your intended contribution is complex or requires discussion, open a new
-[ideas discussion][] about the change before starting the work. We're more than happy
-to mentor contributors and provide guidance or clarification when needed.
+[ideas discussion][] about the change before starting the work. We're more than
+happy to mentor contributors and provide guidance or clarification when needed.
 
 [issue tracker]: https://github.com/EarthmanMuons/spellout/issues
 [discussions]: https://github.com/EarthmanMuons/spellout/discussions
@@ -53,9 +53,9 @@ When reporting a bug or requesting a feature, please follow these steps:
 ### Issue Labels
 
 Built-in issue templates will automatically apply some labels, but we also rely
-on GitHub's [default labels][] to categorize issues and pull requests further. Familiarize
-yourself with these labels to better understand the organization and prioritization
-of tasks within the project.
+on GitHub's [default labels][] to categorize issues and pull requests further.
+Familiarize yourself with these labels to better understand the organization and
+prioritization of tasks within the project.
 
 [default labels]:
   https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels#about-default-labels
@@ -223,8 +223,8 @@ than adding commits on top, and then force push them to your repository. As you
 update your PR and apply changes, mark each conversation as [resolved][].
 
 Once your changes have been discussed and approved, we use GitHub [merge
-queues][] to enforce the [not rocket science][] rule of software engineering, ensuring
-that tests on the `main` branch always pass.
+queues][] to enforce the [not rocket science][] rule of software engineering,
+ensuring that tests on the `main` branch always pass.
 
 [resolved]:
   https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/commenting-on-a-pull-request#resolving-conversations

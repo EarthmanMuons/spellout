@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog][1], and this project adheres to
 ### Changed
 
 - Relicense project from MIT to Zero Clause BSD (0BSD).
+- Bump MSRV to the Rust 1.81 release.
 
 ## [0.2.1] - 2023-11-29
 

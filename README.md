@@ -7,9 +7,9 @@
 ---
 
 A command-line application for transforming text strings into corresponding code
-words based on predefined [spelling alphabets][], like the NATO phonetic alphabet.
-These alphabets are designed to enhance verbal clarity, especially when spelling
-out words over low-fidelity voice channels.
+words based on predefined [spelling alphabets][], like the NATO phonetic
+alphabet. These alphabets are designed to enhance verbal clarity, especially
+when spelling out words over low-fidelity voice channels.
 
 [spelling alphabets]: https://en.wikipedia.org/wiki/Spelling_alphabet
 
@@ -131,8 +131,8 @@ The extracted directory contains:
 
 ### Building from Source
 
-After [installing Rust][], to build the binary and install it on your system under
-the `~/.cargo/bin/` directory, run the following command:
+After [installing Rust][], to build the binary and install it on your system
+under the `~/.cargo/bin/` directory, run the following command:
 
 ```
 cargo install --locked --git https://github.com/EarthmanMuons/spellout/ spellout

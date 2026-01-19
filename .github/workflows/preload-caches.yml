@@ -21,8 +21,8 @@ concurrency:
 jobs:
   cache_actionlint:
     name: cache actionlint
-    uses: EarthmanMuons/reusable-workflows/.github/workflows/preload-caches-actionlint.yml@main
+    uses: EarthmanMuons/reusable-workflows/.github/workflows/common/preload-caches-actionlint.yml@main
 
   cache_rust:
     name: cache rust
-    uses: EarthmanMuons/reusable-workflows/.github/workflows/preload-caches-rust.yml@main
+    uses: EarthmanMuons/reusable-workflows/.github/workflows/rust/preload-caches-rust.yml@main

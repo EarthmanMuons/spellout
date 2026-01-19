@@ -23,7 +23,7 @@ on:
 jobs:
   bump_version_package:
     name: bump version / ${{ inputs.package }}
-    uses: EarthmanMuons/reusable-workflows/.github/workflows/bump-version-rust.yml@main
+    uses: EarthmanMuons/reusable-workflows/.github/workflows/rust/bump-version-rust.yml@main
     with:
       package: ${{ inputs.package }}
       level: ${{ inputs.level }}

@@ -17,4 +17,4 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-    uses: EarthmanMuons/reusable-workflows/.github/workflows/label-pull-request.yml@main
+    uses: EarthmanMuons/reusable-workflows/.github/workflows/common/label-pull-request.yml@main

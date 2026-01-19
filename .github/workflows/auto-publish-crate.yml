@@ -8,5 +8,5 @@ on:
 jobs:
   publish_crate:
     name: publish crate
-    uses: EarthmanMuons/reusable-workflows/.github/workflows/publish-crate.yml@main
+    uses: EarthmanMuons/reusable-workflows/.github/workflows/rust/publish-crate.yml@main
     secrets: inherit

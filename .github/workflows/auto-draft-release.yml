@@ -10,6 +10,6 @@ jobs:
     name: draft release
     permissions:
       contents: write
-    uses: EarthmanMuons/reusable-workflows/.github/workflows/draft-release-rust.yml@main
+    uses: EarthmanMuons/reusable-workflows/.github/workflows/rust/draft-release-rust.yml@main
     with:
       package: spellout

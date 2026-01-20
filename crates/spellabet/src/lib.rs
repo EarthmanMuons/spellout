@@ -38,6 +38,7 @@
 use std::char;
 use std::cmp::Ordering;
 use std::collections::HashMap;
+use std::fmt::Write;
 
 use code_words::{
     DEFAULT_DIGITS_AND_SYMBOLS, JAN_ALPHABET, LAPD_ALPHABET, NATO_ALPHABET, ROYAL_NAVY_ALPHABET,
@@ -230,7 +231,7 @@ impl PhoneticConverter {
                 };
 
                 if self.nonce_form && character.is_alphabetic() {
-                    result.push_str(&format!("'{character}' as in {code_word}"));
+                    write!(result, "'{character}' as in {code_word}").unwrap();
                 } else {
                     result.push_str(&code_word);
                 }
@@ -327,7 +328,7 @@ impl SpellingAlphabet {
             Self::RoyalNavy => extend_map(&mut map, &ROYAL_NAVY_ALPHABET),
             Self::UsFinancial => extend_map(&mut map, &US_FINANCIAL_ALPHABET),
             Self::WesternUnion => extend_map(&mut map, &WESTERN_UNION_ALPHABET),
-        };
+        }
 
         map
     }

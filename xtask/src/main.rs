@@ -130,7 +130,7 @@ fn parse_args() -> Result<Config> {
                     "install" => Task::Install,
                     "test" => Task::Test,
                     value => {
-                        anyhow::bail!("unknown task '{}'", value);
+                        anyhow::bail!("unknown task '{value}'");
                     }
                 };
                 run_tasks.push(task);

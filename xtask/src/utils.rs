@@ -18,7 +18,7 @@ fn find_files_recursive(dir: &Path, extension: &str, result: &mut Vec<PathBuf>) 
 
         if path.is_dir() {
             find_files_recursive(&path, extension, result)?;
-        } else if path.is_file() && path.extension().map_or(false, |ext| ext == extension) {
+        } else if path.is_file() && path.extension().is_some_and(|ext| ext == extension) {
             result.push(path);
         }
     }

@@ -188,7 +188,7 @@ fn create_archive(binary: &str, version: &str) -> Result<()> {
             .run()?;
         }
         _ => anyhow::bail!("Unsupported OS"),
-    };
+    }
 
     let final_output = dist_dir().join(output_filename);
     eprintln!("$ mv {} {}", temp_output.display(), final_output.display());

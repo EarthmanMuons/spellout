@@ -20,7 +20,7 @@ fn main() {
     let is_dirty = Command::new("git")
         .args(["diff", "--quiet", "HEAD", "--"])
         .status()
-        .map_or(false, |status| !status.success());
+        .is_ok_and(|status| !status.success());
 
     if let (Some(hash), Some(date)) = (commit_hash, commit_date) {
         let dirty_flag = if is_dirty { ".dirty" } else { "" };

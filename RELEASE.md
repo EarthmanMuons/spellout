@@ -26,7 +26,6 @@ Follow these steps to ship a new version:
    the new version if one does not already exist.
 
 4. **Verify the Publication**:
-
    - _For Libraries_: If the new tag corresponds to a library, the
      [auto-publish-crate][] workflow is automatically triggered to build and
      publish the crate to https://crates.io/. When the workflow completes, it

@@ -10,10 +10,10 @@ publish = false
 release = false
 
 [dependencies]
-anyhow = "1.0.95"
+anyhow = "1.0.100"
 is_ci = "1.2.0"
-lexopt = "0.3.0"
-nanoserde = "0.1.37"
+lexopt = "0.3.1"
+nanoserde = "0.2.1"
 rustc_version = "0.4.1"
-which = "7.0.1"
+which = "8.0.0"
 xshell = "0.2.7"

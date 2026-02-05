@@ -16,6 +16,8 @@ The format is based on [Keep a Changelog][1], and this project adheres to
 
 - Relicense project from MIT to Zero Clause BSD (0BSD).
 - Bump MSRV to the Rust 1.81 release.
+- Allow Unicode override keys and apply Unicode-aware lowercase normalization
+  when possible.
 
 ### Changed
 

@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog][1], and this project adheres to
 
 ## [Unreleased] <!-- release-date -->
 
+### Added
+
+- Derive common traits for `SpellingAlphabet` and `PhoneticConverter`, plus a
+  `Default` implementation for `PhoneticConverter`.
+
 ### Changed
 
 - Relicense project from MIT to Zero Clause BSD (0BSD).

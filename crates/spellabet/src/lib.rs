@@ -49,6 +49,7 @@ use convert_case::{Case, Casing};
 mod code_words;
 
 /// A phonetic converter.
+#[derive(Clone, Debug)]
 pub struct PhoneticConverter {
     /// The map of characters to code words.
     conversion_map: HashMap<char, String>,
@@ -57,7 +58,7 @@ pub struct PhoneticConverter {
 }
 
 /// A spelling alphabet.
-#[derive(Default)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash, Default)]
 pub enum SpellingAlphabet {
     /// The JAN (Joint Army/Navy) spelling alphabet.
     Jan,
@@ -290,6 +291,12 @@ impl PhoneticConverter {
             }
         }
         Ok(())
+    }
+}
+
+impl Default for PhoneticConverter {
+    fn default() -> Self {
+        Self::new(&SpellingAlphabet::default())
     }
 }
 

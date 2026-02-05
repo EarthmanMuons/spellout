@@ -8,11 +8,11 @@ use std::{env, fs};
 use anyhow::Result;
 use nanoserde::DeJson;
 use rustc_version::version_meta;
-use xshell::{cmd, Shell};
+use xshell::{Shell, cmd};
 
+use crate::Config;
 use crate::commands::{cargo_cmd, cross_cmd};
 use crate::utils::project_root;
-use crate::Config;
 
 #[derive(Debug, DeJson)]
 struct Metadata {
@@ -36,7 +36,10 @@ struct Target {
 pub fn dist(config: &Config) -> Result<()> {
     env::set_current_dir(project_root())?;
     if let Some(target) = &config.target {
-        env::set_var("CARGO_BUILD_TARGET", target);
+        // Safe: xtask is single-threaded and this is set before spawning cargo.
+        unsafe {
+            env::set_var("CARGO_BUILD_TARGET", target);
+        }
     }
 
     if dist_dir().exists() {

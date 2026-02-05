@@ -1,9 +1,9 @@
 use anyhow::Result;
 use xshell::Shell;
 
+use crate::Config;
 use crate::commands::cargo_cmd;
 use crate::utils::{project_root, verbose_cd};
-use crate::Config;
 
 pub fn html_report(config: &Config) -> Result<()> {
     let sh = Shell::new()?;

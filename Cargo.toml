@@ -1,12 +1,12 @@
 [workspace]
 members = ["crates/*", "xtask/"]
-resolver = "2"
+resolver = "3"
 
 [workspace.package]
 version = "0.2.1"
 authors = ["Aaron Bull Schaefer <aaron@elasticdog.com>"]
-edition = "2021"
-rust-version = "1.81"
+edition = "2024"
+rust-version = "1.91"
 description = "Convert characters into spelling alphabet code words"
 documentation = "https://github.com/EarthmanMuons/spellout/"
 readme = "README.md"

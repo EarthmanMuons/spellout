@@ -18,7 +18,8 @@ alphabets and allows for customization to suit specific communication needs.
 In operation, spellabet preserves the original capitalization of letters by
 returning either lowercase or uppercase code words. It similarly converts known
 digits and other symbols into code words, while unrecognized characters are
-returned unconverted.
+returned unconverted. Unicode override keys are supported; if lowercasing a key
+would expand to multiple Unicode scalars, the original key is preserved.
 
 This library powers the command line utility `spellout`, which provides a handy
 interface for phonetic conversions. Check out [spellout on GitHub][] for more

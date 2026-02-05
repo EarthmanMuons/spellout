@@ -214,6 +214,17 @@ fn test_overrides_value_normalization() {
 }
 
 #[test]
+fn test_unicode_overrides() {
+    let mut converter = init_converter();
+    let mut overrides_map: HashMap<char, String> = HashMap::new();
+    overrides_map.insert('É', "Echo".to_string());
+
+    converter = converter.with_overrides(overrides_map);
+
+    assert_snapshot!(converter.convert("Éé"), @"ECHO echo");
+}
+
+#[test]
 fn test_dump_alphabet() {
     let converter = init_converter();
     let mut buf = Vec::new();

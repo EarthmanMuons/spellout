@@ -143,7 +143,9 @@ impl PhoneticConverter {
     ///
     /// * `overrides_map` - The desired character to code word mappings to
     ///   override. The capitalization of the keys and values will be
-    ///   automatically normalized.
+    ///   automatically normalized. For Unicode keys, normalization only
+    ///   lowercases when the result is a single Unicode scalar; otherwise the
+    ///   original key is preserved.
     ///
     /// # Examples
     ///
@@ -182,7 +184,7 @@ impl PhoneticConverter {
     pub fn with_overrides(mut self, overrides_map: HashMap<char, String>) -> Self {
         let normalized_overrides: HashMap<char, String> = overrides_map
             .into_iter()
-            .map(|(k, v)| (k.to_ascii_lowercase(), v.to_case(Case::Pascal)))
+            .map(|(k, v)| (normalize_key(k), v.to_case(Case::Pascal)))
             .collect();
 
         self.conversion_map.extend(normalized_overrides);
@@ -222,7 +224,7 @@ impl PhoneticConverter {
     }
 
     fn convert_char(&self, character: char, result: &mut String) {
-        match self.conversion_map.get(&character.to_ascii_lowercase()) {
+        match self.conversion_map.get(&normalize_key(character)) {
             Some(word) => {
                 let code_word = match character {
                     _ if character.is_lowercase() => word.to_lowercase(),
@@ -303,6 +305,18 @@ fn custom_char_ordering(a: char, b: char) -> Ordering {
         (true, false, _, _) | (false, false, true, false) => Ordering::Less,
         (false, true, _, _) | (false, false, false, true) => Ordering::Greater,
         _ => a.cmp(&b),
+    }
+}
+
+// Normalize keys to lowercase when that produces a single Unicode scalar.
+// If lowercasing expands to multiple scalars, keep the original character.
+fn normalize_key(character: char) -> char {
+    let mut lower = character.to_lowercase();
+    let first = lower.next().unwrap_or(character);
+    if lower.next().is_none() {
+        first
+    } else {
+        character
     }
 }
 

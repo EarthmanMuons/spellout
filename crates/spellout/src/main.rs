@@ -91,25 +91,25 @@ fn parse_overrides(input: &str) -> Result<HashMap<char, String>> {
     let mut overrides_map = HashMap::new();
 
     for s in input.split(',') {
-        let parts: Vec<&str> = s.split('=').collect();
+        let (key_str, value) = s
+            .split_once('=')
+            .ok_or_else(|| anyhow::anyhow!("Invalid override (missing '='): {s}"))?;
 
-        if parts.len() < 2 {
-            anyhow::bail!("Invalid override (missing '='): {s}");
-        }
-        if parts.len() > 2 {
+        if value.contains('=') {
             anyhow::bail!("Invalid override (extra '='): {s}");
         }
-        if parts[0].len() != 1 {
+
+        if key_str.chars().count() != 1 {
             anyhow::bail!("Key in override is not a single character: {s}");
         }
 
-        let key = parts[0].chars().next().unwrap(); // safe to unwrap because we checked the length
+        let key = key_str.chars().next().unwrap(); // safe to unwrap because we checked the length
 
-        if parts[1].is_empty() {
+        if value.is_empty() {
             anyhow::bail!("Empty value in override: {s}");
         }
 
-        overrides_map.insert(key, parts[1].to_string());
+        overrides_map.insert(key, value.to_string());
     }
 
     Ok(overrides_map)

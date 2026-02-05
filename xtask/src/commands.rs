@@ -1,6 +1,6 @@
 use anyhow::Result;
 use which::which;
-use xshell::{cmd, Cmd, Shell};
+use xshell::{Cmd, Shell, cmd};
 
 use crate::Config;
 

@@ -1,9 +1,9 @@
 use anyhow::Result;
 use xshell::Shell;
 
+use crate::Config;
 use crate::commands::{actionlint_cmd, cargo_cmd, prettier_cmd, typos_cmd};
 use crate::utils::{find_files, project_root, to_relative_paths, verbose_cd};
-use crate::Config;
 
 pub fn everything(config: &Config) -> Result<()> {
     spelling(config)?; // affects all file types; run this first

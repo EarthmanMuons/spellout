@@ -1,9 +1,9 @@
 use anyhow::Result;
-use xshell::{cmd, Shell};
+use xshell::{Shell, cmd};
 
+use crate::Config;
 use crate::commands::cargo_cmd;
 use crate::utils::{project_root, verbose_cd};
-use crate::Config;
 
 pub fn install_rust_deps(config: &Config) -> Result<()> {
     let sh = Shell::new()?;

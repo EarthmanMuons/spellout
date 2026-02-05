@@ -23,8 +23,12 @@ on:
 jobs:
   bump_version_package:
     name: bump version / ${{ inputs.package }}
+    permissions:
+      contents: read
     uses: EarthmanMuons/reusable-workflows/.github/workflows/bump-version-rust.yml@main
     with:
       package: ${{ inputs.package }}
       level: ${{ inputs.level }}
-    secrets: inherit
+    secrets:
+      APP_ID: ${{ secrets.APP_ID }}
+      APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}

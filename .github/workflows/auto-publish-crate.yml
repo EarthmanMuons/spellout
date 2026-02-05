@@ -9,5 +9,7 @@ on:
 jobs:
   publish_crate:
     name: publish crate
+    permissions:
+      contents: read
+      id-token: write
     uses: EarthmanMuons/reusable-workflows/.github/workflows/publish-crate.yml@main
-    secrets: inherit

@@ -332,7 +332,7 @@ impl SpellingAlphabet {
     /// `SpellingAlphabet`.
     #[must_use]
     pub fn initialize(&self) -> HashMap<char, String> {
-        let mut map: HashMap<char, String> = HashMap::new();
+        let mut map: HashMap<char, String> = HashMap::with_capacity(69);
 
         let extend_map = |map: &mut HashMap<char, String>, source_map: &[(char, &str)]| {
             for (k, v) in source_map {

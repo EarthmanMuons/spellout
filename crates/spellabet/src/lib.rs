@@ -283,14 +283,25 @@ impl PhoneticConverter {
         mut writer: impl std::io::Write,
         verbose: bool,
     ) -> std::io::Result<()> {
-        let mut entries: Vec<_> = self.conversion_map.iter().collect();
-        entries.sort_by(|a, b| custom_char_ordering(*a.0, *b.0));
-        for (character, code_word) in entries {
+        for (character, code_word) in self.sorted_mappings() {
             if verbose || character.is_alphabetic() {
                 writeln!(writer, "{character} -> {code_word}")?;
             }
         }
         Ok(())
+    }
+
+    /// Returns the current character mappings sorted by letters, then digits,
+    /// then symbols, with each group sorted by natural character order.
+    #[must_use]
+    pub fn sorted_mappings(&self) -> Vec<(char, String)> {
+        let mut entries: Vec<_> = self
+            .conversion_map
+            .iter()
+            .map(|(character, code_word)| (*character, code_word.clone()))
+            .collect();
+        entries.sort_by(|(a, _), (b, _)| custom_char_ordering(*a, *b));
+        entries
     }
 }
 

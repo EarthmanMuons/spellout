@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog][1], and this project adheres to
 
 - Derive common traits for `SpellingAlphabet` and `PhoneticConverter`, plus a
   `Default` implementation for `PhoneticConverter`.
+- Add a sorted accessor for `PhoneticConverter` mappings.
 
 ### Changed
 

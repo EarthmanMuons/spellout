@@ -2,7 +2,7 @@
 name = "xtask"
 edition = "2024"
 rust-version = "1.91"
-license = "MIT OR Apache-2.0"
+license = "0BSD"
 publish = false
 
 # https://github.com/crate-ci/cargo-release/

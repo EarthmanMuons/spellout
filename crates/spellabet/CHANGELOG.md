@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog][1], and this project adheres to
 
 ## [Unreleased] <!-- release-date -->
 
+### Fixed
+
+- Correct the crate license metadata to reflect 0BSD.
+
 ## [0.3.0] - 2026-02-06
 
 ### Added

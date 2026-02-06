@@ -4,7 +4,7 @@
 
 [![CI status](https://img.shields.io/github/actions/workflow/status/EarthmanMuons/spellout/on-pull-request.yml?event=merge_group&label=ci&logo=github)](https://github.com/EarthmanMuons/spellout/actions?query=event%3Amerge_group)
 [![crates.io](https://img.shields.io/crates/v/spellabet)](https://crates.io/crates/spellabet/)
-[![docs.rs](https://img.shields.io/docsrs/spellabet)](https://docs.rs/spellabet/0.3.0/spellabet/)
+[![docs.rs](https://img.shields.io/docsrs/spellabet)](https://docs.rs/spellabet/0.3.1/spellabet/)
 [![MSRV](https://img.shields.io/badge/rust-1.91%2B-blue)](https://doc.rust-lang.org/cargo/reference/manifest.html#the-rust-version-field)
 
 ---
@@ -34,7 +34,7 @@ To use the crate, add it as dependency in your `Cargo.toml` file:
 
 ```toml
 [dependencies]
-spellabet = "0.3.0"
+spellabet = "0.3.1"
 ```
 
 ### Example

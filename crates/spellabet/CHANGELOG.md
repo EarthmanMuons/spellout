@@ -12,6 +12,8 @@ The format is based on [Keep a Changelog][1], and this project adheres to
 
 ## [Unreleased] <!-- release-date -->
 
+## [0.3.1] - 2026-02-06
+
 ### Fixed
 
 - Correct the crate license metadata to reflect 0BSD.
@@ -62,7 +64,9 @@ The format is based on [Keep a Changelog][1], and this project adheres to
 <!-- next-url -->
 
 [Unreleased]:
-  https://github.com/EarthmanMuons/spellout/compare/spellabet-v0.3.0...HEAD
+  https://github.com/EarthmanMuons/spellout/compare/spellabet-v0.3.1...HEAD
+[0.3.1]:
+  https://github.com/EarthmanMuons/spellout/compare/spellabet-v0.3.0...spellabet-v0.3.1
 [0.3.0]:
   https://github.com/EarthmanMuons/spellout/compare/spellabet-v0.2.0...spellabet-v0.3.0
 [0.2.0]:

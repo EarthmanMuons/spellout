@@ -11,7 +11,7 @@ documentation = "https://github.com/EarthmanMuons/spellout/"
 readme = "README.md"
 homepage = "https://github.com/EarthmanMuons/spellout/"
 repository = "https://github.com/EarthmanMuons/spellout/"
-license = "MIT OR Apache-2.0"
+license = "0BSD"
 
 # https://github.com/crate-ci/cargo-release/
 [workspace.metadata.release]

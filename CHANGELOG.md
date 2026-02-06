@@ -12,6 +12,8 @@ The format is based on [Keep a Changelog][1], and this project adheres to
 
 ## [Unreleased] <!-- release-date -->
 
+## [0.3.0] - 2026-02-06
+
 ### Added
 
 - Add a sorted accessor for `PhoneticConverter` mappings.
@@ -61,7 +63,8 @@ The format is based on [Keep a Changelog][1], and this project adheres to
 
 <!-- next-url -->
 
-[Unreleased]: https://github.com/EarthmanMuons/spellout/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/EarthmanMuons/spellout/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/EarthmanMuons/spellout/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/EarthmanMuons/spellout/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/EarthmanMuons/spellout/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/EarthmanMuons/spellout/commits/v0.1.0

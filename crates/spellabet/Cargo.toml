@@ -1,10 +1,10 @@
 [package]
 name = "spellabet"
-version = "0.2.0"
+version = "0.3.0"
 edition.workspace = true
 rust-version.workspace = true
 description = "Convert characters into spelling alphabet code words"
-documentation = "https://docs.rs/spellabet/0.2.0/spellabet/"
+documentation = "https://docs.rs/spellabet/0.3.0/spellabet/"
 readme = "README.md"
 homepage = "https://github.com/EarthmanMuons/spellout/tree/main/crates/spellabet"
 repository = "https://github.com/EarthmanMuons/spellout/tree/main/crates/spellabet"

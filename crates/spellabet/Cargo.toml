@@ -1,7 +1,6 @@
 [package]
 name = "spellabet"
 version = "0.2.0"
-authors.workspace = true
 edition.workspace = true
 rust-version.workspace = true
 description = "Convert characters into spelling alphabet code words"

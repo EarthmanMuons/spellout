@@ -4,7 +4,6 @@ resolver = "3"
 
 [workspace.package]
 version = "0.2.1"
-authors = ["Aaron Bull Schaefer <aaron@elasticdog.com>"]
 edition = "2024"
 rust-version = "1.91"
 description = "Convert characters into spelling alphabet code words"
@@ -13,6 +12,12 @@ readme = "README.md"
 homepage = "https://github.com/EarthmanMuons/spellout/"
 repository = "https://github.com/EarthmanMuons/spellout/"
 license = "MIT OR Apache-2.0"
+
+# https://github.com/crate-ci/cargo-release/
+[workspace.metadata.release]
+allow-branch = ["main"]
+tag = false
+tag-message = "Release {{crate_name}} v{{version}}"
 
 [profile.dev]
 # Disabling debug info speeds up builds a bunch,
@@ -30,9 +35,3 @@ codegen-units = 1
 lto = true
 panic = "abort"
 strip = true
-
-# https://github.com/crate-ci/cargo-release/
-[workspace.metadata.release]
-allow-branch = ["main"]
-tag = false
-tag-message = "Release {{crate_name}} v{{version}}"

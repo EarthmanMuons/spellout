@@ -10,7 +10,7 @@ publish = false
 release = false
 
 [dependencies]
-anyhow = "1.0.100"
+anyhow = "1.0.102"
 is_ci = "1.2.0"
 lexopt = "0.3.1"
 nanoserde = "0.2.1"

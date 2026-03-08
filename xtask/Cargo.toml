@@ -12,7 +12,7 @@ release = false
 [dependencies]
 anyhow = "1.0.102"
 is_ci = "1.2.0"
-lexopt = "0.3.1"
+lexopt = "0.3.2"
 nanoserde = "0.2.1"
 rustc_version = "0.4.1"
 which = "8.0.0"

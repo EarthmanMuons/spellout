@@ -62,13 +62,12 @@ fn main() -> Result<()> {
                 ContextValue::Strings(vec!["[STRING]...".to_string()]),
             );
             err.exit();
-        } else {
-            // Data was provided to stdin
-            let lines = io::stdin().lock().lines();
-            for line in lines {
-                let input = line.context("Failed to read line from stdin")?;
-                process_input(&input, &converter, cli.verbose);
-            }
+        }
+        // Data was provided to stdin
+        let lines = io::stdin().lock().lines();
+        for line in lines {
+            let input = line.context("Failed to read line from stdin")?;
+            process_input(&input, &converter, cli.verbose);
         }
         return Ok(());
     }
